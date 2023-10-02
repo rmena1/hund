@@ -1,17 +1,17 @@
-import { Colors } from './generalStyles';
+import { Colors, Fonts } from './generalStyles';
 import { StyleSheet } from 'react-native';
 
 export const startStyles = StyleSheet.create({
     page: {
-        position: 'absolute',
-        backgroundColor: Colors.white,
+      flex: 1,
+      backgroundColor: Colors.white,
     },
 
     title: {
         position: 'absolute',
         top: 228,
         left: 155,
-        /* fontFamily: 'Poppins',  */
+        fontFamily: Fonts.poppins, 
         fontSize: 32,
         fontWeight: '700',
         lineHeight: 48,
@@ -21,9 +21,9 @@ export const startStyles = StyleSheet.create({
       subTitle: {
         position: 'absolute',
         top: 445,
-        left: 105,
+        left: 95,
         width: 288,
-       /*  fontFamily: 'Montserrat',  */
+        fontFamily: Fonts.montserrat, 
         fontSize: 18,
         fontWeight: '300',
         lineHeight: 28,
@@ -49,7 +49,7 @@ export const startStyles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-     /*    fontFamily: 'Montserrat',  */
+        fontFamily: Fonts.montserrat,  
         fontSize: 18,
         fontWeight: '400',
         lineHeight: 28,
@@ -60,7 +60,7 @@ export const startStyles = StyleSheet.create({
       },
 
       buttonText: {
-       /*  fontFamily: 'Montserrat', */
+        fontFamily: Fonts.montserrat, 
         fontSize: 18,
         fontWeight: '400',
         lineHeight: 28,
@@ -77,7 +77,7 @@ export const startStyles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-       /*  fontFamily: 'Montserrat',  */
+        fontFamily: Fonts.montserrat, 
         fontSize: 18,
         fontWeight: '400',
         lineHeight: 28,
@@ -91,7 +91,7 @@ export const startStyles = StyleSheet.create({
       },
 
       buttonTextCreate: {
-       /*  fontFamily: 'Montserrat',  */
+        fontFamily: Fonts.montserrat, 
         fontSize: 18,
         fontWeight: '400',
         lineHeight: 28,

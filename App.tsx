@@ -1,5 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
+import * as Font from 'expo-font';
+import fonts from './config/fonts';
+import { useState } from 'react';
+import AppLoading from 'expo-app-loading';
 
 // screens
 import StartScreen from "./app/screens/StartScreen";
@@ -10,6 +14,23 @@ import CreateUserScreen from "./app/screens/CreateUserScreen";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  const loadFonts = async () => {
+    await Font.loadAsync(fonts);
+    setFontLoaded(true);
+  };
+
+  if (!fontLoaded) {
+    return (
+      <AppLoading
+        startAsync={loadFonts}
+        onFinish={() => setFontLoaded(true)}
+        onError={(error) => console.log(error)}
+      />
+    );
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator>

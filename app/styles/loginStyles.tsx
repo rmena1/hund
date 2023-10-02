@@ -1,4 +1,4 @@
-import { Colors } from './generalStyles';
+import { Colors, Fonts } from './generalStyles';
 import { StyleSheet } from 'react-native';
 
 export const loginStyles = StyleSheet.create({
@@ -50,7 +50,7 @@ export const loginStyles = StyleSheet.create({
         position: 'absolute',
         top: 28,
         left: 28,
-       /*  fontFamily: 'Poppins',  */
+        fontFamily: Fonts.poppins, 
         fontSize: 32,
         fontWeight: '700',
         lineHeight: 48,
@@ -62,8 +62,8 @@ export const loginStyles = StyleSheet.create({
         top: 76,
         left: 28,
         width: 335,
-    /*     fontFamily: 'Montserrat',  */
-        fontSize: 20,
+        fontFamily: Fonts.montserrat, 
+        fontSize: 18,
         fontWeight: '400',
         lineHeight: 30,
         color: Colors.gray,
@@ -72,19 +72,19 @@ export const loginStyles = StyleSheet.create({
       subtitle2: {
         position: 'absolute',
         top: 520,
-        left: 85,
-       /*  fontFamily: 'Montserrat', */
+        left: 67,
+        fontFamily: Fonts.montserrat, 
         fontSize: 14,
         fontWeight: '400',
         lineHeight: 22,
-        color: Colors.gray,
+        color: Colors.neutral,
       },
 
       subtitle3: {
         position: 'absolute',
         top: 520,
-        left: 243,
-        /* fontFamily: 'Montserrat', */ 
+        left: 247,
+        fontFamily: Fonts.montserrat, 
         fontSize: 14,
         fontWeight: '400',
         lineHeight: 22,
@@ -111,7 +111,7 @@ export const loginStyles = StyleSheet.create({
         height: 44,
         paddingLeft: 44,
         paddingRight: 16,
-        /* fontFamily: 'Montserrat', */
+        fontFamily: Fonts.montserrat, 
         fontSize: 16,
         fontWeight: '400',
         lineHeight: 26,
@@ -119,20 +119,6 @@ export const loginStyles = StyleSheet.create({
         borderRadius: 4,
         color: Colors.neutral, 
       },
-
-      inputFilled: {
-        width: 335,
-        height: 44,
-        paddingLeft: 44,
-        paddingRight: 16,
-       /*  fontFamily: 'Montserrat', */ 
-        fontSize: 16,
-        fontWeight: '400',
-        lineHeight: 26,
-        backgroundColor: Colors.gray2, 
-        borderRadius: 4,
-        color: Colors.gray,
-    },
 
       icon: {
         position: 'absolute',
@@ -162,7 +148,7 @@ export const loginStyles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-       /*  fontFamily: 'Montserrat', */
+        fontFamily: Fonts.montserrat, 
         fontSize: 18,
         fontWeight: '400',
         lineHeight: 28,
@@ -173,7 +159,7 @@ export const loginStyles = StyleSheet.create({
       },
 
       buttonText: {
-       /*  fontFamily: 'Montserrat',  */
+        fontFamily: Fonts.montserrat, 
         fontSize: 18,
         fontWeight: '400',
         lineHeight: 28,

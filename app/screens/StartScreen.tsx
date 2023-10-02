@@ -11,7 +11,7 @@ const StartScreen = () => {
         <View style={startStyles.page}>
             <Text style={startStyles.title}>Hola!</Text>
             <Image
-            source={require('../assets/hund_logo.png')}
+            source={require('../assets/images/hund_logo.png')}
             style={startStyles.image}
             />
             <Text style={startStyles.subTitle}>Tu otro mejor amigo</Text>

@@ -12,7 +12,7 @@ export const LoginScreen = () => {
         <>
             <View style={loginStyles.page}>
                 <Image
-                source={require('../assets/dog_2.png')}
+                source={require('../assets/images/dog_2.png')}
                 style={loginStyles.imageLogin}
                 />
                 <View style={loginStyles.container}>

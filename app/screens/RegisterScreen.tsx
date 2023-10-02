@@ -12,7 +12,7 @@ export const RegisterScreen = () => {
         <>
             <View style={loginStyles.page}>
                 <Image
-                source={require('../assets/dog_1.png')}
+                source={require('../assets/images/dog_1.png')}
                 style={loginStyles.imageRegister}
                 />
                 <View style={loginStyles.container}>
