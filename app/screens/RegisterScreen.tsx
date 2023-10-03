@@ -21,7 +21,7 @@ export const RegisterScreen = () => {
                     <View style={loginStyles.textboxContainer}>
                         <Text style={loginStyles.label}>Email</Text>
                         <TextInput
-                            style={loginStyles.input} // Aplica estilos diferentes si hay texto
+                            style={loginStyles.input} 
                             value={text}
                             onChangeText={(newText) => setText(newText)}
                         />
@@ -29,7 +29,7 @@ export const RegisterScreen = () => {
                     <View style={loginStyles.textboxContainer2}>
                         <Text style={loginStyles.label}>Password</Text>
                         <TextInput
-                            style={loginStyles.input} // Aplica estilos diferentes si hay texto
+                            style={loginStyles.input} 
                             value={password}
                             onChangeText={(newPassword) => setPassword(newPassword)}
                         />

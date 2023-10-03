@@ -37,10 +37,10 @@ export const createUserStyles = StyleSheet.create({
     left: 141,
     width: 108,
     height: 108,
-    backgroundColor: 'blue', // Cambia esto al color deseado
+    backgroundColor: 'blue',
   },
 
-  // COntainer gris claro foto
+  // Container gris claro foto
   container: {
     position: 'absolute',
     top: 4,
@@ -122,25 +122,26 @@ export const createUserStyles = StyleSheet.create({
     lineHeight: 20,
   },
 
-  checkbox1: {
-    position: 'absolute',
-    top: 558,
-    left: 28,
-    fontFamily: Fonts.montserrat,
-    fontSize: 14,
-    fontWeight: '400',
-    lineHeight: 22,
-    opacity: 1,
+  containerCheckbox: {
+    flexDirection: 'column', 
+    marginLeft: 28, 
   },
-  checkbox2: {
-    position: 'absolute',
-    top: 595,
-    left: 28,
-    fontFamily: Fonts.montserrat,
+  checkboxRow: {
+    flexDirection: 'row',
+    alignItems: 'center', 
+    marginBottom: 10, 
+  },
+  checkbox: {
+    backgroundColor: 'transparent', 
+    borderWidth: 0, 
+    padding: 0, 
+  },
+  checkboxLabel: {
+    fontFamily: 'Montserrat',
     fontSize: 14,
     fontWeight: '400',
     lineHeight: 22,
-    opacity: 1,
+    marginLeft: 10
   },
 
   buttonCreate: {

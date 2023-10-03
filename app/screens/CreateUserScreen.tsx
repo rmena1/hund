@@ -10,8 +10,8 @@ export const CreateUserScreen = () => {
     const [userName, setUserName] = useState('');
     const [phone, setPhone] = useState('');
     const [birthday, setBirthday] = useState('');
-    const [isPaseadorChecked, setPaseadorChecked] = useState(false);
-    const [isClienteChecked, setClienteChecked] = useState(false);
+    const [isWalkerChecked, setWalkerChecked] = useState(false);
+    const [isClientChecked, setClientChecked] = useState(false);
 
     return (
         <>
@@ -46,16 +46,16 @@ export const CreateUserScreen = () => {
                     <View style={createUserStyles.checkboxRow}>
                         <Checkbox
                         style={createUserStyles.checkbox}
-                        value={isPaseadorChecked}
-                        onValueChange={(newValue) => setPaseadorChecked(newValue)}
+                        value={isWalkerChecked}
+                        onValueChange={(newValue) => setWalkerChecked(newValue)}
                         />
                         <Text style={createUserStyles.checkboxLabel}>Paseador</Text>
                     </View>
                     <View style={createUserStyles.checkboxRow}>
                         <Checkbox
                         style={createUserStyles.checkbox}
-                        value={isClienteChecked}
-                        onValueChange={(newValue) => setClienteChecked(newValue)}
+                        value={isClientChecked}
+                        onValueChange={(newValue) => setClientChecked(newValue)}
                         />
                         <Text style={createUserStyles.checkboxLabel}>Cliente</Text>
                     </View>
