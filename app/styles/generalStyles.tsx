@@ -14,4 +14,5 @@ export const Colors = {
 export const Fonts = {
   poppins: "Poppins-Regular",
   montserrat: "Montserrat-Regular",
+  montserratBold: "Montserrat-Bold",
 };
