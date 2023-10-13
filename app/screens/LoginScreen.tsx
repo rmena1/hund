@@ -1,16 +1,30 @@
 import { useState } from "react";
-import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { loginStyles } from "../styles/loginStyles";
 import { useNavigation } from "@react-navigation/native";
+import { NavigationProp, RouteProp } from "@react-navigation/native";
+import { RootStackParamList } from "../navigation/navigationTypes";
+import { FIREBASE_AUTH } from "../../firebaseConfig";
+
+type Navigation = NavigationProp<RootStackParamList, "LoginScreen">;
 
 export const LoginScreen = () => {
-  const navigation = useNavigation();
-  const [text, setText] = useState("");
+  const navigation = useNavigation<Navigation>();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const auth = FIREBASE_AUTH;
 
   return (
     <>
-      <View style={loginStyles.page}>
+      <ScrollView style={loginStyles.page}>
         <Image
           source={require("../assets/images/dog_2.png")}
           style={loginStyles.imageLogin}
@@ -22,8 +36,9 @@ export const LoginScreen = () => {
             <Text style={loginStyles.label}>Email</Text>
             <TextInput
               style={loginStyles.input}
-              value={text}
-              onChangeText={(newText) => setText(newText)}
+              value={email}
+              autoCapitalize="none"
+              onChangeText={(newEmail) => setEmail(newEmail)}
             />
           </View>
           <View style={loginStyles.textboxContainer2}>
@@ -31,6 +46,8 @@ export const LoginScreen = () => {
             <TextInput
               style={loginStyles.input}
               value={password}
+              autoCapitalize="none"
+              secureTextEntry={true}
               onChangeText={(newPassword) => setPassword(newPassword)}
             />
           </View>
@@ -52,7 +69,7 @@ export const LoginScreen = () => {
             <Text style={loginStyles.subtitle3}>Registrate</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     </>
   );
 };

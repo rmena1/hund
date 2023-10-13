@@ -1,8 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-import * as Font from "expo-font";
-import { useState } from "react";
-import AppLoading from "expo-app-loading";
 
 import StartScreen from "../../app/screens/StartScreen";
 import LoginScreen from "../../app/screens/LoginScreen";
