@@ -4,4 +4,6 @@ export type RootStackParamList = {
   TabsBar: undefined;
   RegisterScreen: undefined;
   LoginScreen: undefined;
+  CreateUserScreen: undefined;
+  DetailsScreen: undefined;
 };
