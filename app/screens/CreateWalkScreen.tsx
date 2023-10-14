@@ -12,7 +12,7 @@ import {
   ActivityIndicator,
   SafeAreaView,
 } from "react-native";
-import { homeStyles } from "../styles/homeStyles";
+import { createWalkStyles } from "../styles/createWalkStyles";
 import { useNavigation } from "@react-navigation/native";
 import { NavigationProp } from "@react-navigation/native";
 import { RootStackParamList } from "../navigation/navigationTypes";
@@ -87,46 +87,65 @@ export const CreateWalkScreen: React.FC = () => {
   };
 
   return (
-    <View>
-      <Text>Selecciona la fecha y hora del paseo:</Text>
-      <Button
-        title="Seleccionar Fecha"
-        onPress={() => setShowDatePicker(true)}
-      />
-      <Button
-        title="Seleccionar Hora"
-        onPress={() => setShowTimePicker(true)}
-      />
+    <ScrollView style={createWalkStyles.container}>
+      <Text style={createWalkStyles.title}>
+        Aqui podras pedir que paseen a tu mascota
+      </Text>
+      <Text style={createWalkStyles.label}>
+        Selecciona la fecha y hora del paseo:
+      </Text>
+      <View style={createWalkStyles.buttonContainer}>
+        <TouchableOpacity
+          style={createWalkStyles.buttonLarge}
+          onPress={() => setShowDatePicker(true)}
+        >
+          <Text style={createWalkStyles.buttonText}>Seleccionar Fecha</Text>
+        </TouchableOpacity>
+      </View>
       {showDatePicker && (
         <DateTimePicker
           value={date}
           mode="date"
-          display="default"
+          display="spinner"
           onChange={(event: DateTimePickerEvent, selectedDate?: Date) =>
             handleDateChange(event, selectedDate)
           }
+          style={createWalkStyles.picker}
         />
       )}
+      <View style={createWalkStyles.buttonContainer}>
+        <TouchableOpacity
+          style={createWalkStyles.buttonLarge}
+          onPress={() => setShowTimePicker(true)}
+        >
+          <Text style={createWalkStyles.buttonText}>Seleccionar Hora</Text>
+        </TouchableOpacity>
+      </View>
       {showTimePicker && (
         <DateTimePicker
           value={time}
           mode="time"
-          display="default"
+          display="spinner"
           onChange={(event: DateTimePickerEvent, selectedTime?: Date) =>
             handleTimeChange(event, selectedTime)
           }
+          style={createWalkStyles.picker}
         />
       )}
 
-      <View>
-        <Text>¿Pedir en este momento?</Text>
-        <Button
-          title={isImmediate ? "Sí" : "No"}
+      <View style={createWalkStyles.immediateContainer}>
+        <Text style={createWalkStyles.label}>¿Pedir en este momento?</Text>
+        <TouchableOpacity
+          style={createWalkStyles.buttonShort}
           onPress={() => setIsImmediate(!isImmediate)}
-        />
+        >
+          <Text style={createWalkStyles.buttonText}>
+            {isImmediate ? "Sí" : "No"}
+          </Text>
+        </TouchableOpacity>
       </View>
 
-      <Text>Selecciona un perro:</Text>
+      <Text style={createWalkStyles.label}>Selecciona un perro:</Text>
       <RNPickerSelect
         items={dogs.map((dog) => ({
           label: dog.value,
@@ -135,30 +154,27 @@ export const CreateWalkScreen: React.FC = () => {
         onValueChange={(value) => setSelectedDog(value)}
       />
 
-      <Text>Comentarios adicionales:</Text>
+      <Text style={createWalkStyles.label}>Comentarios adicionales:</Text>
       <TextInput
         value={additionalComments}
         onChangeText={setAdditionalComments}
         multiline={true}
+        style={createWalkStyles.input}
       />
 
-      <Button title="Enviar" onPress={handleAppointmentSubmit} />
-      <Button
-        title="Go back to Home"
+      <TouchableOpacity
+        style={createWalkStyles.buttonLargeEnd}
+        onPress={handleAppointmentSubmit}
+      >
+        <Text style={createWalkStyles.buttonTextEnd}>Enviar</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={createWalkStyles.buttonLargeEnd}
         onPress={() => navigation.navigate("MainLayout")}
-      />
-    </View>
+      >
+        <Text style={createWalkStyles.buttonTextEnd}>Go back to Home</Text>
+      </TouchableOpacity>
+    </ScrollView>
   );
 };
 export default CreateWalkScreen;
-// return (
-//     <View>
-//       <Text>Crea tu paseo</Text>
-//       <Button title="Crear paseo" onPress={() => createWalk()} />
-//       <Button
-//         title="Go back to Home"
-//         onPress={() => navigation.navigate("MainLayout")}
-//       />
-//     </View>
-//   );
-// };
