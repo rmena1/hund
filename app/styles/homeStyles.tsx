@@ -26,6 +26,9 @@ export const homeStyles = StyleSheet.create({
     fontWeight: "700",
     lineHeight: 48,
     color: Colors.neutral,
+    alignSelf: "flex-start",
+    marginBottom: "60%",
+    marginLeft: "5%",
   },
 
   subtitle: {
