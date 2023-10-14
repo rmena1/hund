@@ -27,7 +27,7 @@ export const HomeScreen = () => {
       <View style={homeStyles.container}>
         <TouchableOpacity
           style={homeStyles.button}
-          onPress={() => navigation.navigate("MainLayout")}
+          onPress={() => navigation.navigate("CreateWalkScreen")}
         >
           <Foundation name="guide-dog" size={40} color="#FF5400FF" />
           {/* <Ionicons name="add" size={25} color="#777B7E" /> */}
@@ -42,7 +42,3 @@ export const HomeScreen = () => {
 };
 
 export default HomeScreen;
-<Image
-  source={require("../assets/images/home_dog.png")}
-  style={homeStyles.imageHome}
-/>;
