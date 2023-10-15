@@ -5,7 +5,7 @@ export const createUserStyles = StyleSheet.create({
   page: {
     flex: 1,
     backgroundColor: Colors.white, 
-    },
+  },
 
   title: {
     position: 'absolute',
@@ -20,7 +20,7 @@ export const createUserStyles = StyleSheet.create({
 
   subtitle: {
     position: 'absolute',
-    top: 516,
+    top: 530,
     left: 28,
     width: 335,
     height: 26,
@@ -37,7 +37,7 @@ export const createUserStyles = StyleSheet.create({
     left: 141,
     width: 108,
     height: 108,
-    backgroundColor: 'blue',
+    backgroundColor: Colors.gray4,
   },
 
   // Container gris claro foto
@@ -47,38 +47,53 @@ export const createUserStyles = StyleSheet.create({
     left: 0,
     width: 104,
     height: 104,
-    backgroundColor: Colors.gray4, 
+    backgroundColor: Colors.gray2, // #FFFFFFB3 en formato rgba
     borderRadius: 52,
     shadowColor: '#171a1f',
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    shadowOpacity: 1, 
-    shadowRadius: 5, 
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
   },
 
-  button: {
+  avatar: {
+    position: 'absolute',
+    top: 11,
+    left: 8,
+    width: 88,
+    height: 88,
+    backgroundColor: '#9095A1FF', // #9095A1FF en formato de color
+    opacity: 1,
+    overflow: 'hidden',
+    borderRadius: 44,
+  },
+
+   button: {
     position: 'absolute',
     top: 0,
     left: 72,
     width: 32,
     height: 32,
-    padding: 0,
-    flexDirection: 'row',
+    paddingHorizontal: 10,
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    color: Colors.white,
-    backgroundColor: Colors.orange,
+    color: '#FFFFFF', // #FFFFFFFF en formato de color
+    backgroundColor: '#FF5400FF', // #FF5400FF en formato de color
     opacity: 1,
+    borderWidth: 0,
     borderRadius: 16,
     shadowColor: '#FF5400',
     shadowOffset: {
-        width: 0,
-        height: 4,
+      width: 0,
+      height: 4,
     },
-    shadowOpacity: 1,
+    shadowOpacity: 0.9,
     shadowRadius: 9,
+    elevation: 2, // Android shadow elevation
+    margin: 0,
   },
 
   textboxContainer: {
@@ -125,19 +140,23 @@ export const createUserStyles = StyleSheet.create({
   containerCheckbox: {
     flexDirection: 'column', 
     marginLeft: 28, 
+    marginTop: 570,
   },
+
   checkboxRow: {
     flexDirection: 'row',
     alignItems: 'center', 
     marginBottom: 10, 
   },
+
   checkbox: {
     backgroundColor: 'transparent', 
     borderWidth: 0, 
     padding: 0, 
   },
+  
   checkboxLabel: {
-    fontFamily: 'Montserrat',
+    fontFamily: Fonts.montserrat,
     fontSize: 14,
     fontWeight: '400',
     lineHeight: 22,
@@ -177,6 +196,31 @@ export const createUserStyles = StyleSheet.create({
     fontWeight: '400',
     lineHeight: 28,
     color: Colors.white,
+  },
+
+  datetimePicker: {
+    height: 62,
+    alignContent: 'center',
+    borderWidth: 1.5,
+    borderRadius: 100,
+    borderColor: Colors.orange,
+  },
+
+  btnDateTime: {
+    width: 330,
+    height: 45,
+    backgroundColor: Colors.gray2,
+    marginTop: 4,
+    borderRadius: 12,
+    borderWidth: 0.5,
+    borderColor: Colors.gray,
+  },
+  textButtonDate: {
+    fontFamily: Fonts.montserrat,
+    color: Colors.gray,
+    fontSize: 14,
+    marginTop: 12,
+    textAlign: 'center',
   },
 });
 

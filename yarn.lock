@@ -2386,6 +2386,13 @@
     prompts "^2.4.0"
     semver "^7.5.2"
 
+"@react-native-community/datetimepicker@7.2.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@react-native-community/datetimepicker/-/datetimepicker-7.2.0.tgz#db8c03dbf49bf3c24b06b617a8467d8b05511f62"
+  integrity sha512-dO1sQy83M/EvnHE2egto05iwXZX7EYn5f/VDMp6afZFRFXRiRo7CzB3VFg4B55gJRJMNBv06NYMLPM3SlpnEGQ==
+  dependencies:
+    invariant "^2.2.4"
+
 "@react-native/assets-registry@^0.72.0":
   version "0.72.0"
   resolved "https://registry.yarnpkg.com/@react-native/assets-registry/-/assets-registry-0.72.0.tgz#c82a76a1d86ec0c3907be76f7faf97a32bbed05d"
@@ -3818,10 +3825,10 @@ expo-asset@~8.10.1:
     path-browserify "^1.0.0"
     url-parse "^1.5.9"
 
-expo-checkbox@~2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/expo-checkbox/-/expo-checkbox-2.4.0.tgz#5d5bb82117f4d781eb1d4db0ff96e1f0a4a0547a"
-  integrity sha512-ZEe79B73I+NDkLZQ2pR1E5rv9ey1oleNI/s2/Jdb9zKWztS0KVU2K+drFn2t/zyoSbR1U+CNwik2v7h6JxrXcA==
+expo-checkbox@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/expo-checkbox/-/expo-checkbox-2.5.0.tgz#2c5a6a6fdfe35dc6ffed17b1558ef89fdfa486f6"
+  integrity sha512-0ilRRQ1c50wY4DEzu5Vg/gyWYOpq2j4Js3m6+zP7Y526G9yL+13fexjPd+7sMSEZhPopGGPp9y82uiIhkfVMKA==
 
 expo-constants@~14.4.2:
   version "14.4.2"
