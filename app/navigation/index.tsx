@@ -6,6 +6,8 @@ import StartScreen from "../../app/screens/StartScreen";
 import LoginScreen from "../../app/screens/LoginScreen";
 import RegisterScreen from "../../app/screens/RegisterScreen";
 import CreateUserScreen from "../../app/screens/CreateUserScreen";
+import ProfilePreviewScreen from "../../app/screens/ProfilePreviewScreen";
+import CreateMyDogsScreen from "../../app/screens/CreateMyDogsScreen";
 import TabsBar from "./tabs";
 
 import { User, onAuthStateChanged } from "firebase/auth";
@@ -13,6 +15,18 @@ import { FIREBASE_AUTH } from "../../firebaseConfig";
 
 const Stack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();
+
+export type RootStackParams = {
+  CreateUserScreen: {
+    email: string
+  };
+  ProfilePreviewScreen: { 
+    userName: string, 
+    phone: string, 
+    email: string ,
+    birthday: string
+  };
+};
 
 function MainLayout() {
   return (
@@ -69,6 +83,9 @@ const Navigation = () => {
             <Stack.Screen name="LoadingScreen" component={StartScreen} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
             <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+            <Stack.Screen name="CreateUserScreen" component={CreateUserScreen} />
+            <Stack.Screen name="ProfilePreviewScreen" component={ProfilePreviewScreen} />
+            <Stack.Screen name="CreateMyDogsScreen" component={CreateMyDogsScreen} />
           </>
         )}
       </Stack.Navigator>

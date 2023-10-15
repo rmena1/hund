@@ -1,5 +1,6 @@
 import { Colors, Fonts } from './generalStyles';
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+const { height, width } = Dimensions.get('window');
 
 export const createUserStyles = StyleSheet.create({
   page: {
@@ -181,13 +182,26 @@ export const createUserStyles = StyleSheet.create({
     backgroundColor: Colors.orange, 
     opacity: 1,
     borderRadius: 4,
-    shadowColor: '#ff5400',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 9,
+  },
+
+  buttonCreateDisabled: {
+    position: 'absolute',
+    top: 738,
+    left: 28,
+    width: 335,
+    height: 44,
+    padding: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontFamily: Fonts.montserrat,
+    fontSize: 16,
+    fontWeight: '400', 
+    lineHeight: 26,
+    color: Colors.white, 
+    backgroundColor: Colors.gray, 
+    opacity: 1,
+    borderRadius: 4,
   },
 
   buttonText: {
@@ -197,6 +211,8 @@ export const createUserStyles = StyleSheet.create({
     lineHeight: 28,
     color: Colors.white,
   },
+
+  // Datetime picker
 
   datetimePicker: {
     height: 62,
@@ -215,12 +231,61 @@ export const createUserStyles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: Colors.gray,
   },
+
   textButtonDate: {
     fontFamily: Fonts.montserrat,
     color: Colors.gray,
     fontSize: 14,
     marginTop: 12,
     textAlign: 'center',
+  },
+
+  // Dropdown
+
+  externalContainer: {
+    position: 'absolute',
+    top: height * 0.74,
+    left: width * 0.065,
+    justifyContent: 'center',
+    width: width * 0.87,
+    height: height * 0.06,
+    marginBottom: height * 0.025,
+    backgroundColor: Colors.gray2,
+    borderWidth: 0.5,
+    borderRadius: width * 0.04,
+    borderColor: Colors.gray,
+    padding: height * 0.0083,
+  },
+
+  selectdropdownContainer: {
+    backgroundColor: Colors.gray2,
+    height: height * 0.05,
+    width: width * 0.7,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  selectdropdownText: {
+    color: Colors.gray,
+    fontSize: height * 0.021,
+    fontFamily: Fonts.montserrat,
+  },
+
+  selectdropdownOptions: {
+    marginTop: height * -0.037,
+    backgroundColor: Colors.white,
+  },
+
+  selectdropdownContainerOption: {
+    backgroundColor: Colors.orange,
+  },
+
+  selectdropdownSelectOption: {
+    fontFamily: Fonts.montserrat,
+  },
+
+  selectdropdownTextOptions: {
+    fontSize: height * 0.022,
   },
 });
 

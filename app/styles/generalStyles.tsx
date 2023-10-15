@@ -7,7 +7,10 @@ export const Colors = {
   gray2: "#F3F4F6FF",
   gray3: "#323743FF",
   gray4: "#FFFFFFB3",
+  gray5: "#9095A1",
+  gray6: "#6F7787FF",
   orange: "#FF5400FF",
+  lightOrange: "#FFF5F0",
   shadow: "#171a1f",
 };
 

@@ -1,29 +1,65 @@
 import { useState } from 'react';
 import Checkbox from 'expo-checkbox';
+import SelectDropdown from 'react-native-select-dropdown';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import createUserStyles from '../styles/createUserStyles';
 import { useNavigation } from '@react-navigation/native';
 
-export const CreateUserScreen = () => {
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParams } from '../navigation/index';
+
+type Props = NativeStackScreenProps<RootStackParams, 'CreateUserScreen'>;
+
+export const CreateUserScreen = ({ route }: Props) => {
+    const { email } = route.params;
+
     const navigation = useNavigation();
 
     const [userName, setUserName] = useState('');
     const [phone, setPhone] = useState('');
     const [isPickerDateShow, setIsPickerDateShow] = useState(false);
     const [birthday, setBirthday] = useState(null);
+    const [selectedValue, setSelectedValue] = useState("");
 
-		const [isWalkerChecked, setWalkerChecked] = useState(false);
-    const [isClientChecked, setClientChecked] = useState(false);
+    const options = ["Cliente", "Paseador"];
 
     const showPickerDate = () => {
         setIsPickerDateShow(true);
     };
 
+    const onChangePhone = (newPhone) => {
+        const numericValue = newPhone.replace(/[^0-9]/g, '');
+        const truncatedValue = numericValue.slice(0, 9);
+
+        setPhone(truncatedValue);    
+    };
+
     const onChangeDate = (event, selectedDate) => {
         const currentDate = selectedDate || birthday;
         setBirthday(currentDate);
-        setIsPickerDateShow(false); // Cierra el selector de fecha
+        setIsPickerDateShow(false); 
+    };
+
+    const handleValueChange = (itemValue) => {
+        setSelectedValue(itemValue);
+      };
+
+    const handleSubmit = () => {
+        if (selectedValue === 'Paseador') {
+            /* navigation.navigate('WalkerPreviewScreen', { 
+                userName, 
+                phone, 
+                email, 
+                birthday: birthday ? birthday.toISOString() : '' 
+            }); */
+        } else if (selectedValue === 'Cliente') {
+        navigation.navigate('ProfilePreviewScreen', { 
+            userName, 
+            phone, 
+            email, 
+            birthday: birthday ? birthday.toISOString() : '' 
+        });}
     };
 
     return (
@@ -53,7 +89,7 @@ export const CreateUserScreen = () => {
                     <TextInput
                         style={createUserStyles.input}
                         value={phone}
-                        onChangeText={(newPhone) => setPhone(newPhone)}
+                        onChangeText={(newPhone) => onChangePhone(newPhone)}
                     />
                 </View>
                 <View style={createUserStyles.textboxContainer3}>
@@ -63,7 +99,7 @@ export const CreateUserScreen = () => {
 													<Text style={createUserStyles.textButtonDate}>
 															{birthday
 																	? birthday.toLocaleDateString()
-																	: 'Seleccionar Fecha'}
+																	: 'Selecciona una fecha'}
 													</Text>
 											</TouchableOpacity>
 										</View>
@@ -77,7 +113,7 @@ export const CreateUserScreen = () => {
                     )}
                 </View>
                 <Text style={createUserStyles.subtitle}>Quiero crear un perfil de:</Text>
-                <View style={createUserStyles.containerCheckbox}>
+             {/*    <View style={createUserStyles.containerCheckbox}>
                     <View style={createUserStyles.checkboxRow}>
                         <Checkbox
                         style={createUserStyles.checkbox}
@@ -94,14 +130,39 @@ export const CreateUserScreen = () => {
                         />
                         <Text style={createUserStyles.checkboxLabel}>Cliente</Text>
                     </View>
-                </View>
-                <TouchableOpacity
-                    style={createUserStyles.buttonCreate}
-                    onPress={() => { }}
-                    disabled={false}
-                >
-                    <Text style={createUserStyles.buttonText}>Crear perfil</Text>
-                </TouchableOpacity>
+                </View> */}
+                <View style={[createUserStyles.externalContainer, { alignItems: 'center' }]}>
+                    <SelectDropdown
+                        data={options}
+                        onSelect={(selectedItem) => handleValueChange(selectedItem)}
+                        buttonTextAfterSelection={(selectedItem) => selectedItem}
+                        rowTextForSelection={(item) => item}
+                        defaultValue={selectedValue}
+                        buttonStyle={createUserStyles.selectdropdownContainer}
+                        buttonTextStyle={createUserStyles.selectdropdownText}
+                        dropdownStyle={createUserStyles.selectdropdownOptions}
+                        defaultButtonText="Selecciona una opción"
+                        dropdownIconPosition={'right'}
+                        selectedRowTextStyle={createUserStyles.selectdropdownSelectOption}
+                        rowTextStyle={createUserStyles.selectdropdownTextOptions}
+                    />
+                    </View>
+                {selectedValue ? 
+                    <TouchableOpacity
+                        style={createUserStyles.buttonCreate}
+                        onPress={() => { handleSubmit() }}
+                        disabled={!selectedValue}
+                    >
+                        <Text style={createUserStyles.buttonText}>Crear perfil</Text>
+                    </TouchableOpacity> : 
+                    <TouchableOpacity
+                        style={createUserStyles.buttonCreateDisabled}
+                        onPress={() => { handleSubmit() }}
+                        disabled={!selectedValue}
+                    >
+                        <Text style={createUserStyles.buttonText}>Crear perfil</Text>
+                    </TouchableOpacity>
+                    }
             
             </View>
         </>

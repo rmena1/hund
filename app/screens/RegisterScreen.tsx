@@ -80,7 +80,8 @@ export const RegisterScreen = () => {
               <TouchableOpacity
                 style={loginStyles.button}
                 onPress={() => {
-                  register();
+                  /* register(); */
+                  navigation.navigate("CreateUserScreen", { email });
                 }}
                 disabled={false}
               >
