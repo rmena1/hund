@@ -61,7 +61,7 @@ export const CreateMyDogsScreen = StyleSheet.create({
       breedText: {
         width: 229,
         fontFamily: Fonts.montserrat, 
-        fontSize: 14,
+        fontSize: height * 0.018,
         fontWeight: '400',
         lineHeight: 22,
         color: Colors.gray6,
@@ -82,7 +82,7 @@ export const CreateMyDogsScreen = StyleSheet.create({
       },
       titleContent: {
         fontFamily: Fonts.poppins, 
-        fontSize: 14,
+        fontSize: height * 0.018,
         fontWeight: '700', 
         lineHeight: 22,
         color: Colors.neutral,
@@ -90,32 +90,71 @@ export const CreateMyDogsScreen = StyleSheet.create({
       textContent: {
         width: '100%',
         fontFamily: Fonts.montserrat, 
-        fontSize: 14,
+        fontSize: height * 0.018,
         color: Colors.gray6,
       },
 
-      button: {
+      buttonAdd: {
         position: 'absolute',
         top: height * 0.94,
         left: width * 0.8,
         width: width * 0.13,
         height: width * 0.13,
-        padding: 0,
         alignItems: 'center',
         justifyContent: 'center',
         color: Colors.white, 
         backgroundColor: Colors.orange, 
-        opacity: 1,
-        borderWidth: 0,
         borderRadius: width * 0.065,
-        margin: 0, 
       },
 
-      buttonText: {
+      buttonAddText: {
         fontFamily: Fonts.montserrat,
         fontSize: height * 0.04,
         color: Colors.white,
       },
+
+      buttonContainer: 
+      {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: height * 0.01,
+      },
+
+      buttonDelete: {
+        width: width * 0.43,
+        height: height * 0.05,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: Colors.white, 
+        borderRadius: width * 0.01, 
+        borderWidth: 1,
+        borderColor: Colors.orange2,
+      },
+
+      buttonDeleteText: {
+        fontFamily: Fonts.montserrat,
+        fontSize: height * 0.018,
+        fontWeight: '400', 
+        color: Colors.orange2,
+      },
+
+      buttonEdit: {
+        width: width * 0.43,
+        height: height * 0.05,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: Colors.orange, 
+        borderRadius: width * 0.01, 
+      },
+
+      buttonEditText: {
+        fontFamily: Fonts.montserrat, 
+        fontSize: height * 0.018,
+        fontWeight: '400', 
+        color: Colors.white,
+      },
+
 });
 
 export default CreateMyDogsScreen;

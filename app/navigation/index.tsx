@@ -8,6 +8,7 @@ import RegisterScreen from "../../app/screens/RegisterScreen";
 import CreateUserScreen from "../../app/screens/CreateUserScreen";
 import ProfilePreviewScreen from "../../app/screens/ProfilePreviewScreen";
 import CreateMyDogsScreen from "../../app/screens/CreateMyDogsScreen";
+import MyDogEditScreen from "../../app/screens/MyDogEditScreen";
 import TabsBar from "./tabs";
 
 import { User, onAuthStateChanged } from "firebase/auth";
@@ -25,6 +26,15 @@ export type RootStackParams = {
     phone: string, 
     email: string ,
     birthday: string
+  };
+  MyDogEditScreen: {
+    dog: {
+      name: string,
+      age: string,
+      breed: string,
+      description: string,
+      reactivity: string
+    }
   };
 };
 
@@ -86,6 +96,7 @@ const Navigation = () => {
             <Stack.Screen name="CreateUserScreen" component={CreateUserScreen} />
             <Stack.Screen name="ProfilePreviewScreen" component={ProfilePreviewScreen} />
             <Stack.Screen name="CreateMyDogsScreen" component={CreateMyDogsScreen} />
+            <Stack.Screen name="MyDogEditScreen" component={MyDogEditScreen} />
           </>
         )}
       </Stack.Navigator>

@@ -10,6 +10,7 @@ export const Colors = {
   gray5: "#9095A1",
   gray6: "#6F7787FF",
   orange: "#FF5400FF",
+  orange2: "#DE3B40FF",
   lightOrange: "#FFF5F0",
   shadow: "#171a1f",
 };
