@@ -11,6 +11,7 @@ import { Colors, Fonts } from "../styles/generalStyles";
 import List from "../screens/List";
 import Details from "../screens/Details";
 import ProfileScreen from "../screens/ProfileScreen";
+import HomeScreen from "../screens/HomeScreen";
 
 // Thanks for watching
 const Tab = createBottomTabNavigator();
@@ -29,10 +30,15 @@ const Tab = createBottomTabNavigator();
 // };
 function TabsBar() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: Colors.orange,
+        tabBarInactiveTintColor: Colors.gray1,
+      }}
+    >
       <Tab.Screen
-        name="list"
-        component={List}
+        name="home"
+        component={HomeScreen}
         options={{
           tabBarIcon: ({ focused }) => {
             return (
@@ -51,11 +57,10 @@ function TabsBar() {
               </View>
             );
           },
-          tabBarLabel: "",
         }}
       />
       <Tab.Screen
-        name="details"
+        name="clipboard"
         component={Details}
         options={{
           tabBarIcon: ({ focused }) => {
@@ -75,11 +80,10 @@ function TabsBar() {
               </View>
             );
           },
-          tabBarLabel: "",
         }}
       />
       <Tab.Screen
-        name="details2"
+        name="messages"
         component={Details}
         options={{
           tabBarIcon: ({ focused }) => {
@@ -99,7 +103,6 @@ function TabsBar() {
               </View>
             );
           },
-          tabBarLabel: "",
         }}
       />
       <Tab.Screen
@@ -123,7 +126,6 @@ function TabsBar() {
               </View>
             );
           },
-          tabBarLabel: "",
         }}
       />
     </Tab.Navigator>
