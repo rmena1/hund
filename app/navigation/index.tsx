@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 
 import StartScreen from "../../app/screens/StartScreen";
+import CreateWalkScreen from "../screens/CreateWalkScreen";
 import LoginScreen from "../../app/screens/LoginScreen";
 import RegisterScreen from "../../app/screens/RegisterScreen";
 import CreateUserScreen from "../../app/screens/CreateUserScreen";
@@ -81,10 +82,26 @@ const Navigation = () => {
               name="CreateUserScreen"
               component={CreateUserScreen}
             />
-            <Stack.Screen name="ProfilePreviewScreen" component={ProfilePreviewScreen} />
-            <Stack.Screen name="CreateMyDogsScreen" component={CreateMyDogsScreen} />
-            <Stack.Screen name="MyDogEditScreen" component={MyDogEditScreen} />
-            <Stack.Screen name="HomeScreen" component={HomeScreen} />
+            <Stack.Screen 
+              name="ProfilePreviewScreen" 
+              component={ProfilePreviewScreen} 
+            />
+            <Stack.Screen 
+              name="CreateMyDogsScreen" 
+              component={CreateMyDogsScreen} 
+            />
+            <Stack.Screen 
+              name="MyDogEditScreen" 
+              component={MyDogEditScreen} 
+            />
+            <Stack.Screen 
+              name="HomeScreen" 
+              component={HomeScreen} 
+            />
+            <Stack.Screen
+              name="CreateWalkScreen"
+              component={CreateWalkScreen}
+            />
           </>
         ) : (
           <>

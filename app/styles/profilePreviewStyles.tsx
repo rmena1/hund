@@ -119,7 +119,7 @@ export const profilePreviewStyles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.gray5,
+    backgroundColor: Colors.lighygray1,
     borderRadius: 18,
   },
 
@@ -139,7 +139,7 @@ export const profilePreviewStyles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.gray5,
+    backgroundColor: Colors.lighygray1,
     borderRadius: 18,
   },
 
