@@ -6,4 +6,7 @@ export type RootStackParamList = {
   LoginScreen: undefined;
   CreateUserScreen: undefined;
   DetailsScreen: undefined;
+  AccountScreen: undefined;
+  PaymentMethodScreen: undefined;
+  AddCardScreen: undefined;
 };

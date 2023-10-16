@@ -15,7 +15,8 @@ export const HomeScreen = () => {
     >
       <View
         style={{
-          flex: 2,
+          flex: 1,
+          flexGrow: 1,
           flexDirection: "column",
           backgroundColor: "white",
           alignItems: "center",
@@ -23,16 +24,21 @@ export const HomeScreen = () => {
       >
         <Text>DADDADADADA</Text>
       </View>
-      <Image
-        source={require("../assets/images/home_dog.png")}
+      <View
         style={{
-          flex: 2,
-          resizeMode: "contain",
-          alignSelf: "center",
-          aspectRatio: 1.1,
-          marginBottom: -130,
-        }}
-      />
+          flex: 0,
+        }}>
+        <Image
+          source={require("../assets/images/home_dog.png")}
+          style={{
+
+            
+            
+            alignSelf: "center",
+            backgroundColor: "pink",
+          }}
+        />
+      </View>
     </View>
   );
 };
