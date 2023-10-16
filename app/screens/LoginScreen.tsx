@@ -29,7 +29,7 @@ export const LoginScreen = () => {
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
       console.log(response);
-      navigation.navigate("TabsBar");
+      navigation.navigate("MainLayout");
     } catch (error: any) {
       console.log(error);
       alert("Error al iniciar sesión, " + error.message);

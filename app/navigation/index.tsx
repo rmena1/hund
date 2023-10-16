@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 
 import StartScreen from "../../app/screens/StartScreen";
+import CreateWalkScreen from "../screens/CreateWalkScreen";
 import LoginScreen from "../../app/screens/LoginScreen";
 import RegisterScreen from "../../app/screens/RegisterScreen";
 import CreateUserScreen from "../../app/screens/CreateUserScreen";
@@ -62,6 +63,10 @@ const Navigation = () => {
             <Stack.Screen
               name="CreateUserScreen"
               component={CreateUserScreen}
+            />
+            <Stack.Screen
+              name="CreateWalkScreen"
+              component={CreateWalkScreen}
             />
           </>
         ) : (
