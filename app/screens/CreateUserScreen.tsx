@@ -58,12 +58,7 @@ export const CreateUserScreen = () => {
     const handleSubmit = () => {
         saveChanges();
         if (selectedValue === 'Paseador') {
-            /* navigation.navigate('WalkerPreviewScreen', { 
-                userName, 
-                phone, 
-                email, 
-                birthday: birthday ? birthday.toISOString() : '' 
-            }); */
+            /* navigation.navigate('WalkerPreviewScreen'); */
         } else if (selectedValue === 'Cliente') {
             navigation.navigate('ProfilePreviewScreen');
         }
@@ -72,16 +67,16 @@ export const CreateUserScreen = () => {
     return (
         <>
             <View style={createUserStyles.page}>
-							<View style={createUserStyles.group}>
-								<View style={createUserStyles.container}>
-								</View>
-								<View style={createUserStyles.avatar}>
-								</View>
-								<View style={createUserStyles.button}>
-									<TouchableOpacity>
-									</TouchableOpacity>
-								</View>
-							</View>
+                <View style={createUserStyles.group}>
+                    <View style={createUserStyles.container}>
+                    </View>
+                    <View style={createUserStyles.avatar}>
+                    </View>
+                    <View style={createUserStyles.button}>
+                        <TouchableOpacity>
+                        </TouchableOpacity>
+                    </View>
+                </View>
                 <Text style={createUserStyles.title}>Crear perfil</Text>
                 <View style={createUserStyles.textboxContainer}>
                     <Text style={createUserStyles.label}>Nombre</Text>
@@ -120,24 +115,7 @@ export const CreateUserScreen = () => {
                     )}
                 </View>
                 <Text style={createUserStyles.subtitle}>Quiero crear un perfil de:</Text>
-             {/*    <View style={createUserStyles.containerCheckbox}>
-                    <View style={createUserStyles.checkboxRow}>
-                        <Checkbox
-                        style={createUserStyles.checkbox}
-                        value={isWalkerChecked}
-                        onValueChange={(newValue) => setWalkerChecked(newValue)}
-                        />
-                        <Text style={createUserStyles.checkboxLabel}>Paseador</Text>
-                    </View>
-                    <View style={createUserStyles.checkboxRow}>
-                        <Checkbox
-                        style={createUserStyles.checkbox}
-                        value={isClientChecked}
-                        onValueChange={(newValue) => setClientChecked(newValue)}
-                        />
-                        <Text style={createUserStyles.checkboxLabel}>Cliente</Text>
-                    </View>
-                </View> */}
+           
                 <View style={[createUserStyles.externalContainer, { alignItems: 'center' }]}>
                     <SelectDropdown
                         data={options}

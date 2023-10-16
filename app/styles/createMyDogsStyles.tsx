@@ -8,24 +8,22 @@ export const CreateMyDogsScreen = StyleSheet.create({
         backgroundColor: Colors.white, 
       },
     
-    title: {
+      title: {
         position: 'absolute',
         top: height * 0.07,
-        left: width * 0.38,
+        left: width * 0.37,
         fontFamily: Fonts.poppins,
         fontSize: height * 0.025,
         fontWeight: '700', 
         lineHeight: height * 0.04,
         color: Colors.gray3, 
-    },
+      },
 
     table: {
         position: 'absolute',
-        top: 140,
-        width: '100%',
-        height: '73%',
-        opacity: 1,
-        borderRadius: 0, 
+        top: height * 0.15,
+        width: width,
+        height: height * 0.75,
     },
 
       header: {
@@ -52,9 +50,8 @@ export const CreateMyDogsScreen = StyleSheet.create({
 
       headerText: {
         fontFamily: Fonts.montserrat, 
-        fontSize: 16,
+        fontSize: height * 0.02,
         fontWeight: '700',
-        lineHeight: 26,
         color: Colors.neutral,
       },
 
@@ -63,7 +60,6 @@ export const CreateMyDogsScreen = StyleSheet.create({
         fontFamily: Fonts.montserrat, 
         fontSize: height * 0.018,
         fontWeight: '400',
-        lineHeight: 22,
         color: Colors.gray6,
       },
 
