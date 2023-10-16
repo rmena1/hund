@@ -47,12 +47,12 @@ export const CreateUserScreen = ({ route }: Props) => {
 
     const handleSubmit = () => {
         if (selectedValue === 'Paseador') {
-            /* navigation.navigate('WalkerPreviewScreen', { 
+        navigation.navigate('WalkerPreviewScreen', { 
                 userName, 
                 phone, 
                 email, 
                 birthday: birthday ? birthday.toISOString() : '' 
-            }); */
+            }); 
         } else if (selectedValue === 'Cliente') {
         navigation.navigate('ProfilePreviewScreen', { 
             userName, 
