@@ -6,13 +6,12 @@ import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import createUserStyles from '../styles/createUserStyles';
 import { useNavigation } from '@react-navigation/native';
 
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParams } from '../navigation/index';
+import { FIREBASE_AUTH } from "../../firebaseConfig";
+import { FIREBASE_DB } from "../../firebaseConfig";
+import { setDoc, doc } from "firebase/firestore";
 
-type Props = NativeStackScreenProps<RootStackParams, 'CreateUserScreen'>;
-
-export const CreateUserScreen = ({ route }: Props) => {
-    const { email } = route.params;
+export const CreateUserScreen = () => {
+    const auth = FIREBASE_AUTH;
 
     const navigation = useNavigation();
 
@@ -45,7 +44,19 @@ export const CreateUserScreen = ({ route }: Props) => {
         setSelectedValue(itemValue);
       };
 
+    const saveChanges = async () => {
+    if (auth.currentUser?.uid) {
+                await setDoc(doc(FIREBASE_DB, "userData", auth.currentUser?.uid), {
+                name: userName,
+                phone: phone,
+                birthday: birthday,
+                dogs: [],
+            });
+        }
+    };
+
     const handleSubmit = () => {
+        saveChanges();
         if (selectedValue === 'Paseador') {
             /* navigation.navigate('WalkerPreviewScreen', { 
                 userName, 
@@ -54,12 +65,8 @@ export const CreateUserScreen = ({ route }: Props) => {
                 birthday: birthday ? birthday.toISOString() : '' 
             }); */
         } else if (selectedValue === 'Cliente') {
-        navigation.navigate('ProfilePreviewScreen', { 
-            userName, 
-            phone, 
-            email, 
-            birthday: birthday ? birthday.toISOString() : '' 
-        });}
+            navigation.navigate('ProfilePreviewScreen');
+        }
     };
 
     return (

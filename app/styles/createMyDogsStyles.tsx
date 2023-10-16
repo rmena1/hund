@@ -155,6 +155,14 @@ export const CreateMyDogsScreen = StyleSheet.create({
         color: Colors.white,
       },
 
+      textNoDogs: {
+        marginTop: height * 0.2,
+        textAlign: 'center',
+        fontFamily: Fonts.montserrat,
+        fontSize: height * 0.025,
+        color: Colors.gray6,
+      }
+
 });
 
 export default CreateMyDogsScreen;

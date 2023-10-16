@@ -9,6 +9,7 @@ import CreateUserScreen from "../../app/screens/CreateUserScreen";
 import ProfilePreviewScreen from "../../app/screens/ProfilePreviewScreen";
 import CreateMyDogsScreen from "../../app/screens/CreateMyDogsScreen";
 import MyDogEditScreen from "../../app/screens/MyDogEditScreen";
+import HomeScreen from "../screens/HomeScreen";
 import TabsBar from "./tabs";
 
 import { User, onAuthStateChanged } from "firebase/auth";
@@ -18,16 +19,9 @@ const Stack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();
 
 export type RootStackParams = {
-  CreateUserScreen: {
-    email: string
-  };
-  ProfilePreviewScreen: { 
-    userName: string, 
-    phone: string, 
-    email: string ,
-    birthday: string
-  };
   MyDogEditScreen: {
+    isNew: boolean,
+    dogID: string,
     dog: {
       name: string,
       age: string,
@@ -87,16 +81,16 @@ const Navigation = () => {
               name="CreateUserScreen"
               component={CreateUserScreen}
             />
+            <Stack.Screen name="ProfilePreviewScreen" component={ProfilePreviewScreen} />
+            <Stack.Screen name="CreateMyDogsScreen" component={CreateMyDogsScreen} />
+            <Stack.Screen name="MyDogEditScreen" component={MyDogEditScreen} />
+            <Stack.Screen name="HomeScreen" component={HomeScreen} />
           </>
         ) : (
           <>
             <Stack.Screen name="LoadingScreen" component={StartScreen} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
             <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-            <Stack.Screen name="CreateUserScreen" component={CreateUserScreen} />
-            <Stack.Screen name="ProfilePreviewScreen" component={ProfilePreviewScreen} />
-            <Stack.Screen name="CreateMyDogsScreen" component={CreateMyDogsScreen} />
-            <Stack.Screen name="MyDogEditScreen" component={MyDogEditScreen} />
           </>
         )}
       </Stack.Navigator>

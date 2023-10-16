@@ -1,17 +1,47 @@
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { useEffect, useState } from "react";
 import profilePreviewStyles from '../styles/profilePreviewStyles';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParams } from '../navigation/index';
 
-type Props = NativeStackScreenProps<RootStackParams, 'ProfilePreviewScreen'>;
+import { FIREBASE_AUTH } from "../../firebaseConfig";
+import { FIREBASE_DB } from "../../firebaseConfig";
+import { doc, onSnapshot } from "firebase/firestore";
 
-export const ProfilePreviewScreen = ({ route }: Props) => {
-    const { userName, phone, email, birthday } = route.params;
+export const ProfilePreviewScreen = () => {
+    const auth = FIREBASE_AUTH;
+
+    const navigation = useNavigation();
+
+    const [name, setName] = useState();
+    const [phone, setPhone] = useState();
+    const [birthday, setBirthday] = useState(0);
 
     const birthdayDate = birthday ? new Date(birthday) : null;
 
-    const navigation = useNavigation();
+    useEffect(() => {
+        if (auth.currentUser?.uid) {
+          const unsub = onSnapshot(
+            doc(FIREBASE_DB, "userData", auth.currentUser.uid),
+            (doc) => {
+              if (doc.data()) {
+                const data = doc.data();
+                const newUserData = {
+                  name: data?.name,
+                  phone: data?.phone,
+                  birthday: data?.birthday,
+                };
+                setName(newUserData.name);
+                setPhone(newUserData.phone);
+                setBirthday(newUserData.birthday.seconds * 1000);
+              }
+            }
+          );
+          return () => {
+            unsub();
+          };
+        }
+      }, []);
+
 
     return (
         <>
@@ -27,7 +57,7 @@ export const ProfilePreviewScreen = ({ route }: Props) => {
                     <Text style={profilePreviewStyles.label}>Nombre</Text>
                     <TextInput
                         style={profilePreviewStyles.input}
-                        value={userName}
+                        value={name}
                     />
                 </View>
                 <View style={profilePreviewStyles.textboxContainer2}>
@@ -50,7 +80,7 @@ export const ProfilePreviewScreen = ({ route }: Props) => {
                     <Text style={profilePreviewStyles.label}>Email</Text>
                     <TextInput
                         style={profilePreviewStyles.input}
-                        value={email}
+                        value={auth.currentUser?.email || ""}
                     />
                 </View>
 
@@ -72,7 +102,7 @@ export const ProfilePreviewScreen = ({ route }: Props) => {
                 
                 <TouchableOpacity
                     style={profilePreviewStyles.buttonCreate}
-                    onPress={() => { }}
+                    onPress={() => { navigation.navigate('HomeScreen') }}
                     disabled={false}
                 >
                     <Text style={profilePreviewStyles.buttonText}>Guardar cambios</Text>
