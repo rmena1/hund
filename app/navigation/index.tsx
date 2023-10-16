@@ -9,6 +9,7 @@ import CreateUserScreen from "../../app/screens/CreateUserScreen";
 import ProfilePreviewScreen from "../../app/screens/ProfilePreviewScreen";
 import CreateMyDogsScreen from "../../app/screens/CreateMyDogsScreen";
 import WalkerPreviewScreen from "../screens/WalkerPreviewScreen";
+import WalkerAtributeScreen from "../screens/WalkerAtributeScreen";
 import TabsBar from "./tabs";
 
 import { User, onAuthStateChanged } from "firebase/auth";
@@ -88,6 +89,7 @@ const Navigation = () => {
             <Stack.Screen name="ProfilePreviewScreen" component={ProfilePreviewScreen} />
             <Stack.Screen name="CreateMyDogsScreen" component={CreateMyDogsScreen} />
             <Stack.Screen name="WalkerPreviewScreen" component={WalkerPreviewScreen} />
+            <Stack.Screen name="WalkerAtributeScreen" component={WalkerAtributeScreen} />
           </>
         )}
       </Stack.Navigator>

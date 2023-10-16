@@ -55,11 +55,19 @@ export const WalkerPreviewScreen = ({ route }: Props) => {
                 </View>
 
                 <TouchableOpacity
+                    style={profilePreviewStyles.buttonPets}
+                    onPress={() => { navigation.navigate('WalkerAtributeScreen')}}
+                    disabled={false}
+                >
+                    <Text style={profilePreviewStyles.buttonTextPets}>Mis atributos</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
                     style={profilePreviewStyles.buttonPay}
                     onPress={() => { }}
                     disabled={false}
                 >
-                    <Text style={profilePreviewStyles.buttonTextPay}>Mis métodos de recibo de pago</Text>
+                    <Text style={profilePreviewStyles.buttonTextPay}>Mi cuenta</Text>
                 </TouchableOpacity>
                 
                 <TouchableOpacity

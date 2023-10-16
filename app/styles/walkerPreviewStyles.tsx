@@ -153,7 +153,7 @@ export const walkerPreviewStyles = StyleSheet.create({
     position: 'absolute',
     top: 685,
     left: 160,
-    width: 210,
+    width: 203,
     height: 36,
     padding: 0,
     display: 'flex',
