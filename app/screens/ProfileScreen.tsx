@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import {
   ScrollView,
   View,
@@ -10,24 +11,64 @@ import {
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors, Fonts } from "../styles/generalStyles";
+import { FIREBASE_AUTH } from "../../firebaseConfig";
+import { FIREBASE_DB } from "../../firebaseConfig";
+import { setDoc, doc, onSnapshot } from "firebase/firestore";
 
 const UserProfile: React.FC = () => {
+  const auth = FIREBASE_AUTH;
   const [user, setUser] = React.useState({
-    name: "Juan Pereira",
-    phone: "+56 9 6628 6496",
-    email: "juan@gmail.com",
-    birthday: "27/09/23",
+    name: "",
+    phone: "",
+    birthday: "",
   });
+
+  useEffect(() => {
+    if (auth.currentUser?.uid) {
+      const unsub = onSnapshot(
+        doc(FIREBASE_DB, "userData", auth.currentUser.uid),
+        (doc) => {
+          if (doc.data()) {
+            const data = doc.data();
+            const newUserData = {
+              name: data?.name,
+              phone: data?.phone,
+              birthday: data?.birthday,
+            };
+            setUser(newUserData);
+          }
+        }
+      );
+      return () => {
+        unsub();
+      };
+    }
+  }, []);
 
   // Local states for each input
   const [name, setName] = React.useState(user.name);
   const [phone, setPhone] = React.useState(user.phone);
-  const [email, setEmail] = React.useState(user.email);
   const [birthday, setBirthday] = React.useState(user.birthday);
+
+  useEffect(() => {
+    setName(user.name);
+    setPhone(user.phone);
+    setBirthday(user.birthday);
+  }, [user]);
 
   const updateState = React.useCallback((name: string, value: string) => {
     setUser((prevState) => ({ ...prevState, [name]: value }));
   }, []);
+
+  const saveChanges = async () => {
+    if (auth.currentUser?.uid) {
+      await setDoc(doc(FIREBASE_DB, "userData", auth.currentUser?.uid), {
+        name: name,
+        phone: phone,
+        birthday: birthday,
+      });
+    }
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -36,6 +77,7 @@ const UserProfile: React.FC = () => {
           source={require("../assets/images/Avatar2.png")}
           style={styles.profileImage}
         />
+
         <TouchableOpacity style={styles.editButton}>
           <Ionicons name="create-outline" size={20} color="#fff" />
         </TouchableOpacity>
@@ -60,9 +102,9 @@ const UserProfile: React.FC = () => {
       <TextInput
         style={styles.inputField}
         placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        onBlur={() => updateState("email", email)}
+        value="email"
+        //onChangeText={setEmail}
+        //onBlur={() => updateState("email", email)}
       />
       <Text style={styles.label}>Cumpleaños</Text>
       <TextInput
@@ -82,7 +124,7 @@ const UserProfile: React.FC = () => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.saveButton}>
+      <TouchableOpacity style={styles.saveButton} onPress={() => saveChanges()}>
         <Text style={styles.buttonText}>Guardar Cambios</Text>
       </TouchableOpacity>
     </ScrollView>
