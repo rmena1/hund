@@ -181,6 +181,11 @@ export const WalkerAtributeScreen = StyleSheet.create({
     },
 
     container: {
+
+        // flexDirection: 'row',      // Horizontal layout
+        // alignItems: 'center',     // Center-align elements
+        // justifyContent: 'space-between', // Space between elements
+        // marginVertical: 10,      // Adjust the vertical margin as needed
         position: 'absolute', 
         top: 382, 
         left: 20, 
@@ -192,6 +197,12 @@ export const WalkerAtributeScreen = StyleSheet.create({
         borderColor: '#DEE1E6FF', // neutral-300 
         borderStyle: 'solid', 
         // boxShadow: , /* shadow-none */
+    },
+
+    slidecontainer:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: 300, 
     },
 
     container2: {
@@ -210,15 +221,17 @@ export const WalkerAtributeScreen = StyleSheet.create({
 
     /* Slider 1 */
     slider: {
-        position: 'relative',
-        top: 42,
-        left: 24,
-        width: 301,
-        height: 22,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-evenly',
-        opacity: 1,
+        width: '80%', 
+        height: 40
+    },
+
+    minslider:{
+        marginRight: 10,
+        padding: 5
+    },
+
+    maxslider:{
+        marginLeft: 0,
     },
 
     /* Slider 1 - Handle */
