@@ -7,6 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import List from "../screens/List";
 import Details from "../screens/Details";
+import CreateWalkScreen from "../screens/CreateWalkScreen";
 import AccountScreen from "../screens/AccountScreen";
 import HomeScreen from "../screens/HomeScreen";
 import { Colors, Fonts } from "../styles/generalStyles";
