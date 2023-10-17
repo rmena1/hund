@@ -5,43 +5,46 @@ export const startStyles = StyleSheet.create({
   page: {
     flex: 1,
     backgroundColor: Colors.white,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  titleContainer: {
+    flex: 1.5,
+    justifyContent: "flex-end",
   },
 
   title: {
-    position: "absolute",
-    top: 228,
-    left: 155,
     fontFamily: Fonts.poppins,
     fontSize: 32,
     fontWeight: "700",
     lineHeight: 48,
     color: Colors.neutral,
+    textAlign: "center",
   },
 
   subTitle: {
-    position: "absolute",
-    top: 445,
-    left: 95,
+    flex: 1,
     width: 288,
     fontFamily: Fonts.montserrat,
     fontSize: 18,
     fontWeight: "300",
     lineHeight: 28,
     color: Colors.gray,
+    textAlign: "center",
   },
 
   image: {
-    position: "absolute",
-    top: 292,
-    left: 51,
     width: 288,
     height: 144,
   },
 
+  buttonContainer: {
+    marginBottom: 32,
+    spacing: 16,
+  },
+
   button: {
-    position: "absolute",
-    top: 560,
-    left: 20,
     width: 350,
     height: 52,
     padding: 0,
@@ -57,6 +60,7 @@ export const startStyles = StyleSheet.create({
     backgroundColor: Colors.orange,
     opacity: 1,
     borderRadius: 8,
+    marginBottom: 8,
   },
 
   buttonText: {
@@ -68,9 +72,6 @@ export const startStyles = StyleSheet.create({
   },
 
   buttonCreate: {
-    position: "absolute",
-    top: 730,
-    left: 20,
     width: 350,
     height: 52,
     paddingHorizontal: 20,
