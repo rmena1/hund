@@ -19,6 +19,27 @@ export const WalkerAtributeScreen = StyleSheet.create({
         color: Colors.gray3,
     },
 
+    subtitleBlack: {
+        // position: 'absolute',
+        // top: 142,
+        // left: 20,
+        // width: 279,
+        margin: 6,
+        fontFamily: Fonts.montserrat,
+        fontSize: 20,
+        fontWeight: '400',
+        lineHeight: 20,
+        color: Colors.black,
+    },
+
+    checkbox: {
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        flex: 1, 
+        justifyContent: 'center',
+        color: Colors.orange, 
+      },
+
     subtitle: {
         position: 'absolute',
         top: 142,
@@ -129,6 +150,7 @@ export const WalkerAtributeScreen = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingVertical: 5,
+        color: Colors.orange,
       },
 
 

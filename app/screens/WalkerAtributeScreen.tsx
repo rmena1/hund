@@ -1,30 +1,54 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, TouchableOpacity, ScrollView, Button } from 'react-native';
+import { Table, Row, Rows } from 'react-native-table-component';
 import walkerAtributeStyles from '../styles/walkerAtributeStyles';
 import SelectDropdown from 'react-native-select-dropdown';
-import CheckBox from '@react-native-community/checkbox';
+import Checkbox from 'expo-checkbox';
 
 
 
 const WalkerAtributeScreen = () => {
+    const [checkboxStates, setCheckboxStates] = useState([false, false, false]);
+
+    const dogSizes = ['Pequeño', 'Mediano', 'Grande'];
+
+    const handleCheckboxChange = (index) => {
+        
+        const updatedStates = [...checkboxStates];
+        updatedStates[index] = !updatedStates[index];
+        setCheckboxStates(updatedStates);
+    };
 
     const [selectedValue, setSelectedValue] = useState("");
     const options = ["Español", "Ingles"];
 
-    const handleValueChange = (itemValue) => {
-        setSelectedValue(itemValue);
-      };
-
-
     const navigation = useNavigation();
+
     return (
         <View style={walkerAtributeStyles.page}>
-            <Text style={walkerAtributeStyles.title}>Mis Atributos</Text>
+            <Text style={walkerAtributeStyles.title}>Mis atributos</Text>
             <Text style={walkerAtributeStyles.subtitle}>Que tamaño de perros paseas?</Text>
-            <View style = {walkerAtributeStyles.table}> 
+            <Table style = {walkerAtributeStyles.table}> 
+                {dogSizes.map((size, index) => (
+                <View key={index} style={walkerAtributeStyles.checkboxWrapper}>
+                    <Text style={walkerAtributeStyles.subtitleBlack}>{size}</Text>
 
-            </View>
+                    <TouchableOpacity
+                    onPress={() => handleCheckboxChange(index)}
+                    style={walkerAtributeStyles.checkbox}
+                    
+                    >
+                    <Text>{checkboxStates[index] ? 'Checked' : 'Unchecked'}</Text>
+                    <Checkbox
+                        value={checkboxStates[index]}
+                        onValueChange={() => handleCheckboxChange(index)}
+                    />
+                    </TouchableOpacity>
+                </View>
+            ))}
+
+            </Table>
 
             <Text style={walkerAtributeStyles.subtitle2}>Cuantos perros paseas al mismo tiempo?</Text>
 
@@ -61,7 +85,7 @@ const WalkerAtributeScreen = () => {
                 }}
                 disabled={false}
               >
-                <Text style={walkerAtributeStyles.buttonText}>Guardar Cambios</Text>
+                <Text style={walkerAtributeStyles.buttonText}>Guardar</Text>
               </TouchableOpacity>
             
         </View>
