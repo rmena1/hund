@@ -7,7 +7,15 @@ import SelectDropdown from 'react-native-select-dropdown';
 import Checkbox from 'expo-checkbox';
 import Slider from '@react-native-community/slider';  
 
+import { FIREBASE_AUTH } from "../../firebaseConfig";
+import { FIREBASE_DB } from "../../firebaseConfig";
+import { addDoc, updateDoc, getDoc, doc, collection } from "firebase/firestore";
+
 const WalkerAtributeScreen = () => {
+
+    const auth = FIREBASE_AUTH;
+
+
     const [checkboxStates, setCheckboxStates] = useState([false, false, false]);
     const dogSizes = ['Pequeño', 'Mediano', 'Grande'];
     const handleCheckboxChange = (index) => {
@@ -28,6 +36,29 @@ const WalkerAtributeScreen = () => {
     const handleValueChange = (itemValue) => {
         setSelectedValue(itemValue);
       };
+
+
+    const handleSubmit = async () => {
+        if (auth.currentUser?.uid) {
+            const walkerDocRef = doc(FIREBASE_DB, "walkerData", auth.currentUser?.uid);
+            const walkerDoc = await getDoc(walkerDocRef);
+            if (walkerDoc.exists()) {
+                await updateDoc(walkerDocRef, {
+                    dog_sizes: checkboxStates,
+                    max_walk_size: sliderValue,
+                    max_distance: minDistanceValue,
+                    languages: selectedValue,
+                });
+                // const walkerData = walkerDoc.data();
+                // const walkerDogSize = walkerData.dog_sizes || [];
+                // const walkerMaxWalkSize = walkerData.max_walk_size || 0;
+                // const walkerMaxDistance = walkerData.max_distance || 0;
+                // const walkerLanguages = walkerData.languages || [];
+            }       
+
+        }
+        navigation.navigate('WalkerPreviewScreen');
+    }
 
     const navigation = useNavigation();
 
@@ -121,12 +152,11 @@ const WalkerAtributeScreen = () => {
             <TouchableOpacity
                 style={walkerAtributeStyles.button}
                 onPress={() => {
-                  /* register(); */
-                  //navigation.navigate("CreateUserScreen", { email });
+                  handleSubmit();
                 }}
                 disabled={false}
               >
-                <Text style={walkerAtributeStyles.buttonText}>Guardar</Text>
+                <Text style={walkerAtributeStyles.buttonText}>Guardar Cambios</Text>
               </TouchableOpacity>
             
         </View>

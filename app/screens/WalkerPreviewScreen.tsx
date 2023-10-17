@@ -105,7 +105,7 @@ export const WalkerPreviewScreen = () => {
                 
                 <TouchableOpacity
                     style={profilePreviewStyles.buttonCreate}
-                    onPress={() => { }}
+                    onPress={() => { navigation.navigate('HomeScreen') }}
                     disabled={false}
                 >
                     <Text style={profilePreviewStyles.buttonText}>Guardar cambios</Text>
