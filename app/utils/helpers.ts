@@ -23,8 +23,8 @@ export const loadImageFromGallery = async (array: [number, number]) => {
   return response;
 };
 
-export const fileToBlob = async (path: string) => {
-  const file = await fetch(path);
+export const fileToBlob = async (path: any) => {
+  const file = await fetch(path.uri);
   const blob = await file.blob();
   return blob;
 };

@@ -1,7 +1,12 @@
-import { FIREBASE_STORAGE, FIREBASE_AUTH } from "../../firebaseConfig";
+import {
+  FIREBASE_STORAGE,
+  FIREBASE_AUTH,
+  FIREBASE_DB,
+} from "../../firebaseConfig";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { fileToBlob } from "./helpers";
 import { updateProfile } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
 
 export const uploadImage = async (image: any, path: string, name: string) => {
   const result = { statusResponse: true, error: "", url: "" };
@@ -11,6 +16,17 @@ export const uploadImage = async (image: any, path: string, name: string) => {
     await uploadBytes(storageRef, blob);
     // get download url
     const url = await getDownloadURL(storageRef);
+    // Upload metadata of the image to database
+    const user = FIREBASE_AUTH.currentUser;
+    if (user?.uid) {
+      await setDoc(
+        doc(FIREBASE_DB, "documentsMetadata", "avatar-" + user?.uid),
+        {
+          url: url,
+          userUid: user?.uid,
+        }
+      );
+    }
     result.url = url;
     return result;
   } catch (error: any) {

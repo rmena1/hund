@@ -82,11 +82,11 @@ const UserProfile: React.FC = () => {
     if (auth.currentUser?.uid) {
       const resultUploadImage = await uploadImage(
         result.image,
-        "avatars",
+        "pictures",
         auth.currentUser?.uid
       );
       if (!resultUploadImage.statusResponse) {
-        Alert.alert("Error al subir la imagen de perfil.");
+        Alert.alert("Error al subir la imagen de perfil. ", result.error);
         return;
       }
       const resultUpdateProfile = await updateProfilePhoto({
@@ -97,6 +97,8 @@ const UserProfile: React.FC = () => {
         return;
       }
       setPhotoUrl(resultUploadImage.url);
+    } else {
+      console.log("user id not found");
     }
   };
   return (
