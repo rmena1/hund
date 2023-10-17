@@ -11,6 +11,7 @@ import { Colors, Fonts } from "../styles/generalStyles";
 import List from "../screens/List";
 import Details from "../screens/Details";
 import ProfileScreen from "../screens/ProfileScreen";
+import CreateWalkScreen from "../screens/CreateWalkScreen";
 import HomeScreen from "../screens/HomeScreen";
 
 // Thanks for watching
