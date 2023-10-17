@@ -10,6 +10,8 @@ import CreateUserScreen from "../../app/screens/CreateUserScreen";
 import ProfilePreviewScreen from "../../app/screens/ProfilePreviewScreen";
 import CreateMyDogsScreen from "../../app/screens/CreateMyDogsScreen";
 import WalkerPreviewScreen from "../screens/WalkerPreviewScreen";
+import WalkerAtributeScreen from "../screens/WalkerAtributeScreen";
+import WalkerPreviewScreen from "../screens/WalkerPreviewScreen";
 import MyDogEditScreen from "../../app/screens/MyDogEditScreen";
 import HomeScreen from "../screens/HomeScreen";
 import WalkerAtributeScreen from "../screens/WalkerAtributeScreen";
@@ -110,8 +112,9 @@ const Navigation = () => {
             <Stack.Screen name="LoadingScreen" component={StartScreen} />
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
             <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-            <Stack.Screen name="WalkerPreviewScreen" component={WalkerPreviewScreen} />
-            <Stack.Screen name="WalkerAtributeScreen" component={WalkerAtributeScreen} />
+            <Stack.Screen name="CreateUserScreen" component={CreateUserScreen} />
+            <Stack.Screen name="ProfilePreviewScreen" component={ProfilePreviewScreen} />
+            <Stack.Screen name="CreateMyDogsScreen" component={CreateMyDogsScreen} />
           </>
         )}
       </Stack.Navigator>
