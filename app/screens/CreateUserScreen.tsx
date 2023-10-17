@@ -44,7 +44,7 @@ export const CreateUserScreen = () => {
         setSelectedValue(itemValue);
       };
 
-    const saveChanges = async () => {
+    const saveChangesUser = async () => {
     if (auth.currentUser?.uid) {
                 await setDoc(doc(FIREBASE_DB, "userData", auth.currentUser?.uid), {
                 name: userName,
@@ -61,7 +61,8 @@ export const CreateUserScreen = () => {
                     name: userName,
                     phone: phone,
                     birthday: birthday,
-                    max_size: 0,
+                    dog_sizes: [],
+                    max_walk_size: 0,
                     max_distance: 0,
                     languages: [],
                 });
@@ -73,7 +74,7 @@ export const CreateUserScreen = () => {
             saveChangesWalker();
         navigation.navigate('WalkerPreviewScreen'); 
         } else if (selectedValue === 'Cliente') {
-            saveChanges();
+            saveChangesUser();
             navigation.navigate('ProfilePreviewScreen');
         }
     };
