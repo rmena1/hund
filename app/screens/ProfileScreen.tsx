@@ -29,6 +29,7 @@ const UserProfile: React.FC = () => {
   const [name, setName] = useState(user.name);
   const [phone, setPhone] = useState(user.phone);
   const [birthday, setBirthday] = useState(user.birthday);
+  const [email, setEmail] = useState(auth.currentUser?.email || "");
 
   const [photoUrl, setPhotoUrl] = useState(auth.currentUser?.photoURL);
 
@@ -36,6 +37,9 @@ const UserProfile: React.FC = () => {
     setName(user.name);
     setPhone(user.phone);
     setBirthday(user.birthday);
+    if (auth.currentUser?.email) {
+      setEmail(auth.currentUser?.email);
+    }
   }, [user]);
 
   useEffect(() => {
@@ -108,7 +112,7 @@ const UserProfile: React.FC = () => {
           source={
             photoUrl
               ? { uri: photoUrl }
-              : require("../assets/images/Avatar2.png")
+              : require("../assets/images/Avatar.jpeg")
           }
           style={styles.profileImage}
         />
@@ -137,7 +141,8 @@ const UserProfile: React.FC = () => {
       <TextInput
         style={styles.inputField}
         placeholder="Email"
-        value="email"
+        value={email}
+        editable={false}
         //onChangeText={setEmail}
         //onBlur={() => updateState("email", email)}
       />
