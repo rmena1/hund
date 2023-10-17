@@ -9,6 +9,7 @@ import {
   StyleSheet,
   TextInput,
   Alert,
+  Button,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors, Fonts } from "../styles/generalStyles";
@@ -167,6 +168,12 @@ const UserProfile: React.FC = () => {
       <TouchableOpacity style={styles.saveButton} onPress={() => saveChanges()}>
         <Text style={styles.buttonText}>Guardar Cambios</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.logoutButton}
+        onPress={() => FIREBASE_AUTH.signOut()}
+      >
+        <Text style={styles.buttonText}>Sign out</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -234,13 +241,21 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.orange,
     padding: 15,
     marginTop: 20,
-    marginBottom: 40,
+    marginBottom: 10,
     borderRadius: 5,
     alignItems: "center",
   },
   buttonText: {
     color: "white",
     fontWeight: "bold",
+  },
+  logoutButton: {
+    backgroundColor: Colors.gray1,
+    padding: 15,
+    marginTop: 20,
+    marginBottom: 40,
+    borderRadius: 5,
+    alignItems: "center",
   },
 });
 
