@@ -8,12 +8,15 @@ import {
   TouchableOpacity,
   StyleSheet,
   TextInput,
+  Alert,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors, Fonts } from "../styles/generalStyles";
 import { FIREBASE_AUTH } from "../../firebaseConfig";
 import { FIREBASE_DB } from "../../firebaseConfig";
 import { setDoc, doc, onSnapshot } from "firebase/firestore";
+import { loadImageFromGallery } from "../utils/helpers";
+import { uploadImage, updateProfilePhoto } from "../utils/actions";
 
 const UserProfile: React.FC = () => {
   const auth = FIREBASE_AUTH;
@@ -22,6 +25,18 @@ const UserProfile: React.FC = () => {
     phone: "",
     birthday: "",
   });
+  // Local states for each input
+  const [name, setName] = useState(user.name);
+  const [phone, setPhone] = useState(user.phone);
+  const [birthday, setBirthday] = useState(user.birthday);
+
+  const [photoUrl, setPhotoUrl] = useState(auth.currentUser?.photoURL);
+
+  useEffect(() => {
+    setName(user.name);
+    setPhone(user.phone);
+    setBirthday(user.birthday);
+  }, [user]);
 
   useEffect(() => {
     if (auth.currentUser?.uid) {
@@ -45,17 +60,6 @@ const UserProfile: React.FC = () => {
     }
   }, []);
 
-  // Local states for each input
-  const [name, setName] = React.useState(user.name);
-  const [phone, setPhone] = React.useState(user.phone);
-  const [birthday, setBirthday] = React.useState(user.birthday);
-
-  useEffect(() => {
-    setName(user.name);
-    setPhone(user.phone);
-    setBirthday(user.birthday);
-  }, [user]);
-
   const updateState = React.useCallback((name: string, value: string) => {
     setUser((prevState) => ({ ...prevState, [name]: value }));
   }, []);
@@ -70,15 +74,44 @@ const UserProfile: React.FC = () => {
     }
   };
 
+  const changePhoto = async () => {
+    const result = await loadImageFromGallery([1, 1]);
+    if (!result.status) {
+      return;
+    }
+    if (auth.currentUser?.uid) {
+      const resultUploadImage = await uploadImage(
+        result.image,
+        "avatars",
+        auth.currentUser?.uid
+      );
+      if (!resultUploadImage.statusResponse) {
+        Alert.alert("Error al subir la imagen de perfil.");
+        return;
+      }
+      const resultUpdateProfile = await updateProfilePhoto({
+        photoURL: resultUploadImage.url,
+      });
+      if (!resultUpdateProfile.statusResponse) {
+        Alert.alert("Error al actualizar la imagen de perfil.");
+        return;
+      }
+      setPhotoUrl(resultUploadImage.url);
+    }
+  };
   return (
     <ScrollView style={styles.container}>
       <View style={styles.profileSection}>
         <Image
-          source={require("../assets/images/Avatar2.png")}
+          source={
+            photoUrl
+              ? { uri: photoUrl }
+              : require("../assets/images/Avatar2.png")
+          }
           style={styles.profileImage}
         />
 
-        <TouchableOpacity style={styles.editButton}>
+        <TouchableOpacity style={styles.editButton} onPress={changePhoto}>
           <Ionicons name="create-outline" size={20} color="#fff" />
         </TouchableOpacity>
       </View>
