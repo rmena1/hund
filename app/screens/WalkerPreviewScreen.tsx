@@ -1,15 +1,48 @@
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import profilePreviewStyles from '../styles/walkerPreviewStyles';
+import { useEffect, useState } from "react";
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParams } from '../navigation/index';
 
-type Props = NativeStackScreenProps<RootStackParams, 'ProfilePreviewScreen'>;
+import { FIREBASE_AUTH } from "../../firebaseConfig";
+import { FIREBASE_DB } from "../../firebaseConfig";
+import { doc, onSnapshot } from "firebase/firestore";
 
-export const WalkerPreviewScreen = ({ route }: Props) => {
-    const { userName, phone, email, birthday } = route.params;
+//type Props = NativeStackScreenProps<RootStackParams, 'ProfilePreviewScreen'>;
 
+export const WalkerPreviewScreen = () => {
+    const auth = FIREBASE_AUTH;
+
+    //const { userName, phone, email, birthday } = route.params;
+    const [name, setName] = useState();
+    const [phone, setPhone] = useState();
+    const [birthday, setBirthday] = useState(0);
     const birthdayDate = birthday ? new Date(birthday) : null;
+
+    useEffect(() => {
+        if (auth.currentUser?.uid) {
+          const unsub = onSnapshot(
+            doc(FIREBASE_DB, "walkerData", auth.currentUser.uid),
+            (doc) => {
+              if (doc.data()) {
+                const data = doc.data();
+                const newUserData = {
+                  name: data?.name,
+                  phone: data?.phone,
+                  birthday: data?.birthday,
+                };
+                setName(newUserData.name);
+                setPhone(newUserData.phone);
+                setBirthday(newUserData.birthday.seconds * 1000);
+              }
+            }
+          );
+          return () => {
+            unsub();
+          };
+        }
+      }, []);
 
     const navigation = useNavigation();
 
@@ -27,7 +60,7 @@ export const WalkerPreviewScreen = ({ route }: Props) => {
                     <Text style={profilePreviewStyles.label}>Nombre</Text>
                     <TextInput
                         style={profilePreviewStyles.input}
-                        value={userName}
+                        value={name}
                     />
                 </View>
                 <View style={profilePreviewStyles.textboxContainer2}>
@@ -46,13 +79,13 @@ export const WalkerPreviewScreen = ({ route }: Props) => {
                             : ''}
                     />
                 </View>
-                <View style={profilePreviewStyles.textboxContainer4}>
+                {/* <View style={profilePreviewStyles.textboxContainer4}>
                     <Text style={profilePreviewStyles.label}>Email</Text>
                     <TextInput
                         style={profilePreviewStyles.input}
                         value={email}
                     />
-                </View>
+                </View> */}
 
                 <TouchableOpacity
                     style={profilePreviewStyles.buttonPets}

@@ -11,10 +11,8 @@ import ProfilePreviewScreen from "../../app/screens/ProfilePreviewScreen";
 import CreateMyDogsScreen from "../../app/screens/CreateMyDogsScreen";
 import WalkerPreviewScreen from "../screens/WalkerPreviewScreen";
 import WalkerAtributeScreen from "../screens/WalkerAtributeScreen";
-import WalkerPreviewScreen from "../screens/WalkerPreviewScreen";
 import MyDogEditScreen from "../../app/screens/MyDogEditScreen";
 import HomeScreen from "../screens/HomeScreen";
-import WalkerAtributeScreen from "../screens/WalkerAtributeScreen";
 import TabsBar from "./tabs";
 
 import { User, onAuthStateChanged } from "firebase/auth";
@@ -90,6 +88,14 @@ const Navigation = () => {
               name="ProfilePreviewScreen" 
               component={ProfilePreviewScreen} 
             />
+            <Stack.Screen
+              name="WalkerPreviewScreen"
+              component={WalkerPreviewScreen}
+            />
+            <Stack.Screen
+              name="WalkerAtributeScreen"
+              component={WalkerAtributeScreen}
+            />
             <Stack.Screen 
               name="CreateMyDogsScreen" 
               component={CreateMyDogsScreen} 
@@ -115,6 +121,8 @@ const Navigation = () => {
             <Stack.Screen name="CreateUserScreen" component={CreateUserScreen} />
             <Stack.Screen name="ProfilePreviewScreen" component={ProfilePreviewScreen} />
             <Stack.Screen name="CreateMyDogsScreen" component={CreateMyDogsScreen} />
+            <Stack.Screen name="WalkerPreviewScreen" component={WalkerPreviewScreen} />
+            <Stack.Screen name="WalkerAtributeScreen" component={WalkerAtributeScreen} />
           </>
         )}
       </Stack.Navigator>
