@@ -44,7 +44,7 @@ export const CreateUserScreen = () => {
         setSelectedValue(itemValue);
       };
 
-    const saveChanges = async () => {
+    const saveChangesUser = async () => {
     if (auth.currentUser?.uid) {
                 await setDoc(doc(FIREBASE_DB, "userData", auth.currentUser?.uid), {
                 name: userName,
@@ -55,11 +55,26 @@ export const CreateUserScreen = () => {
         }
     };
 
+    const saveChangesWalker = async () => {
+        if (auth.currentUser?.uid) {
+                    await setDoc(doc(FIREBASE_DB, "walkerData", auth.currentUser?.uid), {
+                    name: userName,
+                    phone: phone,
+                    birthday: birthday,
+                    dog_sizes: [],
+                    max_walk_size: 0,
+                    max_distance: 0,
+                    languages: [],
+                });
+            }
+        };
+
     const handleSubmit = () => {
-        saveChanges();
         if (selectedValue === 'Paseador') {
-            /* navigation.navigate('WalkerPreviewScreen'); */
+            saveChangesWalker();
+        navigation.navigate('WalkerPreviewScreen'); 
         } else if (selectedValue === 'Cliente') {
+            saveChangesUser();
             navigation.navigate('ProfilePreviewScreen');
         }
     };
