@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
 import createMyDogsStyles from '../styles/createMyDogsStyles';
 import { useNavigation } from '@react-navigation/native';
 
@@ -60,6 +60,7 @@ const CreateMyDogsScreen = () => {
             breed: '',
             description: '',
             reactivity: '',
+            photoUrl: null,
         }});
         };
 
@@ -76,6 +77,7 @@ const CreateMyDogsScreen = () => {
                     breed: dogData.breed,
                     description: dogData.description,
                     reactivity: dogData.reactivity,
+                    photoUrl: dogData.photoUrl,
                 };
                 setDogs([...dogs, newDog]);
             }
@@ -119,8 +121,13 @@ const CreateMyDogsScreen = () => {
                     <View key={index}>
                     <TouchableOpacity onPress={() => toggleExpansion(dog.name)}>
                         <View style={createMyDogsStyles.header}>
-                            <View style={createMyDogsStyles.image}>
-                            </View>
+                            <Image source={
+                                dog.photoUrl
+                                    ? { uri: dog.photoUrl }
+                                    : require("../assets/images/avatar_dog.png")
+                                }
+                                style={createMyDogsStyles.image}
+                            />
                             <View style={createMyDogsStyles.container}>
                                 <Text style={createMyDogsStyles.headerText}>{dog.name}</Text>
                                 <Text style={createMyDogsStyles.breedText}>{dog.breed}</Text>

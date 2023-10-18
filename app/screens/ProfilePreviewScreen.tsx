@@ -1,4 +1,4 @@
-import { Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import { useEffect, useState } from "react";
 import profilePreviewStyles from '../styles/profilePreviewStyles';
 import { useNavigation } from '@react-navigation/native';
@@ -16,6 +16,8 @@ export const ProfilePreviewScreen = () => {
     const [phone, setPhone] = useState();
     const [birthday, setBirthday] = useState(0);
 
+    const [photoUrl, setPhotoUrl] = useState(auth.currentUser?.photoURL);
+
     const birthdayDate = birthday ? new Date(birthday) : null;
 
     useEffect(() => {
@@ -29,10 +31,12 @@ export const ProfilePreviewScreen = () => {
                   name: data?.name,
                   phone: data?.phone,
                   birthday: data?.birthday,
+                  photoUrl: data?.photoUrl,
                 };
                 setName(newUserData.name);
                 setPhone(newUserData.phone);
                 setBirthday(newUserData.birthday.seconds * 1000);
+                setPhotoUrl(newUserData.photoUrl);
               }
             }
           );
@@ -49,8 +53,14 @@ export const ProfilePreviewScreen = () => {
                 <View style={profilePreviewStyles.group}>
                     <View style={profilePreviewStyles.container}>
                     </View>
-                    <View style={profilePreviewStyles.avatar}>
-                    </View>
+                    <Image
+                        source={
+                            photoUrl
+                            ? { uri: photoUrl }
+                            : require("../assets/images/Avatar.jpeg")
+                        }
+                        style={profilePreviewStyles.avatar}
+                        />
                 </View>
                 <Text style={profilePreviewStyles.title}>Mi perfil</Text>
                 <View style={profilePreviewStyles.textboxContainer}>
