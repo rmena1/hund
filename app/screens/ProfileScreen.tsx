@@ -164,12 +164,17 @@ const UserProfile: React.FC = () => {
       />
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate("CreateMyDogsScreen");
+          }}
+        >
           <Text style={styles.buttonText}>Mis perros</Text>
         </TouchableOpacity>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('PaymentMethodScreen')}
+          onPress={() => navigation.navigate("PaymentMethodScreen")}
         >
           <Text style={styles.buttonText}>Mis métodos de pago</Text>
         </TouchableOpacity>

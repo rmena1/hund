@@ -9,4 +9,5 @@ export type RootStackParamList = {
   ProfileScreen: undefined;
   PaymentMethodScreen: undefined;
   AddCardScreen: undefined;
+  CreateMyDogsScreen: undefined;
 };
