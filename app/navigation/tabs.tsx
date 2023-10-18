@@ -5,12 +5,16 @@ import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
+
+import { Colors, Fonts } from "../styles/generalStyles";
+
 import List from "../screens/List";
 import Details from "../screens/Details";
 import Walks from "../screens/Walks";
+import ProfileScreen from "../screens/ProfileScreen";
 import CreateWalkScreen from "../screens/CreateWalkScreen";
+import AccountScreen from "../screens/AccountScreen";
 import HomeScreen from "../screens/HomeScreen";
-import { Colors, Fonts } from "../styles/generalStyles";
 
 // Thanks for watching
 const Tab = createBottomTabNavigator();
@@ -36,7 +40,7 @@ function TabsBar() {
       }}
     >
       <Tab.Screen
-        name="home"
+        name="Home"
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused }) => {
@@ -45,7 +49,7 @@ function TabsBar() {
                 style={{
                   alignItems: "center",
                   justifyContent: "center",
-                  marginTop: 10,
+                  marginTop: 5,
                 }}
               >
                 <Ionicons
@@ -68,11 +72,11 @@ function TabsBar() {
                 style={{
                   alignItems: "center",
                   justifyContent: "center",
-                  marginTop: 10,
+                  marginTop: 5,
                 }}
               >
                 <Ionicons
-                  name="clipboard-outline"
+                  name="calendar-outline"
                   size={24}
                   color={focused ? Colors.orange : Colors.gray1}
                 />
@@ -82,7 +86,7 @@ function TabsBar() {
         }}
       />
       <Tab.Screen
-        name="messages"
+        name="Mensajes"
         component={Details}
         options={{
           tabBarIcon: ({ focused }) => {
@@ -91,7 +95,7 @@ function TabsBar() {
                 style={{
                   alignItems: "center",
                   justifyContent: "center",
-                  marginTop: 10,
+                  marginTop: 5,
                 }}
               >
                 <Ionicons
@@ -105,8 +109,8 @@ function TabsBar() {
         }}
       />
       <Tab.Screen
-        name="setings"
-        component={Details}
+        name="Mi perfil"
+        component={ProfileScreen}
         options={{
           tabBarIcon: ({ focused }) => {
             return (
@@ -114,11 +118,11 @@ function TabsBar() {
                 style={{
                   alignItems: "center",
                   justifyContent: "center",
-                  marginTop: 10,
+                  marginTop: 5,
                 }}
               >
                 <Ionicons
-                  name="settings-outline"
+                  name="person-outline"
                   size={24}
                   color={focused ? Colors.orange : Colors.gray1}
                 />
