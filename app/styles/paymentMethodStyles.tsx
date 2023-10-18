@@ -7,6 +7,7 @@ export const paymentMethodStyles = StyleSheet.create({
   AndroidSafeArea: {
       paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
       height: '100%',
+      backgroundColor: Colors.white,
   },
 
   header:{
