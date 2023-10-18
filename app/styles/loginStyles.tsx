@@ -2,7 +2,7 @@ import { Colors, Fonts } from "./generalStyles";
 import { StyleSheet } from "react-native";
 
 export const loginStyles = StyleSheet.create({
-  page: {
+  mainContainer: {
     flex: 1,
     backgroundColor: Colors.white,
     minHeight: "100%",
@@ -10,10 +10,10 @@ export const loginStyles = StyleSheet.create({
 
   imageRegister: {
     width: "100%",
-    height: "25%",
+    height: 200,
     alignSelf: "center",
     marginTop: "10%",
-    resizeMode: "cover",
+    
   },
 
   imageLogin: {
@@ -33,11 +33,10 @@ export const loginStyles = StyleSheet.create({
     shadowColor: Colors.shadow,
     shadowOffset: {
       width: 0,
-      height: 17,
+      height: -5,
     },
-    shadowOpacity: 0.41,
-    shadowRadius: 17,
-    elevation: 2,
+    shadowOpacity: 0.23,
+    shadowTopRadius: 17,
     paddingHorizontal: "5%",
   },
 
@@ -68,14 +67,18 @@ export const loginStyles = StyleSheet.create({
     color: Colors.neutral,
   },
 
+  registerButton: {
+    alignSelf: "flex-start",
+    flexGrow: 0,
+    marginTop: "0.5%",
+  },
+
   subtitle3: {
     fontFamily: Fonts.montserrat,
     fontSize: 14,
     fontWeight: "400",
-    lineHeight: 22,
     color: Colors.orange,
     textDecorationLine: "underline",
-    marginBottom: 50,
   },
 
   textboxContainer: {

@@ -2,12 +2,12 @@ import { useState } from "react";
 import {
   Text,
   View,
-  ScrollView,
   Image,
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
   ActivityIndicator,
+  Platform,
 } from "react-native";
 import { loginStyles } from "../styles/loginStyles";
 import { useNavigation } from "@react-navigation/native";
@@ -15,6 +15,7 @@ import { NavigationProp } from "@react-navigation/native";
 import { RootStackParamList } from "../navigation/navigationTypes";
 import { FIREBASE_AUTH } from "../../firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 type Navigation = NavigationProp<RootStackParamList, "RegisterScreen">;
 
@@ -45,8 +46,15 @@ export const RegisterScreen = () => {
   };
 
   return (
-    <>
-      <ScrollView style={loginStyles.page}>
+    <KeyboardAwareScrollView
+      style={loginStyles.mainContainer}
+      extraHeight={600}
+      extraScrollHeight={Platform.OS === 'android' ? -260 : 20}
+      enableOnAndroid={true}
+      enableAutomaticScroll={true}
+      bounces={false}
+      showsVerticalScrollIndicator={false}
+    >
         <Image
           source={require("../assets/images/dog_1.png")}
           style={loginStyles.imageRegister}
@@ -93,12 +101,12 @@ export const RegisterScreen = () => {
             onPress={() => {
               navigation.navigate("LoginScreen");
             }}
+            style={loginStyles.registerButton}
           >
             <Text style={loginStyles.subtitle3}>Ingresa</Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
-    </>
+    </KeyboardAwareScrollView>
   );
 };
 

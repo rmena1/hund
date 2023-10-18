@@ -14,6 +14,8 @@ import WalkerAtributeScreen from "../screens/WalkerAtributeScreen";
 import MyDogEditScreen from "../../app/screens/MyDogEditScreen";
 import HomeScreen from "../screens/HomeScreen";
 import TabsBar from "./tabs";
+import PaymentMethodScreen from "../screens/PaymentMethodScreen";
+import AddCardScreen from "../screens/AddCardScreen";
 
 import { User, onAuthStateChanged } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../firebaseConfig";
@@ -43,6 +45,22 @@ function MainLayout() {
         name="TabsBar"
         component={TabsBar}
         options={{ headerShown: false }}
+      />
+      <MainStack.Screen
+        name="PaymentMethodScreen"
+        component={PaymentMethodScreen}
+        options={{
+          headerShown: false,
+          animation: 'slide_from_bottom',
+          gestureDirection: 'vertical'
+        }}
+      />
+      <MainStack.Screen
+        name="AddCardScreen"
+        component={AddCardScreen}
+        options={{
+          headerShown: false,
+        }}
       />
     </MainStack.Navigator>
   );

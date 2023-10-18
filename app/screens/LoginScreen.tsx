@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Text,
   View,
   Image,
   TextInput,
   TouchableOpacity,
-  ScrollView,
   ActivityIndicator,
+  Platform,
 } from "react-native";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 import { loginStyles } from "../styles/loginStyles";
 import { useNavigation } from "@react-navigation/native";
 import { NavigationProp } from "@react-navigation/native";
@@ -39,8 +41,15 @@ export const LoginScreen = () => {
   };
 
   return (
-    <>
-      <ScrollView style={loginStyles.page}>
+    <KeyboardAwareScrollView
+      style={loginStyles.mainContainer}
+      extraHeight={600}
+      extraScrollHeight={Platform.OS === 'android' ? -260 : 20}
+      enableOnAndroid={true}
+      enableAutomaticScroll={true}
+      bounces={false}
+      showsVerticalScrollIndicator={false}
+    >
         <Image
           source={require("../assets/images/dog_2.png")}
           style={loginStyles.imageLogin}
@@ -85,12 +94,12 @@ export const LoginScreen = () => {
             onPress={() => {
               navigation.navigate("RegisterScreen");
             }}
+            style={loginStyles.registerButton}
           >
             <Text style={loginStyles.subtitle3}>Registrate</Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
-    </>
+    </KeyboardAwareScrollView>
   );
 };
 

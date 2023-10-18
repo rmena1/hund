@@ -18,6 +18,11 @@ import { FIREBASE_DB } from "../../firebaseConfig";
 import { setDoc, doc, onSnapshot } from "firebase/firestore";
 import { loadImageFromGallery } from "../utils/helpers";
 import { uploadImage, updateProfilePhoto } from "../utils/actions";
+import { useNavigation } from "@react-navigation/native";
+import { NavigationProp } from "@react-navigation/native";
+import { RootStackParamList } from "../navigation/navigationTypes";
+
+type Navigation = NavigationProp<RootStackParamList, "ProfileScreen">;
 
 const UserProfile: React.FC = () => {
   const auth = FIREBASE_AUTH;
@@ -33,6 +38,8 @@ const UserProfile: React.FC = () => {
   const [email, setEmail] = useState(auth.currentUser?.email || "");
 
   const [photoUrl, setPhotoUrl] = useState(auth.currentUser?.photoURL);
+
+  const navigation = useNavigation<Navigation>();
 
   useEffect(() => {
     setName(user.name);
@@ -160,7 +167,10 @@ const UserProfile: React.FC = () => {
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Mis perros</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity 
+          style={styles.button}
+          onPress={() => navigation.navigate('PaymentMethodScreen')}
+        >
           <Text style={styles.buttonText}>Mis métodos de pago</Text>
         </TouchableOpacity>
       </View>

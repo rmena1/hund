@@ -12,6 +12,7 @@ import List from "../screens/List";
 import Details from "../screens/Details";
 import ProfileScreen from "../screens/ProfileScreen";
 import CreateWalkScreen from "../screens/CreateWalkScreen";
+import AccountScreen from "../screens/AccountScreen";
 import HomeScreen from "../screens/HomeScreen";
 
 // Thanks for watching
@@ -38,7 +39,7 @@ function TabsBar() {
       }}
     >
       <Tab.Screen
-        name="home"
+        name="Home"
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused }) => {
@@ -47,7 +48,7 @@ function TabsBar() {
                 style={{
                   alignItems: "center",
                   justifyContent: "center",
-                  marginTop: 10,
+                  marginTop: 5,
                 }}
               >
                 <Ionicons
@@ -61,7 +62,7 @@ function TabsBar() {
         }}
       />
       <Tab.Screen
-        name="clipboard"
+        name="Historial"
         component={Details}
         options={{
           tabBarIcon: ({ focused }) => {
@@ -70,11 +71,11 @@ function TabsBar() {
                 style={{
                   alignItems: "center",
                   justifyContent: "center",
-                  marginTop: 10,
+                  marginTop: 5,
                 }}
               >
                 <Ionicons
-                  name="clipboard-outline"
+                  name="calendar-outline"
                   size={24}
                   color={focused ? Colors.orange : Colors.gray1}
                 />
@@ -84,7 +85,7 @@ function TabsBar() {
         }}
       />
       <Tab.Screen
-        name="messages"
+        name="Mensajes"
         component={Details}
         options={{
           tabBarIcon: ({ focused }) => {
@@ -93,7 +94,7 @@ function TabsBar() {
                 style={{
                   alignItems: "center",
                   justifyContent: "center",
-                  marginTop: 10,
+                  marginTop: 5,
                 }}
               >
                 <Ionicons
@@ -116,11 +117,11 @@ function TabsBar() {
                 style={{
                   alignItems: "center",
                   justifyContent: "center",
-                  marginTop: 10,
+                  marginTop: 5,
                 }}
               >
                 <Ionicons
-                  name="settings-outline"
+                  name="person-outline"
                   size={24}
                   color={focused ? Colors.orange : Colors.gray1}
                 />
