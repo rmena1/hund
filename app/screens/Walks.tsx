@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, Button, ScrollView, Image } from "react-native";
-import { FIREBASE_DB } from "../../firebaseConfig";
-import { addDoc, collection, doc, onSnapshot } from "firebase/firestore";
-import walksStyles from "../styles/walksStyles";
+import React, { useEffect, useState } from 'react';
+import { View, Text, ScrollView, Image } from 'react-native';
+import { FIREBASE_DB } from '../../firebaseConfig';
+import { collection, onSnapshot } from 'firebase/firestore';
+import walksStyles from '../styles/walksStyles';
 
-const Walks = ({ navigation }: any) => {
+const Walks = () => {
   const [walks, setWalks] = useState<any>([]);
   const [dogs, setDogs] = useState<any>([]);
 
@@ -13,8 +13,8 @@ const Walks = ({ navigation }: any) => {
   }, [dogs]);
 
   useEffect(() => {
-    const walksRef = collection(FIREBASE_DB, "paseos");
-    const dogsRef = collection(FIREBASE_DB, "dogData");
+    const walksRef = collection(FIREBASE_DB, 'paseos');
+    const dogsRef = collection(FIREBASE_DB, 'dogData');
 
     const walkSubscriber = onSnapshot(walksRef, {
       next: (snapshot) => {
@@ -63,8 +63,8 @@ const Walks = ({ navigation }: any) => {
                   <Text style={walksStyles.infoContainer}>
                     <Text style={walksStyles.walkTitles}>Nombre perro:</Text>
                     <Text style={walksStyles.walkInfo}>
-                      {" "}
-                      {dogs[walk.perro] ? dogs[walk.perro].name : "Sin nombre"}
+                      {' '}
+                      {dogs[walk.perro] ? dogs[walk.perro].name : 'Sin nombre'}
                     </Text>
                   </Text>
                   <Text style={walksStyles.infoContainer}>
@@ -77,7 +77,7 @@ const Walks = ({ navigation }: any) => {
                   </Text>
                   <Text style={walksStyles.infoContainer}>
                     <Text style={walksStyles.walkTitles}>Tipo:</Text>
-                    <Text> {walk.inmediato ? "Inmediato" : "Programado"}</Text>
+                    <Text> {walk.inmediato ? 'Inmediato' : 'Programado'}</Text>
                   </Text>
                   <View style={walksStyles.viewMoreContainer}>
                     <View style={walksStyles.viewMoreBox}>
@@ -90,10 +90,7 @@ const Walks = ({ navigation }: any) => {
           })}
         </View>
       </ScrollView>
-      <Image
-        source={require("../assets/images/home_dog.png")}
-        style={walksStyles.imageWalks}
-      />
+      <Image source={require('../assets/images/home_dog.png')} style={walksStyles.imageWalks} />
     </View>
   );
 };

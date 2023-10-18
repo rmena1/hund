@@ -1,164 +1,157 @@
 import { Colors, Fonts } from './generalStyles';
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet, Platform, StatusBar } from 'react-native';
 const { height, width } = Dimensions.get('window');
 
 export const CreateMyDogsScreen = StyleSheet.create({
-    page: {
-        flex: 1,
-        backgroundColor: Colors.white, 
-      },
-    
-      title: {
-        position: 'absolute',
-        top: height * 0.07,
-        left: width * 0.37,
-        fontFamily: Fonts.poppins,
-        fontSize: height * 0.025,
-        fontWeight: '700', 
-        lineHeight: height * 0.04,
-        color: Colors.gray3, 
-      },
+  AndroidSafeArea: {
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    height: '100%',
+    backgroundColor: Colors.white,
+  },
 
-    table: {
-        position: 'absolute',
-        top: height * 0.15,
-        width: width,
-        height: height * 0.75,
-    },
+  header: {
+    height: 50,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 
-      header: {
-        height: height * 0.12,
-        borderWidth: 0.5,
-        borderColor: Colors.gray,
-        padding: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      },
+  headerTitle: {
+    color: Colors.gray3,
+    fontFamily: Fonts.poppins,
+    fontSize: height * 0.025,
+    fontWeight: '700',
+    lineHeight: height * 0.04,
+  },
 
-      image: {
-        marginLeft: width * 0.02,
-        backgroundColor: Colors.lightOrange,
-        width: width * 0.16,
-        height: width * 0.16,
-        borderRadius: 100,
-      },
+  backButton: {
+    position: 'absolute',
+    left: 16,
+  },
 
-      container: {
-        marginLeft: width * -0.05,
-      },
+  table: {
+    position: 'absolute',
+    backgroundColor: Colors.white,
+    top: height * 0.15,
+    width: width,
+    height: height * 0.75,
+  },
 
-      headerText: {
-        fontFamily: Fonts.montserrat, 
-        fontSize: height * 0.02,
-        fontWeight: '700',
-        color: Colors.neutral,
-      },
+  image: {
+    marginLeft: width * 0.02,
+    backgroundColor: Colors.lightOrange,
+    width: width * 0.16,
+    height: width * 0.16,
+    borderRadius: 100,
+  },
 
-      breedText: {
-        width: 229,
-        fontFamily: Fonts.montserrat, 
-        fontSize: height * 0.018,
-        fontWeight: '400',
-        color: Colors.gray6,
-      },
+  container: {
+    marginLeft: width * -0.05,
+  },
 
-      icon: {
-        fontSize: 24,
-      },
+  headerText: {
+    fontFamily: Fonts.montserrat,
+    fontSize: height * 0.02,
+    fontWeight: '700',
+    color: Colors.neutral,
+  },
 
-      container2: {
-        marginBottom: 10,
-      },
-      content: {
-        padding: 20,
-        width: '100%',
-        backgroundColor: Colors.lightOrange, 
-        borderRadius: 0,
-      },
-      titleContent: {
-        fontFamily: Fonts.poppins, 
-        fontSize: height * 0.018,
-        fontWeight: '700', 
-        lineHeight: 22,
-        color: Colors.neutral,
-      },
-      textContent: {
-        width: '100%',
-        fontFamily: Fonts.montserrat, 
-        fontSize: height * 0.018,
-        color: Colors.gray6,
-      },
+  breedText: {
+    width: 229,
+    fontFamily: Fonts.montserrat,
+    fontSize: height * 0.018,
+    fontWeight: '400',
+    color: Colors.gray6,
+  },
 
-      buttonAdd: {
-        position: 'absolute',
-        top: height * 0.94,
-        left: width * 0.8,
-        width: width * 0.13,
-        height: width * 0.13,
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: Colors.white, 
-        backgroundColor: Colors.orange, 
-        borderRadius: width * 0.065,
-      },
+  icon: {
+    fontSize: 24,
+  },
 
-      buttonAddText: {
-        fontFamily: Fonts.montserrat,
-        fontSize: height * 0.04,
-        color: Colors.white,
-      },
+  container2: {
+    marginBottom: 10,
+  },
+  content: {
+    padding: 20,
+    width: '100%',
+    backgroundColor: Colors.lightOrange,
+    borderRadius: 0,
+  },
+  titleContent: {
+    fontFamily: Fonts.poppins,
+    fontSize: height * 0.018,
+    fontWeight: '700',
+    lineHeight: 22,
+    color: Colors.neutral,
+  },
+  textContent: {
+    width: '100%',
+    fontFamily: Fonts.montserrat,
+    fontSize: height * 0.018,
+    color: Colors.gray6,
+  },
 
-      buttonContainer: 
-      {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: height * 0.01,
-      },
+  addButton: {
+    position: 'absolute',
+    bottom: 32,
+    right: 16,
+  },
 
-      buttonDelete: {
-        width: width * 0.43,
-        height: height * 0.05,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: Colors.white, 
-        borderRadius: width * 0.01, 
-        borderWidth: 1,
-        borderColor: Colors.orange2,
-      },
+  buttonAddText: {
+    fontFamily: Fonts.montserrat,
+    fontSize: height * 0.04,
+    color: Colors.white,
+  },
 
-      buttonDeleteText: {
-        fontFamily: Fonts.montserrat,
-        fontSize: height * 0.018,
-        fontWeight: '400', 
-        color: Colors.orange2,
-      },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: height * 0.01,
+  },
 
-      buttonEdit: {
-        width: width * 0.43,
-        height: height * 0.05,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: Colors.orange, 
-        borderRadius: width * 0.01, 
-      },
+  buttonDelete: {
+    width: width * 0.43,
+    height: height * 0.05,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.white,
+    borderRadius: width * 0.01,
+    borderWidth: 1,
+    borderColor: Colors.orange2,
+  },
 
-      buttonEditText: {
-        fontFamily: Fonts.montserrat, 
-        fontSize: height * 0.018,
-        fontWeight: '400', 
-        color: Colors.white,
-      },
+  buttonDeleteText: {
+    fontFamily: Fonts.montserrat,
+    fontSize: height * 0.018,
+    fontWeight: '400',
+    color: Colors.orange2,
+  },
 
-      textNoDogs: {
-        marginTop: height * 0.2,
-        textAlign: 'center',
-        fontFamily: Fonts.montserrat,
-        fontSize: height * 0.025,
-        color: Colors.gray6,
-      }
+  buttonEdit: {
+    width: width * 0.43,
+    height: height * 0.05,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.orange,
+    borderRadius: width * 0.01,
+  },
 
+  buttonEditText: {
+    fontFamily: Fonts.montserrat,
+    fontSize: height * 0.018,
+    fontWeight: '400',
+    color: Colors.white,
+  },
+
+  textNoDogs: {
+    marginTop: height * 0.2,
+    textAlign: 'center',
+    fontFamily: Fonts.montserrat,
+    fontSize: height * 0.025,
+    color: Colors.gray6,
+  },
 });
 
 export default CreateMyDogsScreen;

@@ -1,26 +1,26 @@
-import { Colors, Fonts } from "./generalStyles";
-import { StyleSheet } from "react-native";
+import { Colors, Fonts } from './generalStyles';
+import { StyleSheet } from 'react-native';
 
 export const startStyles = StyleSheet.create({
   page: {
     flex: 1,
     backgroundColor: Colors.white,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   titleContainer: {
     flex: 1.5,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
   },
 
   title: {
     fontFamily: Fonts.poppins,
     fontSize: 32,
-    fontWeight: "700",
+    fontWeight: '700',
     lineHeight: 48,
     color: Colors.neutral,
-    textAlign: "center",
+    textAlign: 'center',
   },
 
   subTitle: {
@@ -28,10 +28,10 @@ export const startStyles = StyleSheet.create({
     width: 288,
     fontFamily: Fonts.montserrat,
     fontSize: 18,
-    fontWeight: "300",
+    fontWeight: '300',
     lineHeight: 28,
     color: Colors.gray,
-    textAlign: "center",
+    textAlign: 'center',
   },
 
   image: {
@@ -49,12 +49,12 @@ export const startStyles = StyleSheet.create({
     height: 52,
     padding: 0,
     paddingHorizontal: 20,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     fontFamily: Fonts.montserrat,
     fontSize: 18,
-    fontWeight: "400",
+    fontWeight: '400',
     lineHeight: 28,
     color: Colors.white,
     backgroundColor: Colors.orange,
@@ -66,7 +66,7 @@ export const startStyles = StyleSheet.create({
   buttonText: {
     fontFamily: Fonts.montserrat,
     fontSize: 18,
-    fontWeight: "400",
+    fontWeight: '400',
     lineHeight: 28,
     color: Colors.white,
   },
@@ -75,12 +75,12 @@ export const startStyles = StyleSheet.create({
     width: 350,
     height: 52,
     paddingHorizontal: 20,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     fontFamily: Fonts.montserrat,
     fontSize: 18,
-    fontWeight: "400",
+    fontWeight: '400',
     lineHeight: 28,
     color: Colors.orange,
     backgroundColor: Colors.white,
@@ -88,13 +88,13 @@ export const startStyles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: Colors.orange,
-    borderStyle: "solid",
+    borderStyle: 'solid',
   },
 
   buttonTextCreate: {
     fontFamily: Fonts.montserrat,
     fontSize: 18,
-    fontWeight: "400",
+    fontWeight: '400',
     lineHeight: 28,
     color: Colors.orange,
   },

@@ -5,7 +5,7 @@ const { height, width } = Dimensions.get('window');
 export const createUserStyles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: Colors.white, 
+    backgroundColor: Colors.white,
   },
 
   title: {
@@ -14,19 +14,19 @@ export const createUserStyles = StyleSheet.create({
     left: width * 0.365,
     fontFamily: Fonts.poppins,
     fontSize: height * 0.025,
-    fontWeight: '700', 
+    fontWeight: '700',
     lineHeight: height * 0.04,
-    color: Colors.gray3, 
+    color: Colors.gray3,
   },
 
   subtitle: {
     position: 'absolute',
     top: height * 0.69,
     left: width * 0.08,
-    fontFamily: Fonts.poppins, 
+    fontFamily: Fonts.poppins,
     fontSize: height * 0.02,
-    fontWeight: '600', 
-    color: Colors.neutral, 
+    fontWeight: '600',
+    color: Colors.neutral,
   },
 
   group: {
@@ -45,7 +45,7 @@ export const createUserStyles = StyleSheet.create({
     left: 0,
     width: 104,
     height: 104,
-    backgroundColor: Colors.gray2, 
+    backgroundColor: Colors.gray2,
     borderRadius: 52,
   },
 
@@ -55,11 +55,11 @@ export const createUserStyles = StyleSheet.create({
     left: height * 0.011,
     width: height * 0.115,
     height: height * 0.115,
-    backgroundColor: Colors.gray, 
+    backgroundColor: Colors.gray,
     borderRadius: 44,
   },
 
-   button: {
+  button: {
     position: 'absolute',
     left: height * 0.1,
     width: height * 0.041,
@@ -96,7 +96,7 @@ export const createUserStyles = StyleSheet.create({
     height: height * 0.06,
     fontFamily: Fonts.montserrat,
     fontSize: 16,
-    fontWeight: '400', 
+    fontWeight: '400',
     backgroundColor: Colors.gray2,
     borderRadius: 4,
     paddingLeft: height * 0.018,
@@ -117,7 +117,7 @@ export const createUserStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.orange, 
+    backgroundColor: Colors.orange,
     borderRadius: 4,
   },
 
@@ -130,12 +130,12 @@ export const createUserStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.gray, 
+    backgroundColor: Colors.gray,
     borderRadius: 4,
   },
 
   buttonText: {
-    fontFamily: Fonts.montserrat, 
+    fontFamily: Fonts.montserrat,
     fontSize: height * 0.023,
     fontWeight: '400',
     color: Colors.white,

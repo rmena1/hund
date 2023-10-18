@@ -1,19 +1,11 @@
-import {
-  Text,
-  View,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
-import profilePreviewStyles from "../styles/walkerPreviewStyles";
-import { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParams } from "../navigation/index";
+import { Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import profilePreviewStyles from '../styles/walkerPreviewStyles';
+import { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
-import { FIREBASE_AUTH } from "../../firebaseConfig";
-import { FIREBASE_DB } from "../../firebaseConfig";
-import { doc, onSnapshot } from "firebase/firestore";
+import { FIREBASE_AUTH } from '../../firebaseConfig';
+import { FIREBASE_DB } from '../../firebaseConfig';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 //type Props = NativeStackScreenProps<RootStackParams, 'ProfilePreviewScreen'>;
 
@@ -28,22 +20,19 @@ export const WalkerPreviewScreen = () => {
 
   useEffect(() => {
     if (auth.currentUser?.uid) {
-      const unsub = onSnapshot(
-        doc(FIREBASE_DB, "walkerData", auth.currentUser.uid),
-        (doc) => {
-          if (doc.data()) {
-            const data = doc.data();
-            const newUserData = {
-              name: data?.name,
-              phone: data?.phone,
-              birthday: data?.birthday,
-            };
-            setName(newUserData.name);
-            setPhone(newUserData.phone);
-            setBirthday(newUserData.birthday.seconds * 1000);
-          }
+      const unsub = onSnapshot(doc(FIREBASE_DB, 'walkerData', auth.currentUser.uid), (doc) => {
+        if (doc.data()) {
+          const data = doc.data();
+          const newUserData = {
+            name: data?.name,
+            phone: data?.phone,
+            birthday: data?.birthday,
+          };
+          setName(newUserData.name);
+          setPhone(newUserData.phone);
+          setBirthday(newUserData.birthday.seconds * 1000);
         }
-      );
+      });
       return () => {
         unsub();
       };
@@ -72,7 +61,7 @@ export const WalkerPreviewScreen = () => {
           <Text style={profilePreviewStyles.label}>Fecha de nacimiento</Text>
           <TextInput
             style={profilePreviewStyles.input}
-            value={birthdayDate ? birthdayDate.toLocaleDateString() : ""}
+            value={birthdayDate ? birthdayDate.toLocaleDateString() : ''}
           />
         </View>
         {/* <View style={profilePreviewStyles.textboxContainer4}>
@@ -86,7 +75,7 @@ export const WalkerPreviewScreen = () => {
         <TouchableOpacity
           style={profilePreviewStyles.buttonPets}
           onPress={() => {
-            navigation.navigate("WalkerAtributeScreen");
+            navigation.navigate('WalkerAtributeScreen');
           }}
           disabled={false}
         >
@@ -104,7 +93,7 @@ export const WalkerPreviewScreen = () => {
         <TouchableOpacity
           style={profilePreviewStyles.buttonCreate}
           onPress={() => {
-            navigation.navigate("HomeScreen");
+            navigation.navigate('HomeScreen');
           }}
           disabled={false}
         >

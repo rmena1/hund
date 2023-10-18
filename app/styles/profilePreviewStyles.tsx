@@ -5,7 +5,7 @@ const { height, width } = Dimensions.get('window');
 export const profilePreviewStyles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: Colors.white, 
+    backgroundColor: Colors.white,
   },
 
   title: {
@@ -14,9 +14,9 @@ export const profilePreviewStyles = StyleSheet.create({
     left: width * 0.395,
     fontFamily: Fonts.poppins,
     fontSize: height * 0.025,
-    fontWeight: '700', 
+    fontWeight: '700',
     lineHeight: height * 0.04,
-    color: Colors.gray3, 
+    color: Colors.gray3,
   },
 
   group: {
@@ -34,7 +34,7 @@ export const profilePreviewStyles = StyleSheet.create({
     top: height * 0.005,
     width: width * 0.27,
     height: width * 0.27,
-    backgroundColor: Colors.gray2, 
+    backgroundColor: Colors.gray2,
     borderRadius: height * 0.1,
   },
 
@@ -44,7 +44,7 @@ export const profilePreviewStyles = StyleSheet.create({
     left: height * 0.011,
     width: height * 0.115,
     height: height * 0.115,
-    backgroundColor: Colors.gray, 
+    backgroundColor: Colors.gray,
     borderRadius: 44,
   },
 
@@ -77,7 +77,7 @@ export const profilePreviewStyles = StyleSheet.create({
     height: height * 0.06,
     fontFamily: Fonts.montserrat,
     fontSize: 16,
-    fontWeight: '400', 
+    fontWeight: '400',
     backgroundColor: Colors.gray2,
     borderRadius: 4,
     paddingLeft: height * 0.018,
@@ -99,12 +99,12 @@ export const profilePreviewStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.orange, 
+    backgroundColor: Colors.orange,
     borderRadius: 4,
   },
 
   buttonText: {
-    fontFamily: Fonts.montserrat, 
+    fontFamily: Fonts.montserrat,
     fontSize: height * 0.023,
     fontWeight: '400',
     color: Colors.white,
@@ -124,7 +124,7 @@ export const profilePreviewStyles = StyleSheet.create({
   },
 
   buttonTextPets: {
-    fontFamily: Fonts.montserrat, 
+    fontFamily: Fonts.montserrat,
     fontSize: height * 0.018,
     fontWeight: '400',
     color: Colors.white,
@@ -144,12 +144,11 @@ export const profilePreviewStyles = StyleSheet.create({
   },
 
   buttonTextPay: {
-    fontFamily: Fonts.montserrat, 
+    fontFamily: Fonts.montserrat,
     fontSize: height * 0.018,
     fontWeight: '400',
     color: Colors.white,
   },
-
 });
 
 export default profilePreviewStyles;

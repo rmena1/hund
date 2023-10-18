@@ -1,29 +1,21 @@
-import { useState } from "react";
-import SelectDropdown from "react-native-select-dropdown";
-import {
-  Text,
-  View,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  Alert,
-} from "react-native";
-import myDogEditStyles from "../styles/myDogEditStyles";
-import { useNavigation } from "@react-navigation/native";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import React, { useState } from 'react';
+import SelectDropdown from 'react-native-select-dropdown';
+import { Text, View, ScrollView, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
+import myDogEditStyles from '../styles/myDogEditStyles';
+import { useNavigation } from '@react-navigation/native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-import { loadImageFromGallery } from "../utils/helpers";
-import { uploadImage, updateProfilePhoto } from "../utils/actions";
+import { loadImageFromGallery } from '../utils/helpers';
+import { uploadImage, updateProfilePhoto } from '../utils/actions';
 
-import { FIREBASE_AUTH } from "../../firebaseConfig";
-import { FIREBASE_DB } from "../../firebaseConfig";
-import { addDoc, updateDoc, getDoc, doc, collection } from "firebase/firestore";
+import { FIREBASE_AUTH } from '../../firebaseConfig';
+import { FIREBASE_DB } from '../../firebaseConfig';
+import { addDoc, updateDoc, getDoc, doc, collection } from 'firebase/firestore';
 
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParams } from "../navigation/index";
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParams } from '../navigation/index';
 
-type Props = NativeStackScreenProps<RootStackParams, "MyDogEditScreen">;
+type Props = NativeStackScreenProps<RootStackParams, 'MyDogEditScreen'>;
 
 export const MyDogEditScreen = ({ route }: Props) => {
   const { isNew, dogID, dog } = route.params;
@@ -39,7 +31,7 @@ export const MyDogEditScreen = ({ route }: Props) => {
   const [description, setDescription] = useState(dog.description);
   const [photoUrl, setPhotoUrl] = useState(dog.photoUrl || null);
 
-  const options = ["Baja", "Media", "Alta"];
+  const options = ['Baja', 'Media', 'Alta'];
 
   const changePhoto = async () => {
     const result = await loadImageFromGallery([1, 1]);
@@ -47,25 +39,21 @@ export const MyDogEditScreen = ({ route }: Props) => {
       return;
     }
     if (auth.currentUser?.uid) {
-      const resultUploadImage = await uploadImage(
-        result.image,
-        "pictures",
-        auth.currentUser?.uid
-      );
+      const resultUploadImage = await uploadImage(result.image, 'pictures', auth.currentUser?.uid);
       if (!resultUploadImage.statusResponse) {
-        Alert.alert("Error al subir la imagen de perfil. ", result.error);
+        Alert.alert('Error al subir la imagen de perfil. ', result.error);
         return;
       }
       const resultUpdateProfile = await updateProfilePhoto({
         photoURL: resultUploadImage.url,
       });
       if (!resultUpdateProfile.statusResponse) {
-        Alert.alert("Error al actualizar la imagen de perfil.");
+        Alert.alert('Error al actualizar la imagen de perfil.');
         return;
       }
       setPhotoUrl(resultUploadImage.url);
     } else {
-      console.log("user id not found");
+      console.log('user id not found');
     }
   };
 
@@ -80,13 +68,13 @@ export const MyDogEditScreen = ({ route }: Props) => {
         photoUrl: photoUrl,
       };
 
-      const dogsCollection = collection(FIREBASE_DB, "dogData");
+      const dogsCollection = collection(FIREBASE_DB, 'dogData');
       const docRef = await addDoc(dogsCollection, docData);
 
       const dogId = docRef.id;
-      console.log("ID del nuevo perro:", dogId);
+      console.log('ID del nuevo perro:', dogId);
 
-      const userDocRef = doc(FIREBASE_DB, "userData", auth.currentUser?.uid);
+      const userDocRef = doc(FIREBASE_DB, 'userData', auth.currentUser?.uid);
       const userDoc = await getDoc(userDocRef);
 
       if (userDoc.exists()) {
@@ -101,11 +89,11 @@ export const MyDogEditScreen = ({ route }: Props) => {
         });
       }
     }
-    navigation.navigate("CreateMyDogsScreen");
+    navigation.navigate('CreateMyDogsScreen');
   };
 
   const handleSubmitEdit = async () => {
-    const dogRef = doc(FIREBASE_DB, "dogData", dogID);
+    const dogRef = doc(FIREBASE_DB, 'dogData', dogID);
     const dogDoc = await getDoc(dogRef);
 
     if (dogDoc.exists()) {
@@ -118,7 +106,7 @@ export const MyDogEditScreen = ({ route }: Props) => {
         photoUrl: photoUrl,
       });
     }
-    navigation.navigate("CreateMyDogsScreen");
+    navigation.navigate('CreateMyDogsScreen');
   };
 
   return (
@@ -127,17 +115,10 @@ export const MyDogEditScreen = ({ route }: Props) => {
         <View style={myDogEditStyles.group}>
           <View style={myDogEditStyles.container}></View>
           <Image
-            source={
-              photoUrl
-                ? { uri: photoUrl }
-                : require("../assets/images/avatar_dog.png")
-            }
+            source={photoUrl ? { uri: photoUrl } : require('../assets/images/avatar_dog.png')}
             style={myDogEditStyles.avatar}
           />
-          <TouchableOpacity
-            style={myDogEditStyles.button}
-            onPress={changePhoto}
-          >
+          <TouchableOpacity style={myDogEditStyles.button} onPress={changePhoto}>
             <Ionicons name="create-outline" size={15} color="#fff" />
           </TouchableOpacity>
         </View>
@@ -177,12 +158,7 @@ export const MyDogEditScreen = ({ route }: Props) => {
         </View>
         <View style={myDogEditStyles.textboxContainer5}>
           <Text style={myDogEditStyles.label}>Reactividad</Text>
-          <View
-            style={[
-              myDogEditStyles.externalContainer,
-              { alignItems: "center" },
-            ]}
-          >
+          <View style={[myDogEditStyles.externalContainer, { alignItems: 'center' }]}>
             <SelectDropdown
               data={options}
               onSelect={(selectedItem) => setReactivity(selectedItem)}
@@ -193,7 +169,7 @@ export const MyDogEditScreen = ({ route }: Props) => {
               buttonTextStyle={myDogEditStyles.selectdropdownText}
               dropdownStyle={myDogEditStyles.selectdropdownOptions}
               defaultButtonText="Selecciona una opción"
-              dropdownIconPosition={"right"}
+              dropdownIconPosition={'right'}
               selectedRowTextStyle={myDogEditStyles.selectdropdownSelectOption}
               rowTextStyle={myDogEditStyles.selectdropdownTextOptions}
             />
