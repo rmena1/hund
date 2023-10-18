@@ -1,10 +1,13 @@
 import { useState } from 'react';
-import Checkbox from 'expo-checkbox';
 import SelectDropdown from 'react-native-select-dropdown';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Text, View, TextInput, TouchableOpacity } from 'react-native';
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { Text, View, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
 import createUserStyles from '../styles/createUserStyles';
 import { useNavigation } from '@react-navigation/native';
+
+import { loadImageFromGallery } from "../utils/helpers";
+import { uploadImage, updateProfilePhoto } from "../utils/actions";
 
 import { FIREBASE_AUTH } from "../../firebaseConfig";
 import { FIREBASE_DB } from "../../firebaseConfig";
@@ -19,6 +22,9 @@ export const CreateUserScreen = () => {
     const [phone, setPhone] = useState('');
     const [isPickerDateShow, setIsPickerDateShow] = useState(false);
     const [birthday, setBirthday] = useState(null);
+
+    const [photoUrl, setPhotoUrl] = useState(auth.currentUser?.photoURL);
+
     const [selectedValue, setSelectedValue] = useState("");
 
     const options = ["Cliente", "Paseador"];
@@ -51,6 +57,7 @@ export const CreateUserScreen = () => {
                 phone: phone,
                 birthday: birthday,
                 dogs: [],
+                photoUrl: photoUrl,
             });
         }
     };
@@ -69,10 +76,38 @@ export const CreateUserScreen = () => {
             }
         };
 
+    const changePhoto = async () => {
+        const result = await loadImageFromGallery([1, 1]);
+        if (!result.status) {
+            return;
+        }
+        if (auth.currentUser?.uid) {
+            const resultUploadImage = await uploadImage(
+                result.image,
+                "pictures",    
+                auth.currentUser?.uid
+            );
+            if (!resultUploadImage.statusResponse) {
+                Alert.alert("Error al subir la imagen de perfil. ", result.error);
+                return;
+            }
+            const resultUpdateProfile = await updateProfilePhoto({
+                photoURL: resultUploadImage.url,
+            });
+            if (!resultUpdateProfile.statusResponse) {
+                Alert.alert("Error al actualizar la imagen de perfil.");
+                return;
+            }
+            setPhotoUrl(resultUploadImage.url);
+        } else {
+            console.log("user id not found");
+        }
+        };
+
     const handleSubmit = () => {
         if (selectedValue === 'Paseador') {
             saveChangesWalker();
-        navigation.navigate('WalkerPreviewScreen'); 
+            navigation.navigate('WalkerPreviewScreen'); 
         } else if (selectedValue === 'Cliente') {
             saveChangesUser();
             navigation.navigate('ProfilePreviewScreen');
@@ -85,12 +120,17 @@ export const CreateUserScreen = () => {
                 <View style={createUserStyles.group}>
                     <View style={createUserStyles.container}>
                     </View>
-                    <View style={createUserStyles.avatar}>
-                    </View>
-                    <View style={createUserStyles.button}>
-                        <TouchableOpacity>
-                        </TouchableOpacity>
-                    </View>
+                    <Image
+                        source={
+                            photoUrl
+                            ? { uri: photoUrl }
+                            : require("../assets/images/Avatar.jpeg")
+                        }
+                        style={createUserStyles.avatar}
+                        />
+                    <TouchableOpacity style={createUserStyles.button} onPress={changePhoto}>
+                        <Ionicons name="create-outline" size={15} color="#fff" />
+                    </TouchableOpacity>
                 </View>
                 <Text style={createUserStyles.title}>Crear perfil</Text>
                 <View style={createUserStyles.textboxContainer}>

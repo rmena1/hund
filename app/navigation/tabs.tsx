@@ -5,12 +5,15 @@ import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
+
+import { Colors, Fonts } from "../styles/generalStyles";
+
 import List from "../screens/List";
 import Details from "../screens/Details";
+import ProfileScreen from "../screens/ProfileScreen";
 import CreateWalkScreen from "../screens/CreateWalkScreen";
 import AccountScreen from "../screens/AccountScreen";
 import HomeScreen from "../screens/HomeScreen";
-import { Colors, Fonts } from "../styles/generalStyles";
 
 // Thanks for watching
 const Tab = createBottomTabNavigator();
@@ -105,8 +108,8 @@ function TabsBar() {
         }}
       />
       <Tab.Screen
-        name="Cuenta"
-        component={AccountScreen}
+        name="Mi perfil"
+        component={ProfileScreen}
         options={{
           tabBarIcon: ({ focused }) => {
             return (

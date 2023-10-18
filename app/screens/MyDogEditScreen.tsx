@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import SelectDropdown from 'react-native-select-dropdown';
-import { Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
 import myDogEditStyles from '../styles/myDogEditStyles';
 import { useNavigation } from '@react-navigation/native';
+import Ionicons from "@expo/vector-icons/Ionicons";
+
+import { loadImageFromGallery } from "../utils/helpers";
+import { uploadImage, updateProfilePhoto } from "../utils/actions";
 
 import { FIREBASE_AUTH } from "../../firebaseConfig";
 import { FIREBASE_DB } from "../../firebaseConfig";
@@ -25,8 +29,37 @@ export const MyDogEditScreen = ({ route }: Props) => {
     const [age, setAge] = useState(dog.age);
     const [reactivity, setReactivity] = useState(dog.reactivity);
     const [description, setDescription] = useState(dog.description);
+    const [photoUrl, setPhotoUrl] = useState(dog.photoUrl || null);
 
     const options = ["Baja", "Media", "Alta"];
+
+    const changePhoto = async () => {
+        const result = await loadImageFromGallery([1, 1]);
+        if (!result.status) {
+            return;
+        }
+        if (auth.currentUser?.uid) {
+            const resultUploadImage = await uploadImage(
+                result.image,
+                "pictures",    
+                auth.currentUser?.uid
+            );
+            if (!resultUploadImage.statusResponse) {
+                Alert.alert("Error al subir la imagen de perfil. ", result.error);
+                return;
+            }
+            const resultUpdateProfile = await updateProfilePhoto({
+                photoURL: resultUploadImage.url,
+            });
+            if (!resultUpdateProfile.statusResponse) {
+                Alert.alert("Error al actualizar la imagen de perfil.");
+                return;
+            }
+            setPhotoUrl(resultUploadImage.url);
+        } else {
+            console.log("user id not found");
+        }
+        };
 
     const handleSubmitAdd = async () => {
         if (auth.currentUser?.uid) {
@@ -36,6 +69,7 @@ export const MyDogEditScreen = ({ route }: Props) => {
               age: age,
               reactivity: reactivity,
               description: description,
+              photoUrl: photoUrl,
             };
             
             const dogsCollection = collection(FIREBASE_DB, 'dogData');
@@ -73,6 +107,7 @@ export const MyDogEditScreen = ({ route }: Props) => {
             age: age,
             reactivity: reactivity,
             description: description,
+            photoUrl: photoUrl,
         });
         }
         navigation.navigate('CreateMyDogsScreen');
@@ -84,12 +119,17 @@ export const MyDogEditScreen = ({ route }: Props) => {
                 <View style={myDogEditStyles.group}>
                     <View style={myDogEditStyles.container}>
                     </View>
-                    <View style={myDogEditStyles.avatar}>
-                    </View>
-                    <View style={myDogEditStyles.button}>
-                        <TouchableOpacity>
-                        </TouchableOpacity>
-                    </View>
+                    <Image
+                        source={
+                            photoUrl
+                            ? { uri: photoUrl }
+                            : require("../assets/images/avatar_dog.png")
+                        }
+                        style={myDogEditStyles.avatar}
+                        />
+                    <TouchableOpacity style={myDogEditStyles.button} onPress={changePhoto}>
+                        <Ionicons name="create-outline" size={15} color="#fff" />
+                    </TouchableOpacity>
                 </View>
                 <Text style={myDogEditStyles.title}>Mi perro</Text>
                 <View style={myDogEditStyles.textboxContainer}>

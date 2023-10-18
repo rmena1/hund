@@ -32,7 +32,8 @@ export type RootStackParams = {
       age: string,
       breed: string,
       description: string,
-      reactivity: string
+      reactivity: string,
+      photoUrl: string,
     }
   };
 };
