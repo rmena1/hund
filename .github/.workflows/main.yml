@@ -3,8 +3,8 @@ name: Lint Workflow
 on:
   pull_request:
     branches:
-      - master
-      - 'develop'
+      - 'main'
+      - 'dev'
 
 jobs:
   lint-lighthouse:
