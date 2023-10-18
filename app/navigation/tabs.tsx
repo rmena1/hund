@@ -10,6 +10,7 @@ import { Colors, Fonts } from "../styles/generalStyles";
 
 import List from "../screens/List";
 import Details from "../screens/Details";
+import Walks from "../screens/Walks";
 import ProfileScreen from "../screens/ProfileScreen";
 import CreateWalkScreen from "../screens/CreateWalkScreen";
 import AccountScreen from "../screens/AccountScreen";
@@ -62,8 +63,8 @@ function TabsBar() {
         }}
       />
       <Tab.Screen
-        name="Historial"
-        component={Details}
+        name="Paseos"
+        component={Walks}
         options={{
           tabBarIcon: ({ focused }) => {
             return (
