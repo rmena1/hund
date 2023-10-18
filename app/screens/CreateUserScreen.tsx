@@ -37,22 +37,22 @@ export const CreateUserScreen = () => {
         const numericValue = newPhone.replace(/[^0-9]/g, '');
         const truncatedValue = numericValue.slice(0, 9);
 
-        setPhone(truncatedValue);    
+        setPhone(truncatedValue);
     };
 
     const onChangeDate = (event, selectedDate) => {
         const currentDate = selectedDate || birthday;
         setBirthday(currentDate);
-        setIsPickerDateShow(false); 
+        setIsPickerDateShow(false);
     };
 
     const handleValueChange = (itemValue) => {
         setSelectedValue(itemValue);
-      };
+    };
 
     const saveChangesUser = async () => {
-    if (auth.currentUser?.uid) {
-                await setDoc(doc(FIREBASE_DB, "userData", auth.currentUser?.uid), {
+        if (auth.currentUser?.uid) {
+            await setDoc(doc(FIREBASE_DB, "userData", auth.currentUser?.uid), {
                 name: userName,
                 phone: phone,
                 birthday: birthday,
@@ -64,17 +64,17 @@ export const CreateUserScreen = () => {
 
     const saveChangesWalker = async () => {
         if (auth.currentUser?.uid) {
-                    await setDoc(doc(FIREBASE_DB, "walkerData", auth.currentUser?.uid), {
-                    name: userName,
-                    phone: phone,
-                    birthday: birthday,
-                    dog_sizes: [],
-                    max_walk_size: 0,
-                    max_distance: 0,
-                    languages: [],
-                });
-            }
-        };
+            await setDoc(doc(FIREBASE_DB, "walkerData", auth.currentUser?.uid), {
+                name: userName,
+                phone: phone,
+                birthday: birthday,
+                dog_sizes: [],
+                max_walk_size: 0,
+                max_distance: 0,
+                languages: [],
+            });
+        }
+    };
 
     const changePhoto = async () => {
         const result = await loadImageFromGallery([1, 1]);
@@ -151,15 +151,15 @@ export const CreateUserScreen = () => {
                 </View>
                 <View style={createUserStyles.textboxContainer3}>
                     <Text style={createUserStyles.label}>Fecha de nacimiento</Text>
-										<View style={createUserStyles.btnDateTime}>
-											<TouchableOpacity onPress={showPickerDate}>
-													<Text style={createUserStyles.textButtonDate}>
-															{birthday
-																	? birthday.toLocaleDateString()
-																	: 'Selecciona una fecha'}
-													</Text>
-											</TouchableOpacity>
-										</View>
+                    <View style={createUserStyles.btnDateTime}>
+                        <TouchableOpacity onPress={showPickerDate}>
+                            <Text style={createUserStyles.textButtonDate}>
+                                {birthday
+                                    ? birthday.toLocaleDateString()
+                                    : 'Selecciona una fecha'}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                     {isPickerDateShow && (
                         <DateTimePicker
                             value={birthday || new Date()}
@@ -170,7 +170,7 @@ export const CreateUserScreen = () => {
                     )}
                 </View>
                 <Text style={createUserStyles.subtitle}>Quiero crear un perfil de:</Text>
-           
+
                 <View style={[createUserStyles.externalContainer, { alignItems: 'center' }]}>
                     <SelectDropdown
                         data={options}
@@ -186,15 +186,15 @@ export const CreateUserScreen = () => {
                         selectedRowTextStyle={createUserStyles.selectdropdownSelectOption}
                         rowTextStyle={createUserStyles.selectdropdownTextOptions}
                     />
-                    </View>
-                {selectedValue ? 
+                </View>
+                {selectedValue ?
                     <TouchableOpacity
                         style={createUserStyles.buttonCreate}
                         onPress={() => { handleSubmit() }}
                         disabled={!selectedValue}
                     >
                         <Text style={createUserStyles.buttonText}>Crear perfil</Text>
-                    </TouchableOpacity> : 
+                    </TouchableOpacity> :
                     <TouchableOpacity
                         style={createUserStyles.buttonCreateDisabled}
                         onPress={() => { handleSubmit() }}
@@ -202,8 +202,8 @@ export const CreateUserScreen = () => {
                     >
                         <Text style={createUserStyles.buttonText}>Crear perfil</Text>
                     </TouchableOpacity>
-                    }
-            
+                }
+
             </View>
         </>
     )

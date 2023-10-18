@@ -11,6 +11,7 @@ import ProfilePreviewScreen from "../../app/screens/ProfilePreviewScreen";
 import CreateMyDogsScreen from "../../app/screens/CreateMyDogsScreen";
 import WalkerPreviewScreen from "../screens/WalkerPreviewScreen";
 import WalkerAtributeScreen from "../screens/WalkerAtributeScreen";
+import WalkerDetailScreen from "../screens/WalkerDetailScreen";
 import MyDogEditScreen from "../../app/screens/MyDogEditScreen";
 import HomeScreen from "../screens/HomeScreen";
 import TabsBar from "./tabs";
@@ -103,9 +104,9 @@ const Navigation = () => {
               name="CreateUserScreen"
               component={CreateUserScreen}
             />
-            <Stack.Screen 
-              name="ProfilePreviewScreen" 
-              component={ProfilePreviewScreen} 
+            <Stack.Screen
+              name="ProfilePreviewScreen"
+              component={ProfilePreviewScreen}
             />
             <Stack.Screen
               name="WalkerPreviewScreen"
@@ -115,17 +116,21 @@ const Navigation = () => {
               name="WalkerAtributeScreen"
               component={WalkerAtributeScreen}
             />
-            <Stack.Screen 
-              name="CreateMyDogsScreen" 
-              component={CreateMyDogsScreen} 
+            <Stack.Screen
+              name="WalkerDetailScreen"
+              component={WalkerDetailScreen}
             />
-            <Stack.Screen 
-              name="MyDogEditScreen" 
-              component={MyDogEditScreen} 
+            <Stack.Screen
+              name="CreateMyDogsScreen"
+              component={CreateMyDogsScreen}
             />
-            <Stack.Screen 
-              name="HomeScreen" 
-              component={HomeScreen} 
+            <Stack.Screen
+              name="MyDogEditScreen"
+              component={MyDogEditScreen}
+            />
+            <Stack.Screen
+              name="HomeScreen"
+              component={HomeScreen}
             />
             <Stack.Screen
               name="CreateWalkScreen"

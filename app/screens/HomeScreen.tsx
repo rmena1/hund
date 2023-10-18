@@ -32,7 +32,7 @@ export const HomeScreen = () => {
         </Text>
         <TouchableOpacity
           style={homeStyles.button}
-          onPress={() => navigation.navigate("CreateWalkScreen")}
+          onPress={() => navigation.navigate("WalkerDescriptionScreen")}
         >
           <Foundation name="guide-dog" size={40} color="#FF5400FF" />
           {/* <Ionicons name="add" size={25} color="#777B7E" /> */}
