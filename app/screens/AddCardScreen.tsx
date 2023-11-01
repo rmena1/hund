@@ -1,4 +1,10 @@
-import { View, Text, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '@react-navigation/native';
@@ -23,13 +29,33 @@ const AddCardScreen = () => {
           <Text style={addCardStyles.headerTitle}> Agregar Tarjeta</Text>
         </View>
 
-        <ScrollView contentContainerStyle={addCardStyles.scrollContainer}>
-          <Text>Tarjeta 1</Text>
-          <Text>Tarjeta 2</Text>
-          <Text>Tarjeta 3</Text>
-          <Text>Tarjeta 4</Text>
-          <Text>Tarjeta 5</Text>
-        </ScrollView>
+        <View style={addCardStyles.formContainer}>
+          <View style={addCardStyles.formBox}>
+            <Text style={addCardStyles.formText}>Nombre</Text>
+            <TextInput placeholder="Nombre en Tarjeta" style={addCardStyles.formInput} />
+          </View>
+
+          <View style={addCardStyles.formBox}>
+            <Text style={addCardStyles.formText}>Número en tarjeta</Text>
+            <View style={addCardStyles.inputContainer}>
+              <Ionicons name="ios-card" size={24} style={addCardStyles.icon} />
+              <View style={addCardStyles.formInputWithIconContainer}>
+                <TextInput style={addCardStyles.formInputWithIcon} />
+              </View>
+            </View>
+          </View>
+
+          <View style={addCardStyles.boxHorizontal}>
+            <View style={addCardStyles.formBoxHorizontal}>
+              <Text style={addCardStyles.formText}>Fecha de expiración</Text>
+              <TextInput style={addCardStyles.formInput} />
+            </View>
+            <View style={addCardStyles.formBoxHorizontal}>
+              <Text style={addCardStyles.formText}>Código de seguridad</Text>
+              <TextInput style={addCardStyles.formInput} />
+            </View>
+          </View>
+        </View>
 
         <View style={addCardStyles.buttonContainer}>
           <TouchableOpacity style={addCardStyles.button} onPress={() => {}} disabled={false}>

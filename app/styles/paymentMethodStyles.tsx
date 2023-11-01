@@ -4,12 +4,13 @@ const { height } = Dimensions.get('window');
 
 export const paymentMethodStyles = StyleSheet.create({
   AndroidSafeArea: {
+    backgroundColor: Colors.white,
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     height: '100%',
-    backgroundColor: Colors.white,
   },
 
   header: {
+    backgroundColor: Colors.white,
     height: 50,
     width: '100%',
     flexDirection: 'row',
