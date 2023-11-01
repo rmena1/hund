@@ -5,7 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/navigationTypes';
@@ -18,6 +18,35 @@ type Navigation = NavigationProp<RootStackParamList, 'AddCardScreen'>;
 
 const AddCardScreen = () => {
   const navigation = useNavigation<Navigation>();
+  const [expiryDate, setExpiryDate] = useState('');
+  const [creditCardNumber, setCreditCardNumber] = useState('');
+
+  const handleTextChange = (input) => {
+    // Remove any non-numeric characters from the input
+    const numericInput = input.replace(/\D/g, '');
+
+    // Use a regular expression to format the numeric input
+    const formattedInput = numericInput.replace(/(\d{4})/g, '$1 ');
+
+    setCreditCardNumber(formattedInput);
+  };
+
+  
+
+  const handleExpiryDateChange = (text) => {
+      // Remove any non-numeric characters
+      const numericInput = text.replace(/\D/g, '');
+  
+      // Format the input as MM/YY
+      let formattedInput = numericInput;
+  
+      if (numericInput.length > 2) {
+        formattedInput = `${numericInput.slice(0, 2)}/${numericInput.slice(2)}`;
+      }
+  
+      setExpiryDate(formattedInput);
+    };
+
 
   return (
     <View>
@@ -40,7 +69,12 @@ const AddCardScreen = () => {
             <View style={addCardStyles.inputContainer}>
               <Ionicons name="ios-card" size={24} style={addCardStyles.icon} />
               <View style={addCardStyles.formInputWithIconContainer}>
-                <TextInput style={addCardStyles.formInputWithIcon} />
+                <TextInput
+                  value={creditCardNumber}
+                  onChangeText={handleTextChange}
+                  placeholder='XXXX XXXX XXXX XXXX' 
+                  maxLength={19}
+                  style={addCardStyles.formInputWithIcon} />
               </View>
             </View>
           </View>
@@ -48,11 +82,22 @@ const AddCardScreen = () => {
           <View style={addCardStyles.boxHorizontal}>
             <View style={addCardStyles.formBoxHorizontal}>
               <Text style={addCardStyles.formText}>Fecha de expiración</Text>
-              <TextInput style={addCardStyles.formInput} />
+              <TextInput
+                value={expiryDate}
+                onChangeText={handleExpiryDateChange}
+                placeholder="MM/AA"
+                maxLength={5}
+                keyboardType='number-pad'
+                style={addCardStyles.formInput} />
             </View>
             <View style={addCardStyles.formBoxHorizontal}>
               <Text style={addCardStyles.formText}>Código de seguridad</Text>
-              <TextInput style={addCardStyles.formInput} />
+              <TextInput 
+                placeholder="123"
+                maxLength={3}
+                keyboardType='number-pad'
+                secureTextEntry={true}
+                style={addCardStyles.formInput} />
             </View>
           </View>
         </View>
