@@ -1,67 +1,47 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NavigationContainer } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
 
-import StartScreen from "../../app/screens/StartScreen";
-import CreateWalkScreen from "../screens/CreateWalkScreen";
-import LoginScreen from "../../app/screens/LoginScreen";
-import RegisterScreen from "../../app/screens/RegisterScreen";
-import CreateUserScreen from "../../app/screens/CreateUserScreen";
-import ProfilePreviewScreen from "../../app/screens/ProfilePreviewScreen";
-import CreateMyDogsScreen from "../../app/screens/CreateMyDogsScreen";
-import WalkerPreviewScreen from "../screens/WalkerPreviewScreen";
-import WalkerAtributeScreen from "../screens/WalkerAtributeScreen";
-import MyDogEditScreen from "../../app/screens/MyDogEditScreen";
-import HomeScreen from "../screens/HomeScreen";
-import TabsBar from "./tabs";
-import PaymentMethodScreen from "../screens/PaymentMethodScreen";
-import AddCardScreen from "../screens/AddCardScreen";
+import StartScreen from '../../app/screens/StartScreen';
+import CreateWalkScreen from '../screens/CreateWalkScreen';
+import LoginScreen from '../../app/screens/LoginScreen';
+import RegisterScreen from '../../app/screens/RegisterScreen';
+import CreateUserScreen from '../../app/screens/CreateUserScreen';
+import ProfilePreviewScreen from '../../app/screens/ProfilePreviewScreen';
+import CreateMyDogsScreen from '../../app/screens/CreateMyDogsScreen';
+import WalkerPreviewScreen from '../screens/WalkerPreviewScreen';
+import WalkerAtributeScreen from '../screens/WalkerAtributeScreen';
+import MyDogEditScreen from '../../app/screens/MyDogEditScreen';
+import HomeScreen from '../screens/HomeScreen';
+import TabsBar from './tabs';
+import PaymentMethodScreen from '../screens/PaymentMethodScreen';
+import AddCardScreen from '../screens/AddCardScreen';
 
-import { User, onAuthStateChanged } from "firebase/auth";
-import { FIREBASE_AUTH } from "../../firebaseConfig";
+import { User, onAuthStateChanged } from 'firebase/auth';
+import { FIREBASE_AUTH } from '../../firebaseConfig';
 
 const Stack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();
 
 export type RootStackParams = {
   MyDogEditScreen: {
-    isNew: boolean,
-    dogID: string,
+    isNew: boolean;
+    dogID: string;
     dog: {
-      name: string,
-      age: string,
-      breed: string,
-      description: string,
-      reactivity: string,
-      photoUrl: string,
-    }
+      name: string;
+      age: string;
+      breed: string;
+      description: string;
+      reactivity: string;
+      photoUrl: string;
+    };
   };
 };
 
 function MainLayout() {
   return (
     <MainStack.Navigator>
-      <MainStack.Screen
-        name="TabsBar"
-        component={TabsBar}
-        options={{ headerShown: false }}
-      />
-      <MainStack.Screen
-        name="PaymentMethodScreen"
-        component={PaymentMethodScreen}
-        options={{
-          headerShown: false,
-          animation: 'slide_from_bottom',
-          gestureDirection: 'vertical'
-        }}
-      />
-      <MainStack.Screen
-        name="AddCardScreen"
-        component={AddCardScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
+      <MainStack.Screen name="TabsBar" component={TabsBar} options={{ headerShown: false }} />
     </MainStack.Navigator>
   );
 }
@@ -71,7 +51,7 @@ const Navigation = () => {
 
   useEffect(() => {
     onAuthStateChanged(FIREBASE_AUTH, (user) => {
-      console.log("User", user);
+      console.log('User', user);
       if (user) {
         setUser(user);
       } else {
@@ -87,11 +67,11 @@ const Navigation = () => {
           headerShown: false,
           headerTransparent: false,
           headerStyle: {
-            backgroundColor: "#44BECF",
+            backgroundColor: '#44BECF',
           },
-          headerTintColor: "#fff",
+          headerTintColor: '#fff',
           headerTitleStyle: {
-            fontWeight: "bold",
+            fontWeight: 'bold',
           },
         }}
         initialRouteName="StartScreen"
@@ -99,38 +79,38 @@ const Navigation = () => {
         {user ? (
           <>
             <Stack.Screen name="MainLayout" component={MainLayout} />
+            <Stack.Screen name="CreateUserScreen" component={CreateUserScreen} />
+            <Stack.Screen name="ProfilePreviewScreen" component={ProfilePreviewScreen} />
+            <Stack.Screen name="WalkerPreviewScreen" component={WalkerPreviewScreen} />
+            <Stack.Screen name="WalkerAtributeScreen" component={WalkerAtributeScreen} />
             <Stack.Screen
-              name="CreateUserScreen"
-              component={CreateUserScreen}
-            />
-            <Stack.Screen 
-              name="ProfilePreviewScreen" 
-              component={ProfilePreviewScreen} 
-            />
-            <Stack.Screen
-              name="WalkerPreviewScreen"
-              component={WalkerPreviewScreen}
-            />
-            <Stack.Screen
-              name="WalkerAtributeScreen"
-              component={WalkerAtributeScreen}
-            />
-            <Stack.Screen 
-              name="CreateMyDogsScreen" 
-              component={CreateMyDogsScreen} 
-            />
-            <Stack.Screen 
-              name="MyDogEditScreen" 
-              component={MyDogEditScreen} 
-            />
-            <Stack.Screen 
-              name="HomeScreen" 
-              component={HomeScreen} 
+              name="PaymentMethodScreen"
+              component={PaymentMethodScreen}
+              options={{
+                headerShown: false,
+                animation: 'slide_from_bottom',
+                gestureDirection: 'vertical',
+              }}
             />
             <Stack.Screen
-              name="CreateWalkScreen"
-              component={CreateWalkScreen}
+              name="AddCardScreen"
+              component={AddCardScreen}
+              options={{
+                headerShown: false,
+              }}
             />
+            <Stack.Screen
+              name="CreateMyDogsScreen"
+              component={CreateMyDogsScreen}
+              options={{
+                headerShown: false,
+                animation: 'slide_from_bottom',
+                gestureDirection: 'vertical',
+              }}
+            />
+            <Stack.Screen name="MyDogEditScreen" component={MyDogEditScreen} />
+            <Stack.Screen name="HomeScreen" component={HomeScreen} />
+            <Stack.Screen name="CreateWalkScreen" component={CreateWalkScreen} />
           </>
         ) : (
           <>

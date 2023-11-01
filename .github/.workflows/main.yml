@@ -1,0 +1,26 @@
+name: Lint Workflow
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+      - 'dev'
+
+jobs:
+  lint-lighthouse:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: yarn install
+
+    - name: Run linter
+      run: yarn  lint

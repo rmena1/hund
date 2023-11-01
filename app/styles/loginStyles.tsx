@@ -1,26 +1,25 @@
-import { Colors, Fonts } from "./generalStyles";
-import { StyleSheet } from "react-native";
+import { Colors, Fonts } from './generalStyles';
+import { StyleSheet } from 'react-native';
 
 export const loginStyles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     backgroundColor: Colors.white,
-    minHeight: "100%",
+    minHeight: '100%',
   },
 
   imageRegister: {
-    width: "100%",
+    width: '100%',
     height: 200,
-    alignSelf: "center",
-    marginTop: "10%",
-    
+    alignSelf: 'center',
+    marginTop: '10%',
   },
 
   imageLogin: {
-    width: "100%",
+    width: '100%',
     height: 200,
-    alignSelf: "center",
-    marginTop: "10%",
+    alignSelf: 'center',
+    marginTop: '10%',
   },
 
   container: {
@@ -37,66 +36,66 @@ export const loginStyles = StyleSheet.create({
     },
     shadowOpacity: 0.23,
     shadowTopRadius: 17,
-    paddingHorizontal: "5%",
+    paddingHorizontal: '5%',
   },
 
   title: {
-    marginTop: "5%",
+    marginTop: '5%',
     fontFamily: Fonts.poppins,
     fontSize: 32,
-    fontWeight: "700",
+    fontWeight: '700',
     lineHeight: 48,
     color: Colors.neutral,
   },
 
   subtitle: {
-    marginTop: "2%",
+    marginTop: '2%',
     fontFamily: Fonts.montserrat,
     fontSize: 18,
-    fontWeight: "400",
+    fontWeight: '400',
     lineHeight: 30,
     color: Colors.gray,
   },
 
   subtitle2: {
-    marginTop: "10%",
+    marginTop: '10%',
     fontFamily: Fonts.montserrat,
     fontSize: 14,
-    fontWeight: "400",
+    fontWeight: '400',
     lineHeight: 22,
     color: Colors.neutral,
   },
 
   registerButton: {
-    alignSelf: "flex-start",
+    alignSelf: 'flex-start',
     flexGrow: 0,
-    marginTop: "0.5%",
+    marginTop: '0.5%',
   },
 
   subtitle3: {
     fontFamily: Fonts.montserrat,
     fontSize: 14,
-    fontWeight: "400",
+    fontWeight: '400',
     color: Colors.orange,
-    textDecorationLine: "underline",
+    textDecorationLine: 'underline',
   },
 
   textboxContainer: {
-    marginTop: "5%",
+    marginTop: '5%',
   },
 
   textboxContainer2: {
-    marginTop: "2%",
+    marginTop: '2%',
   },
 
   input: {
-    width: "100%",
+    width: '100%',
     height: 44,
     paddingLeft: 12,
     paddingRight: 12,
     fontFamily: Fonts.montserrat,
     fontSize: 16,
-    fontWeight: "400",
+    fontWeight: '400',
     lineHeight: 20,
     backgroundColor: Colors.gray2,
     borderRadius: 4,
@@ -104,7 +103,7 @@ export const loginStyles = StyleSheet.create({
   },
 
   icon: {
-    position: "absolute",
+    position: 'absolute',
     top: 16,
     right: 16,
     width: 20,
@@ -114,20 +113,20 @@ export const loginStyles = StyleSheet.create({
 
   label: {
     fontSize: 12,
-    fontWeight: "700",
+    fontWeight: '700',
     lineHeight: 20,
   },
 
   button: {
-    marginTop: "5%",
-    width: "90%",
+    marginTop: '5%',
+    width: '90%',
     height: 52,
-    alignSelf: "center",
-    alignItems: "center",
-    justifyContent: "center",
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
     fontFamily: Fonts.montserrat,
     fontSize: 18,
-    fontWeight: "400",
+    fontWeight: '400',
     lineHeight: 28,
     color: Colors.white,
     backgroundColor: Colors.orange,
@@ -137,7 +136,7 @@ export const loginStyles = StyleSheet.create({
   buttonText: {
     fontFamily: Fonts.montserrat,
     fontSize: 18,
-    fontWeight: "400",
+    fontWeight: '400',
     lineHeight: 28,
     color: Colors.white,
   },

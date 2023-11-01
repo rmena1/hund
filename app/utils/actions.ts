@@ -1,15 +1,11 @@
-import {
-  FIREBASE_STORAGE,
-  FIREBASE_AUTH,
-  FIREBASE_DB,
-} from "../../firebaseConfig";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { fileToBlob } from "./helpers";
-import { updateProfile } from "firebase/auth";
-import { setDoc, doc } from "firebase/firestore";
+import { FIREBASE_STORAGE, FIREBASE_AUTH, FIREBASE_DB } from '../../firebaseConfig';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { fileToBlob } from './helpers';
+import { updateProfile } from 'firebase/auth';
+import { setDoc, doc } from 'firebase/firestore';
 
 export const uploadImage = async (image: any, path: string, name: string) => {
-  const result = { statusResponse: true, error: "", url: "" };
+  const result = { statusResponse: true, error: '', url: '' };
   const blob = await fileToBlob(image);
   try {
     const storageRef = ref(FIREBASE_STORAGE, `${path}/${name}`);
@@ -19,13 +15,10 @@ export const uploadImage = async (image: any, path: string, name: string) => {
     // Upload metadata of the image to database
     const user = FIREBASE_AUTH.currentUser;
     if (user?.uid) {
-      await setDoc(
-        doc(FIREBASE_DB, "documentsMetadata", "avatar-" + user?.uid),
-        {
-          url: url,
-          userUid: user?.uid,
-        }
-      );
+      await setDoc(doc(FIREBASE_DB, 'documentsMetadata', 'avatar-' + user?.uid), {
+        url: url,
+        userUid: user?.uid,
+      });
     }
     result.url = url;
     return result;
@@ -37,7 +30,7 @@ export const uploadImage = async (image: any, path: string, name: string) => {
 };
 
 export const updateProfilePhoto = async (data: any) => {
-  const result = { statusResponse: true, error: "" };
+  const result = { statusResponse: true, error: '' };
   const user = FIREBASE_AUTH.currentUser;
   try {
     if (user) {
