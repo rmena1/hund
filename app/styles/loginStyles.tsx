@@ -1,69 +1,70 @@
 import { Colors, Fonts } from './generalStyles';
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+const { height, width } = Dimensions.get('window');
 
 export const loginStyles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.gray2,
     minHeight: '100%',
   },
 
   imageRegister: {
-    width: '100%',
-    height: 200,
+    left: width * 0.05,
+    width: width * 1.1,
+    height: height * 0.25,
     alignSelf: 'center',
     marginTop: '10%',
   },
 
   imageLogin: {
-    width: '100%',
-    height: 200,
+    width: width * 0.9,
+    height: height * 0.25,
+    marginTop: height * 0.05,
     alignSelf: 'center',
-    marginTop: '10%',
   },
 
   container: {
     flex: 1,
+    top: height * -0.05,
+    height: height * 1.1,
+    width: width,
     backgroundColor: Colors.white,
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-    shadowColor: Colors.shadow,
-    shadowOffset: {
-      width: 0,
-      height: -5,
-    },
-    shadowOpacity: 0.23,
-    shadowTopRadius: 17,
-    paddingHorizontal: '5%',
+    paddingHorizontal: width * 0.05,
   },
 
   title: {
-    marginTop: '5%',
+    marginTop: height * 0.05,
     fontFamily: Fonts.poppins,
-    fontSize: 32,
+    fontSize: height * 0.035,
     fontWeight: '700',
     lineHeight: 48,
     color: Colors.neutral,
   },
 
   subtitle: {
-    marginTop: '2%',
+    marginTop: '1%',
     fontFamily: Fonts.montserrat,
-    fontSize: 18,
+    fontSize: height * 0.022,
     fontWeight: '400',
     lineHeight: 30,
     color: Colors.gray,
   },
 
+  containerText: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: height * 0.2,
+  },
+
   subtitle2: {
-    marginTop: '10%',
     fontFamily: Fonts.montserrat,
     fontSize: 14,
     fontWeight: '400',
     lineHeight: 22,
     color: Colors.neutral,
+    marginRight: width * 0.02,
   },
 
   registerButton: {
@@ -81,18 +82,18 @@ export const loginStyles = StyleSheet.create({
   },
 
   textboxContainer: {
-    marginTop: '5%',
+    marginTop: height * 0.05,
   },
 
   textboxContainer2: {
-    marginTop: '2%',
+    marginTop: height * 0.03,
   },
 
   input: {
     width: '100%',
-    height: 44,
-    paddingLeft: 12,
-    paddingRight: 12,
+    height: height * 0.06,
+    paddingLeft: width * 0.13,
+    paddingRight: width * 0.07,
     fontFamily: Fonts.montserrat,
     fontSize: 16,
     fontWeight: '400',
@@ -102,12 +103,24 @@ export const loginStyles = StyleSheet.create({
     color: Colors.neutral,
   },
 
-  icon: {
+  iconMail: {
     position: 'absolute',
-    top: 16,
-    right: 16,
-    width: 20,
-    height: 20,
+    top: height * 0.042,
+    left: width * 0.03,
+    fill: Colors.neutral,
+  },
+
+  iconPass: {
+    position: 'absolute',
+    top: height * 0.042,
+    left: width * 0.035,
+    fill: Colors.neutral,
+  },
+
+  iconEye: {
+    position: 'absolute',
+    top: height * 0.042,
+    left: width * 0.79,
     fill: Colors.neutral,
   },
 
@@ -118,26 +131,19 @@ export const loginStyles = StyleSheet.create({
   },
 
   button: {
-    marginTop: '5%',
-    width: '90%',
-    height: 52,
+    marginTop: height * 0.05,
+    width: width * 0.9,
+    height: height * 0.07,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    fontFamily: Fonts.montserrat,
-    fontSize: 18,
-    fontWeight: '400',
-    lineHeight: 28,
-    color: Colors.white,
     backgroundColor: Colors.orange,
     borderRadius: 8,
   },
 
   buttonText: {
     fontFamily: Fonts.montserrat,
-    fontSize: 18,
-    fontWeight: '400',
-    lineHeight: 28,
+    fontSize: height * 0.024,
     color: Colors.white,
   },
 });

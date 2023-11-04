@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { createWalkStyles } from '../styles/createWalkStyles';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '@react-navigation/native';
@@ -66,7 +67,13 @@ export const CreateWalkScreen: React.FC = () => {
 
   return (
     <ScrollView style={createWalkStyles.container}>
-      <Text style={createWalkStyles.title}>Aqui podras pedir que paseen a tu mascota</Text>
+      <TouchableOpacity
+        style={createWalkStyles.containerTextEnd}
+        onPress={() => navigation.navigate('MainLayout')}
+      >
+        <Ionicons style={createWalkStyles.iconBack} name="chevron-back" size={35} />
+      </TouchableOpacity>
+      <Text style={createWalkStyles.title}>Nuevo paseo</Text>
       <Text style={createWalkStyles.label}>Selecciona la fecha y hora del paseo:</Text>
       <View style={createWalkStyles.buttonContainer}>
         <TouchableOpacity
@@ -135,13 +142,7 @@ export const CreateWalkScreen: React.FC = () => {
       />
 
       <TouchableOpacity style={createWalkStyles.buttonLargeEnd} onPress={handleAppointmentSubmit}>
-        <Text style={createWalkStyles.buttonTextEnd}>Enviar</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={createWalkStyles.buttonLargeEnd}
-        onPress={() => navigation.navigate('MainLayout')}
-      >
-        <Text style={createWalkStyles.buttonTextEnd}>Go back to Home</Text>
+        <Text style={createWalkStyles.buttonTextEnd}>Solicitar</Text>
       </TouchableOpacity>
     </ScrollView>
   );
