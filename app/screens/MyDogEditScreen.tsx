@@ -66,7 +66,9 @@ export const MyDogEditScreen = ({ route }: Props) => {
         reactivity: reactivity,
         description: description,
         photoUrl: photoUrl,
+        userUid: auth.currentUser.uid,
       };
+      console.log('Datos del perro:', docData);
 
       const dogsCollection = collection(FIREBASE_DB, 'dogData');
       const docRef = await addDoc(dogsCollection, docData);
@@ -104,6 +106,7 @@ export const MyDogEditScreen = ({ route }: Props) => {
         reactivity: reactivity,
         description: description,
         photoUrl: photoUrl,
+        userUid: auth.currentUser?.uid,
       });
     }
     navigation.navigate('CreateMyDogsScreen');
