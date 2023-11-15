@@ -6,7 +6,6 @@ export const loginStyles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     backgroundColor: Colors.gray2,
-    minHeight: '100%',
   },
 
   imageRegister: {
@@ -27,7 +26,7 @@ export const loginStyles = StyleSheet.create({
   container: {
     flex: 1,
     top: height * -0.05,
-    height: height * 1.1,
+    height: height * 0.8,
     width: width,
     backgroundColor: Colors.white,
     paddingHorizontal: width * 0.05,
@@ -52,6 +51,9 @@ export const loginStyles = StyleSheet.create({
   },
 
   containerText: {
+    position: 'absolute',
+    top: height * 0.52,
+    left: width * 0.13,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

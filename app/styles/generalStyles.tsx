@@ -14,6 +14,7 @@ export const Colors = {
   orange2: '#DE3B40FF',
   lightOrange: '#FFF5F0',
   shadow: '#171a1f',
+  shadow2: '#F8F9FAFF',
 };
 
 export const Fonts = {

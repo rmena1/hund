@@ -20,10 +20,6 @@ export const WalkerAtributeScreen = StyleSheet.create({
   },
 
   subtitleBlack: {
-    // position: 'absolute',
-    // top: 142,
-    // left: 20,
-    // width: 279,
     margin: 6,
     fontFamily: Fonts.montserrat,
     fontSize: 20,

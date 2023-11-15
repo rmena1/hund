@@ -111,7 +111,7 @@ export const MyDogEditScreen = ({ route }: Props) => {
 
   return (
     <>
-      <ScrollView style={myDogEditStyles.page}>
+      <View style={myDogEditStyles.page}>
         <View style={myDogEditStyles.group}>
           <View style={myDogEditStyles.container}></View>
           <Image
@@ -194,7 +194,7 @@ export const MyDogEditScreen = ({ route }: Props) => {
             <Text style={myDogEditStyles.buttonText}>Guardar Cambios</Text>
           </TouchableOpacity>
         )}
-      </ScrollView>
+      </View>
     </>
   );
 };
