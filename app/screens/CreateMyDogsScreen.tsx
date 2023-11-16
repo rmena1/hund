@@ -84,6 +84,7 @@ const CreateMyDogsScreen = () => {
           description: dogData.description,
           reactivity: dogData.reactivity,
           photoUrl: dogData.photoUrl,
+          userUid: auth.currentUser?.uid,
         };
         setDogs([...dogs, newDog]);
       }
