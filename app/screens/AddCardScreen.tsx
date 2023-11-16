@@ -5,7 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/navigationTypes';
@@ -20,6 +20,22 @@ const AddCardScreen = () => {
   const navigation = useNavigation<Navigation>();
   const [expiryDate, setExpiryDate] = useState('');
   const [creditCardNumber, setCreditCardNumber] = useState('');
+
+  const fetchSetupIntent = async () => {
+    try {
+      const response = await axios.get('YOUR_FIREBASE_CLOUD_FUNCTION_URL');
+      return response.data.clientSecret;
+    } catch (error) {
+      console.error('Error fetching Setup Intent:', error);
+    }
+  };
+  
+  useEffect(() => {
+    // Fetch the Setup Intent when the component mounts
+    fetchSetupIntent().then((clientSecret) => {
+      // Use the clientSecret to confirm the Setup Intent
+    });
+  }, []);
 
   const handleTextChange = (input) => {
     // Remove any non-numeric characters from the input
