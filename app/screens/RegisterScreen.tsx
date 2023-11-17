@@ -30,11 +30,9 @@ export const RegisterScreen = () => {
     setLoading(true);
     try {
       const response = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(response);
       alert('Usuario creado correctamente, revisa tu email!');
       navigation.navigate('CreateUserScreen');
     } catch (error: any) {
-      console.log(error);
       alert('Error al crear el usuario, ' + error.message);
     } finally {
       setLoading(false);

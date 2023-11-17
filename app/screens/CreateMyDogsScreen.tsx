@@ -30,7 +30,6 @@ const CreateMyDogsScreen = () => {
   const deleteDog = async (dogId) => {
     try {
       await deleteDoc(doc(FIREBASE_DB, 'dogData', dogId));
-      console.log('Dog deleted');
 
       if (auth.currentUser?.uid) {
         const userDocRef = doc(FIREBASE_DB, 'userData', auth.currentUser.uid);

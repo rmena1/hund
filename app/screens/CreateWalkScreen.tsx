@@ -29,13 +29,13 @@ export const CreateWalkScreen: React.FC = () => {
   const [additionalComments, setAdditionalComments] = useState<string>('');
   const createWalk = async () => {
     const docRef = await addDoc(collection(FIREBASE_DB, 'paseos'), {
+      email_usuario: auth.currentUser?.email,
       id_usuario: auth.currentUser?.uid,
       perro: selectedDog,
       fecha: date,
       inmediato: isImmediate,
       comentarios: additionalComments,
     });
-    console.log('Document written with ID: ', docRef.id);
   };
   const dogs: Dog[] = [
     { id: 1, value: 'Pepe' },
@@ -61,7 +61,6 @@ export const CreateWalkScreen: React.FC = () => {
     // Lógica para enviar los datos del formulario
     // a la base de datos
     createWalk();
-    console.log({ selectedDog, additionalComments, date, isImmediate });
   };
 
   return (

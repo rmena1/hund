@@ -67,14 +67,13 @@ const Navigation = () => {
 
   useEffect(() => {
     onAuthStateChanged(FIREBASE_AUTH, (user) => {
-      console.log('User', user);
       if (user) {
         setUser(user);
         //request userType
         const unsub = onSnapshot(doc(FIREBASE_DB, 'userType', user.uid), (doc) => {
           if (doc.data()) {
             const data = doc.data();
-            setUserType(data?.type);
+            setUserType(data?.userType);
           }
         });
         return () => {
@@ -146,11 +145,16 @@ const Navigation = () => {
               }}
             />
             <Stack.Screen name="MyDogEditScreen" component={MyDogEditScreen} />
-            <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="CreateWalkScreen" component={CreateWalkScreen} />
           </>
         ) : (
-          <Stack.Screen name="MainLayout" component={WalkerStackScreens} />
+          <>
+            <Stack.Screen name="MainLayout" component={WalkerStackScreens} />
+            <Stack.Screen name="CreateUserScreen" component={CreateUserScreen} />
+            <Stack.Screen name="ProfilePreviewScreen" component={ProfilePreviewScreen} />
+            <Stack.Screen name="WalkerPreviewScreen" component={WalkerPreviewScreen} />
+            <Stack.Screen name="WalkerAtributeScreen" component={WalkerAtributeScreen} />
+          </>
         )}
       </Stack.Navigator>
     </NavigationContainer>

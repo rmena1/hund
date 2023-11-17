@@ -68,13 +68,11 @@ export const MyDogEditScreen = ({ route }: Props) => {
         photoUrl: photoUrl,
         userUid: auth.currentUser.uid,
       };
-      console.log('Datos del perro:', docData);
 
       const dogsCollection = collection(FIREBASE_DB, 'dogData');
       const docRef = await addDoc(dogsCollection, docData);
 
       const dogId = docRef.id;
-      console.log('ID del nuevo perro:', dogId);
 
       const userDocRef = doc(FIREBASE_DB, 'userData', auth.currentUser?.uid);
       const userDoc = await getDoc(userDocRef);
