@@ -1,13 +1,13 @@
 // Vista de formulario para crear un paseo
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { createWalkStyles } from '../styles/createWalkStyles';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/navigationTypes';
 import { FIREBASE_AUTH } from '../../firebaseConfig';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { FIREBASE_DB } from '../../firebaseConfig';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import RNPickerSelect from 'react-native-picker-select';
@@ -23,10 +23,14 @@ export const CreateWalkScreen: React.FC = () => {
   const [date, setDate] = useState<Date>(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [time, setTime] = useState<Date>(new Date());
+  const [walkTime, setWalkTime] = useState(0);
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [isImmediate, setIsImmediate] = useState(false);
   const [selectedDog, setSelectedDog] = useState<number | null>(null);
   const [additionalComments, setAdditionalComments] = useState<string>('');
+  const [dogsID, setDogsID] = useState([]);
+  const [dogs, setDogs] = useState([]);
+
   const createWalk = async () => {
     const docRef = await addDoc(collection(FIREBASE_DB, 'paseos'), {
       id_usuario: auth.currentUser?.uid,
@@ -37,11 +41,53 @@ export const CreateWalkScreen: React.FC = () => {
     });
     console.log('Document written with ID: ', docRef.id);
   };
-  const dogs: Dog[] = [
-    { id: 1, value: 'Pepe' },
-    { id: 2, value: 'Blacky' },
-    { id: 3, value: 'Bolita de nieve' },
-  ];
+
+  const getDogs = async () => {
+    const newDogs = [];
+    for (let i = 0; i < dogsID.length; i++) {
+      const dogId = dogsID[i];
+      const dogDocRef = doc(FIREBASE_DB, 'dogData', dogId);
+      const dogDoc = await getDoc(dogDocRef);
+      if (dogDoc.exists()) {
+        const dogData = dogDoc.data();
+        newDogs.push({
+          name: dogData.name,
+          userUid: auth.currentUser?.uid,
+          id: dogId,
+        });
+      }
+    }
+    setDogs(newDogs);
+  };
+
+  useEffect(() => {
+    if (auth.currentUser?.uid) {
+      const unsub = onSnapshot(doc(FIREBASE_DB, 'userData', auth.currentUser.uid), (doc) => {
+        if (doc.data()) {
+          const data = doc.data();
+          const newUserData = {
+            dogs: data?.dogs,
+          };
+          setDogsID(newUserData.dogs);
+        }
+      });
+
+      return () => {
+        unsub();
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    if (dogsID.length > 0) {
+      getDogs();
+    }
+  }, [dogsID]);
+  // const dogs: Dog[] = [
+  //   { id: 1, value: 'Pepe' },
+  //   { id: 2, value: 'Blacky' },
+  //   { id: 3, value: 'Bolita de nieve' },
+  // ];
 
   const handleDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     setShowDatePicker(false);
@@ -75,12 +121,14 @@ export const CreateWalkScreen: React.FC = () => {
         >
           <Text style={createWalkStyles.buttonText}>Seleccionar Fecha</Text>
         </TouchableOpacity>
+        <Text style={createWalkStyles.label}>Fecha Seleccionada: {date.toLocaleDateString()}</Text>
       </View>
-      {showDatePicker && (
+      {showDatePicker && !isImmediate && (
         <DateTimePicker
           value={date}
           mode="date"
           display="spinner"
+          disabled={isImmediate}
           onChange={(event: DateTimePickerEvent, selectedDate?: Date) =>
             handleDateChange(event, selectedDate)
           }
@@ -94,19 +142,31 @@ export const CreateWalkScreen: React.FC = () => {
         >
           <Text style={createWalkStyles.buttonText}>Seleccionar Hora</Text>
         </TouchableOpacity>
+        <Text style={createWalkStyles.label}>Hora Seleccionada: {time.toLocaleTimeString()}</Text>
       </View>
-      {showTimePicker && (
+      {showTimePicker && !isImmediate && (
         <DateTimePicker
           value={time}
           mode="time"
           display="spinner"
+          disabled={isImmediate}
           onChange={(event: DateTimePickerEvent, selectedTime?: Date) =>
             handleTimeChange(event, selectedTime)
           }
           style={createWalkStyles.picker}
         />
       )}
-
+      <Text>Duración paseo</Text>
+      <RNPickerSelect
+        onValueChange={(value) => setWalkTime(value)}
+        value={walkTime}
+        items={[
+          { label: 'Corto (~10 minutos)', value: '10' },
+          { label: 'Medio (~20 minutos)', value: '20' },
+          { label: 'Largo (~30 minutos)', value: '30' },
+          { label: 'Muy largo (~45 minutos)', value: '45' },
+        ]}
+      />
       <View style={createWalkStyles.immediateContainer}>
         <Text style={createWalkStyles.label}>¿Pedir en este momento?</Text>
         <TouchableOpacity
@@ -119,13 +179,9 @@ export const CreateWalkScreen: React.FC = () => {
 
       <Text style={createWalkStyles.label}>Selecciona un perro:</Text>
       <RNPickerSelect
-        items={dogs.map((dog) => ({
-          label: dog.value,
-          value: dog.id.toString(),
-        }))}
+        items={dogs.map((dog) => ({ label: dog.name, value: dog.id }))}
         onValueChange={(value) => setSelectedDog(value)}
       />
-
       <Text style={createWalkStyles.label}>Comentarios adicionales:</Text>
       <TextInput
         value={additionalComments}
