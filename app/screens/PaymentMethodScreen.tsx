@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, TouchableOpacity, ScrollView, Alert } from 'react-native';
-import { usePaymentSheet} from '@stripe/stripe-react-native';
+import { usePaymentSheet } from '@stripe/stripe-react-native';
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '@react-navigation/native';
@@ -7,12 +7,8 @@ import { RootStackParamList } from '../navigation/navigationTypes';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../styles/generalStyles';
 import { FIREBASE_AUTH } from '../../firebaseConfig';
-import { User, onAuthStateChanged } from 'firebase/auth';
 import { FIREBASE_DB } from '../../firebaseConfig';
-import { doc, onSnapshot, getDoc, deleteDoc, updateDoc } from 'firebase/firestore';
-
-
-
+import { doc, getDoc } from 'firebase/firestore';
 
 import { paymentMethodStyles } from '../styles/paymentMethodStyles';
 
@@ -21,16 +17,18 @@ type Navigation = NavigationProp<RootStackParamList, 'PaymentMethodScreen'>;
 const PaymentMethodScreen = () => {
   const navigation = useNavigation<Navigation>();
   const auth = FIREBASE_AUTH;
+  const [ready, setReady] = useState(false);
+  const { initPaymentSheet, presentPaymentSheet, loading } = usePaymentSheet();
 
   const getUserStripeId = async () => {
     try {
       if (auth.currentUser?.uid) {
         const userDocRef = doc(FIREBASE_DB, 'userData', auth.currentUser.uid);
         const userDoc = await getDoc(userDocRef);
-    
+
         if (userDoc.exists()) {
           const userData = userDoc.data();
-          return userData.stripeId
+          return userData.stripeId;
         }
       }
     } catch (error) {
@@ -38,32 +36,14 @@ const PaymentMethodScreen = () => {
     }
   };
 
-
-
-  const [ready, setReady] = useState(false);
-  const {initPaymentSheet, presentPaymentSheet, loading} = usePaymentSheet();
-
-  useEffect(() => {
-    initialisePaymentSheet();
-  }, []);
-
   const initialisePaymentSheet = async () => {
-    const {setupIntent, ephemeralKey, customer} =
-      await fetchPaymentSheetParams();
-    console.log(setupIntent);
-    const {error} = await initPaymentSheet({
+    const UserStripeId = await getUserStripeId();
+    const { setupIntent, ephemeralKey, customer } = await fetchPaymentSheetParams(UserStripeId);
+    const { error } = await initPaymentSheet({
       customerId: customer,
-      customerEphemeralKeySecret: ephemeralKey,
-      setupIntentClientSecret: setupIntent,
+      customerEphemeralKeySecret: ephemeralKey.secret,
+      setupIntentClientSecret: setupIntent.client_secret,
       merchantDisplayName: 'Example Inc.',
-      /* applePay: {
-        merchantCountryCode: 'US',
-      },
-      googlePay: {
-        merchantCountryCode: 'US',
-        testEnv: true,
-        currencyCode: 'usd',
-      }, */
       allowsDelayedPaymentMethods: true,
       returnURL: 'stripe-example://stripe-redirect',
     });
@@ -74,14 +54,25 @@ const PaymentMethodScreen = () => {
     }
   };
 
-  const fetchPaymentSheetParams = async () => {
-    const response = await fetch(`${API_URL}/payment-sheet-setup-intent`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const {setupIntent, ephemeralKey, customer} = await response.json();
+  useEffect(() => {
+    initialisePaymentSheet();
+  }, []);
+
+  const fetchPaymentSheetParams = async (stripeCustomerId) => {
+    const response = await fetch(
+      'https://us-central1-hund-app.cloudfunctions.net/paymentSheetSetupIntent',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          customerId: stripeCustomerId,
+        }),
+      }
+    );
+
+    const { setupIntent, ephemeralKey, customer } = await response.json();
 
     return {
       setupIntent,
@@ -90,12 +81,12 @@ const PaymentMethodScreen = () => {
     };
   };
 
-
-
   async function handleAddCard() {
-    const {error} = await presentPaymentSheet();
+    console.log('Displaying PaymentSheet...');
+    const { error } = await presentPaymentSheet();
 
     if (error) {
+      console.log('Error en handleAddCard', error.message);
       Alert.alert(`Error code: ${error.code}`, error.message);
     } else {
       Alert.alert('Success', 'The payment method was setup successfully');
@@ -127,6 +118,7 @@ const PaymentMethodScreen = () => {
       <TouchableOpacity
         style={paymentMethodStyles.addButton}
         onPress={handleAddCard}
+        disabled={loading || !ready}
       >
         <Ionicons name="add-circle" color={Colors.orange} size={50} />
       </TouchableOpacity>

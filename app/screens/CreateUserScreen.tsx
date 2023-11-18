@@ -11,7 +11,7 @@ import { uploadImage, updateProfilePhoto } from '../utils/actions';
 
 import { FIREBASE_AUTH } from '../../firebaseConfig';
 import { FIREBASE_DB } from '../../firebaseConfig';
-import { updateDoc, setDoc, doc } from 'firebase/firestore';
+import { updateDoc, doc } from 'firebase/firestore';
 
 export const CreateUserScreen = () => {
   const auth = FIREBASE_AUTH;
