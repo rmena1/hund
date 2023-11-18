@@ -11,7 +11,7 @@ import { NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/navigationTypes';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../styles/generalStyles';
-import axios from 'axios';
+import { CardField, useStripe } from '@stripe/stripe-react-native';
 
 import addCardStyles from '../styles/addCardStyles';
 
@@ -19,24 +19,12 @@ type Navigation = NavigationProp<RootStackParamList, 'AddCardScreen'>;
 
 const AddCardScreen = () => {
   const navigation = useNavigation<Navigation>();
+  
+  const [cardHolderName, setCardHolderName] = useState('');
+  const [cvc, setCvc] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [creditCardNumber, setCreditCardNumber] = useState('');
-
-  const fetchSetupIntent = async () => {
-    try {
-      const response = await axios.get('YOUR_FIREBASE_CLOUD_FUNCTION_URL');
-      return response.data.clientSecret;
-    } catch (error) {
-      console.error('Error fetching Setup Intent:', error);
-    }
-  };
-  
-  useEffect(() => {
-    // Fetch the Setup Intent when the component mounts
-    fetchSetupIntent().then((clientSecret) => {
-      // Use the clientSecret to confirm the Setup Intent
-    });
-  }, []);
+  const { confirmSetupIntent } = useStripe();
 
   const handleTextChange = (input) => {
     // Remove any non-numeric characters from the input
@@ -46,6 +34,12 @@ const AddCardScreen = () => {
     const formattedInput = numericInput.replace(/(\d{4})/g, '$1 ');
 
     setCreditCardNumber(formattedInput);
+  };
+
+  const handleCVCChange = (input) => {
+    // Remove any non-numeric characters
+    const numericInput = input.replace(/\D/g, '');
+    setCvc(numericInput);
   };
 
   
@@ -64,6 +58,36 @@ const AddCardScreen = () => {
       setExpiryDate(formattedInput);
     };
 
+    const handleAddCard = async () => {
+      try {
+        // Create a SetupIntent on your server and get the client secret
+        const response = await fetch('your-server-endpoint-for-setup-intent');
+        const { clientSecret } = await response.json();
+  
+        // Confirm the SetupIntent with the card details
+        const { setupIntent, error } = await confirmSetupIntent(clientSecret, {
+          payment_method: {
+            card: {
+              number: creditCardNumber.replace(/\s/g, ''),
+              exp_month: expiryDate.split('/')[0],
+              exp_year: expiryDate.split('/')[1],
+              cvc: cvc,
+              name: cardHolderName,
+            },
+          }
+        });
+  
+        if (error) {
+          console.error('Error confirming SetupIntent:', error.message);
+        } else if (setupIntent) {
+          console.log('SetupIntent confirmed:', setupIntent);
+          // Handle success, e.g., save the SetupIntent ID in your Firestore
+        }
+      } catch (error) {
+        console.error('Error adding card:', error);
+      }
+    };
+
 
   return (
     <View>
@@ -78,7 +102,7 @@ const AddCardScreen = () => {
         <View style={addCardStyles.formContainer}>
           <View style={addCardStyles.formBox}>
             <Text style={addCardStyles.formText}>Nombre</Text>
-            <TextInput placeholder="Nombre en Tarjeta" style={addCardStyles.formInput} />
+            <TextInput value={cardHolderName} onChangeText={(name) => setCardHolderName(name)} placeholder="Nombre en Tarjeta" style={addCardStyles.formInput} />
           </View>
 
           <View style={addCardStyles.formBox}>
@@ -110,6 +134,7 @@ const AddCardScreen = () => {
             <View style={addCardStyles.formBoxHorizontal}>
               <Text style={addCardStyles.formText}>Código de seguridad</Text>
               <TextInput 
+                onChangeText={handleCVCChange}
                 placeholder="123"
                 maxLength={3}
                 keyboardType='number-pad'
@@ -120,7 +145,7 @@ const AddCardScreen = () => {
         </View>
 
         <View style={addCardStyles.buttonContainer}>
-          <TouchableOpacity style={addCardStyles.button} onPress={() => {}} disabled={false}>
+          <TouchableOpacity style={addCardStyles.button} onPress={handleAddCard} disabled={false}>
             <Text style={addCardStyles.buttonText}>Agregar Tarjeta</Text>
           </TouchableOpacity>
         </View>
