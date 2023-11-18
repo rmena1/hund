@@ -11,10 +11,7 @@ import { addDoc, collection, doc, getDoc, onSnapshot } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import RNPickerSelect from 'react-native-picker-select';
-interface Dog {
-  id: number;
-  value: string;
-}
+
 type Navigation = NavigationProp<RootStackParamList, 'TabsBar'>;
 
 export const CreateWalkScreen: React.FC = () => {
@@ -30,6 +27,7 @@ export const CreateWalkScreen: React.FC = () => {
   const [additionalComments, setAdditionalComments] = useState<string>('');
   const [dogsID, setDogsID] = useState([]);
   const [dogs, setDogs] = useState([]);
+  const [pickupAddress, setPickupAddress] = useState<string>('');
 
   const createWalk = async () => {
     const docRef = await addDoc(collection(FIREBASE_DB, 'paseos'), {
@@ -38,12 +36,13 @@ export const CreateWalkScreen: React.FC = () => {
       fecha: date,
       inmediato: isImmediate,
       comentarios: additionalComments,
+      direccion_recogida: pickupAddress,
     });
     console.log('Document written with ID: ', docRef.id);
   };
 
   const getDogs = async () => {
-    const newDogs = [];
+    const newDogs: { name: string; userUid: string | undefined; id: number }[] = [];
     for (let i = 0; i < dogsID.length; i++) {
       const dogId = dogsID[i];
       const dogDocRef = doc(FIREBASE_DB, 'dogData', dogId);
@@ -53,7 +52,7 @@ export const CreateWalkScreen: React.FC = () => {
         newDogs.push({
           name: dogData.name,
           userUid: auth.currentUser?.uid,
-          id: dogId,
+          id: dogId as number, // Specify the type of 'id' as 'number'
         });
       }
     }
@@ -79,15 +78,13 @@ export const CreateWalkScreen: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (dogsID.length > 0) {
+    // Verificar primero si dogsID es undefined
+    if (dogsID === undefined) {
+      Alert.alert('Error', 'No se pudo cargar la información de los perros');
+    } else if (dogsID.length > 0) {
       getDogs();
     }
   }, [dogsID]);
-  // const dogs: Dog[] = [
-  //   { id: 1, value: 'Pepe' },
-  //   { id: 2, value: 'Blacky' },
-  //   { id: 3, value: 'Bolita de nieve' },
-  // ];
 
   const handleDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     setShowDatePicker(false);
@@ -120,19 +117,6 @@ export const CreateWalkScreen: React.FC = () => {
       }
     }
   };
-  // const handleDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
-  //   setShowDatePicker(false);
-  //   if (selectedDate) {
-  //     setDate(selectedDate);
-  //   }
-  // };
-
-  // const handleTimeChange = (event: DateTimePickerEvent, selectedTime?: Date) => {
-  //   setShowTimePicker(false);
-  //   if (selectedTime) {
-  //     setTime(selectedTime);
-  //   }
-  // };
 
   const handleAppointmentSubmit = () => {
     // Lógica para enviar los datos del formulario
@@ -213,17 +197,32 @@ export const CreateWalkScreen: React.FC = () => {
           <Text style={createWalkStyles.buttonText}>{isImmediate ? 'Sí' : 'No'}</Text>
         </TouchableOpacity>
       </View>
+      {dogs.length === 0 && <Text>No hay perros registrados</Text>}
 
-      <Text style={createWalkStyles.label}>Selecciona un perro:</Text>
-      <RNPickerSelect
-        items={dogs.map((dog) => ({ label: dog.name, value: dog.id }))}
-        onValueChange={(value) => setSelectedDog(value)}
+      {dogs.length > 0 && (
+        <>
+          <Text style={createWalkStyles.label}>Selecciona el perro:</Text>
+          <RNPickerSelect
+            items={dogs.map((dog: { name: string; id: string }) => ({
+              label: dog.name,
+              value: dog.id,
+            }))}
+            onValueChange={(value) => setSelectedDog(value)}
+          />
+        </>
+      )}
+      <Text style={createWalkStyles.label}>Dirección de Recogida:</Text>
+      <TextInput
+        value={pickupAddress}
+        onChangeText={setPickupAddress}
+        placeholder="Ingresa la dirección donde recoger al perro"
+        style={createWalkStyles.input}
       />
       <Text style={createWalkStyles.label}>Comentarios adicionales:</Text>
       <TextInput
         value={additionalComments}
         onChangeText={setAdditionalComments}
-        multiline={true}
+        placeholder="Ingresa comentarios que puedan ser utiles o importantes para el paseador"
         style={createWalkStyles.input}
       />
 
