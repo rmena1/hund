@@ -11,6 +11,7 @@ import { NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/navigationTypes';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../styles/generalStyles';
+import axios from 'axios';
 
 import addCardStyles from '../styles/addCardStyles';
 

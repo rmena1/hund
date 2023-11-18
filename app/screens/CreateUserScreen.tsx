@@ -11,7 +11,7 @@ import { uploadImage, updateProfilePhoto } from '../utils/actions';
 
 import { FIREBASE_AUTH } from '../../firebaseConfig';
 import { FIREBASE_DB } from '../../firebaseConfig';
-import { setDoc, doc } from 'firebase/firestore';
+import { updateDoc, setDoc, doc } from 'firebase/firestore';
 
 export const CreateUserScreen = () => {
   const auth = FIREBASE_AUTH;
@@ -52,19 +52,20 @@ export const CreateUserScreen = () => {
 
   const saveChangesUser = async () => {
     if (auth.currentUser?.uid) {
-      await setDoc(doc(FIREBASE_DB, 'userData', auth.currentUser?.uid), {
+      await updateDoc(doc(FIREBASE_DB, 'userData', auth.currentUser?.uid), {
         name: userName,
         phone: phone,
         birthday: birthday,
         dogs: [],
         photoUrl: photoUrl,
+        email: auth.currentUser?.email,
       });
     }
   };
 
   const saveChangesWalker = async () => {
     if (auth.currentUser?.uid) {
-      await setDoc(doc(FIREBASE_DB, 'walkerData', auth.currentUser?.uid), {
+      await updateDoc(doc(FIREBASE_DB, 'walkerData', auth.currentUser?.uid), {
         name: userName,
         phone: phone,
         birthday: birthday,

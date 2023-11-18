@@ -20,6 +20,7 @@
     "@react-navigation/native-stack": "^6.9.14",
     "@stripe/stripe-react-native": "^0.34.0",
     "@types/react-native-table-component": "^1.2.5",
+    "axios": "^1.6.2",
     "expo": "~49.0.11",
     "expo-app-loading": "^2.1.1",
     "expo-checkbox": "~2.4.0",
