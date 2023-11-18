@@ -1,7 +1,7 @@
 // Vista de formulario para crear un paseo
 
 import React, { useEffect, useState } from 'react';
-import { Text, View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { createWalkStyles } from '../styles/createWalkStyles';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '@react-navigation/native';
@@ -91,23 +91,60 @@ export const CreateWalkScreen: React.FC = () => {
 
   const handleDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     setShowDatePicker(false);
-    if (selectedDate) {
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); // Configurar la hora actual a medianoche
+
+    if (selectedDate && selectedDate >= currentDate) {
       setDate(selectedDate);
+    } else {
+      Alert.alert('Error', 'No puedes seleccionar una fecha pasada');
     }
   };
 
   const handleTimeChange = (event: DateTimePickerEvent, selectedTime?: Date) => {
     setShowTimePicker(false);
+    const currentTime = new Date();
+
     if (selectedTime) {
-      setTime(selectedTime);
+      // Crear una nueva fecha que combine la fecha actual y la hora seleccionada
+      const combinedDateTime = new Date(date);
+      combinedDateTime.setHours(selectedTime.getHours());
+      combinedDateTime.setMinutes(selectedTime.getMinutes());
+      combinedDateTime.setSeconds(selectedTime.getSeconds());
+
+      // Validar si la hora combinada es futura en relación al momento actual
+      if (combinedDateTime > currentTime) {
+        setTime(selectedTime);
+      } else {
+        Alert.alert('Error', 'No puedes seleccionar una hora pasada para el día de hoy');
+      }
     }
   };
+  // const handleDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
+  //   setShowDatePicker(false);
+  //   if (selectedDate) {
+  //     setDate(selectedDate);
+  //   }
+  // };
+
+  // const handleTimeChange = (event: DateTimePickerEvent, selectedTime?: Date) => {
+  //   setShowTimePicker(false);
+  //   if (selectedTime) {
+  //     setTime(selectedTime);
+  //   }
+  // };
 
   const handleAppointmentSubmit = () => {
     // Lógica para enviar los datos del formulario
     // a la base de datos
-    createWalk();
-    console.log({ selectedDog, additionalComments, date, isImmediate });
+    if (!selectedDog) {
+      // Mostrar alerta si no se seleccionó un perro
+      Alert.alert('Error', 'Debe seleccionar un perro');
+    } else {
+      // Proceder con la creación del paseo si se seleccionó un perro
+      createWalk();
+      console.log({ selectedDog, additionalComments, date, isImmediate });
+    }
   };
 
   return (
