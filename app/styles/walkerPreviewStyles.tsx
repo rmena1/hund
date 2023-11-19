@@ -51,29 +51,22 @@ export const walkerPreviewStyles = StyleSheet.create({
 
   textboxContainer: {
     position: 'absolute',
-    top: 264,
-    left: 28,
+    top: height * 0.328, //264,
+    left: width * 0.05,
     opacity: 1,
   },
 
   textboxContainer2: {
     position: 'absolute',
-    top: 348,
-    left: 28,
+    top: height * 0.43,
+    left: width * 0.05,
     opacity: 1,
   },
 
   textboxContainer3: {
     position: 'absolute',
-    top: 432,
-    left: 28,
-    opacity: 1,
-  },
-
-  textboxContainer4: {
-    position: 'absolute',
-    top: 520,
-    left: 28,
+    top: height * 0.53,
+    left: width * 0.05,
     opacity: 1,
   },
 
@@ -100,8 +93,8 @@ export const walkerPreviewStyles = StyleSheet.create({
 
   buttonCreate: {
     position: 'absolute',
-    top: 588,
-    left: 28,
+    top: height * 0.725, //588,
+    left: width * 0.05,
     width: 335,
     height: 44,
     padding: 0,
@@ -127,8 +120,8 @@ export const walkerPreviewStyles = StyleSheet.create({
 
   buttonPets: {
     position: 'absolute',
-    top: 535,
-    left: 28,
+    top: height * 0.655, //535,
+    left: width * 0.05,
     width: 125,
     height: 36,
     padding: 0,
@@ -150,8 +143,8 @@ export const walkerPreviewStyles = StyleSheet.create({
 
   buttonPay: {
     position: 'absolute',
-    top: 535,
-    left: 160,
+    top: height * 0.655,
+    left: width * 0.4,
     width: 203,
     height: 36,
     padding: 0,

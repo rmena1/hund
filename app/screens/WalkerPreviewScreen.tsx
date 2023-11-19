@@ -1,7 +1,5 @@
-import { Text, View, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
-import { uploadImage, updateProfilePhoto } from '../utils/actions';
+import { Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import profilePreviewStyles from '../styles/walkerPreviewStyles';
-import { loadImageFromGallery } from '../utils/helpers';
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
@@ -30,10 +28,12 @@ export const WalkerPreviewScreen = () => {
             name: data?.name,
             phone: data?.phone,
             birthday: data?.birthday,
+            photoUrl: data?.photoUrl,
           };
           setName(newUserData.name);
           setPhone(newUserData.phone);
           setBirthday(newUserData.birthday.seconds * 1000);
+          setPhotoUrl(newUserData.photoUrl);
         }
       });
       return () => {

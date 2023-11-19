@@ -42,7 +42,7 @@ export const WalkerAtributeScreen = StyleSheet.create({
 
   subtitle: {
     position: 'absolute',
-    top: height * 0.18,//142,
+    top: height * 0.18, //142,
     left: width * 0.05,
     width: 279,
     fontFamily: Fonts.montserrat,
@@ -54,7 +54,7 @@ export const WalkerAtributeScreen = StyleSheet.create({
 
   subtitle2: {
     position: 'absolute',
-    top: height * 0.442,//350,
+    top: height * 0.442, //350,
     left: width * 0.05,
     width: 279,
     fontFamily: Fonts.montserrat,
@@ -66,7 +66,7 @@ export const WalkerAtributeScreen = StyleSheet.create({
 
   subtitle3: {
     position: 'absolute',
-    top: height * 0.61,//494,
+    top: height * 0.61, //494,
     left: width * 0.05,
     width: 279,
     fontFamily: Fonts.montserrat,
@@ -77,7 +77,7 @@ export const WalkerAtributeScreen = StyleSheet.create({
   },
   subtitle4: {
     position: 'absolute',
-    top: height * 0.775,//629,
+    top: height * 0.775, //629,
     left: width * 0.05, //20,
     width: 279,
     fontFamily: Fonts.montserrat,
@@ -102,7 +102,7 @@ export const WalkerAtributeScreen = StyleSheet.create({
 
   externalContainer: {
     position: 'absolute',
-    top: height * 0.80,
+    top: height * 0.8,
     left: width * 0.065,
     justifyContent: 'center',
     width: width * 0.87,
