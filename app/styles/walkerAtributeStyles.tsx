@@ -42,8 +42,8 @@ export const WalkerAtributeScreen = StyleSheet.create({
 
   subtitle: {
     position: 'absolute',
-    top: 142,
-    left: 20,
+    top: height * 0.18,//142,
+    left: width * 0.05,
     width: 279,
     fontFamily: Fonts.montserrat,
     fontSize: 12,
@@ -54,8 +54,8 @@ export const WalkerAtributeScreen = StyleSheet.create({
 
   subtitle2: {
     position: 'absolute',
-    top: 350,
-    left: 20,
+    top: height * 0.442,//350,
+    left: width * 0.05,
     width: 279,
     fontFamily: Fonts.montserrat,
     fontSize: 12,
@@ -66,8 +66,8 @@ export const WalkerAtributeScreen = StyleSheet.create({
 
   subtitle3: {
     position: 'absolute',
-    top: 494,
-    left: 20,
+    top: height * 0.61,//494,
+    left: width * 0.05,
     width: 279,
     fontFamily: Fonts.montserrat,
     fontSize: 12,
@@ -77,8 +77,8 @@ export const WalkerAtributeScreen = StyleSheet.create({
   },
   subtitle4: {
     position: 'absolute',
-    top: 629,
-    left: 20,
+    top: height * 0.775,//629,
+    left: width * 0.05, //20,
     width: 279,
     fontFamily: Fonts.montserrat,
     fontSize: 12,
@@ -89,8 +89,8 @@ export const WalkerAtributeScreen = StyleSheet.create({
 
   table: {
     position: 'absolute',
-    top: 174,
-    left: 20,
+    top: height * 0.214, // 174,
+    left: width * 0.05,
     width: 350,
     height: 144,
     opacity: 1,
@@ -102,7 +102,7 @@ export const WalkerAtributeScreen = StyleSheet.create({
 
   externalContainer: {
     position: 'absolute',
-    top: height * 0.8,
+    top: height * 0.80,
     left: width * 0.065,
     justifyContent: 'center',
     width: width * 0.87,
@@ -155,7 +155,7 @@ export const WalkerAtributeScreen = StyleSheet.create({
 
   button: {
     position: 'absolute',
-    top: 750,
+    top: height * 0.9, //750,
     //marginTop: "5%",
     width: '50%',
     height: 52,
@@ -185,8 +185,8 @@ export const WalkerAtributeScreen = StyleSheet.create({
     // justifyContent: 'space-between', // Space between elements
     // marginVertical: 10,      // Adjust the vertical margin as needed
     position: 'absolute',
-    top: 382,
-    left: 20,
+    top: height * 0.47,
+    left: width * 0.05,
     width: 350,
     height: 80,
     backgroundColor: '#FFFFFFFF', // white
@@ -205,8 +205,8 @@ export const WalkerAtributeScreen = StyleSheet.create({
 
   container2: {
     position: 'absolute',
-    top: 518,
-    left: 20,
+    top: height * 0.64,
+    left: width * 0.05,
     width: 350,
     height: 80,
     backgroundColor: '#FFFFFFFF', // white

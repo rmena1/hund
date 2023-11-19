@@ -1,5 +1,7 @@
-import { Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
+import { uploadImage, updateProfilePhoto } from '../utils/actions';
 import profilePreviewStyles from '../styles/walkerPreviewStyles';
+import { loadImageFromGallery } from '../utils/helpers';
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
@@ -17,6 +19,7 @@ export const WalkerPreviewScreen = () => {
   const [phone, setPhone] = useState();
   const [birthday, setBirthday] = useState(0);
   const birthdayDate = birthday ? new Date(birthday) : null;
+  const [photoUrl, setPhotoUrl] = useState(auth.currentUser?.photoURL);
 
   useEffect(() => {
     if (auth.currentUser?.uid) {
@@ -43,10 +46,13 @@ export const WalkerPreviewScreen = () => {
 
   return (
     <>
-      <ScrollView style={profilePreviewStyles.page}>
+      <View style={profilePreviewStyles.page}>
         <View style={profilePreviewStyles.group}>
           <View style={profilePreviewStyles.container}></View>
-          <View style={profilePreviewStyles.avatar}></View>
+          <Image
+            source={photoUrl ? { uri: photoUrl } : require('../assets/images/Avatar.jpeg')}
+            style={profilePreviewStyles.avatar}
+          />
         </View>
         <Text style={profilePreviewStyles.title}>Mi perfil</Text>
         <View style={profilePreviewStyles.textboxContainer}>
@@ -99,7 +105,7 @@ export const WalkerPreviewScreen = () => {
         >
           <Text style={profilePreviewStyles.buttonText}>Guardar cambios</Text>
         </TouchableOpacity>
-      </ScrollView>
+      </View>
     </>
   );
 };

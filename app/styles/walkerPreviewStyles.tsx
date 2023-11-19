@@ -31,23 +31,22 @@ export const walkerPreviewStyles = StyleSheet.create({
   // Container gris claro foto
   container: {
     position: 'absolute',
-    top: height * 0.005,
-    width: width * 0.27,
-    height: width * 0.27,
+    top: 4,
+    left: 0,
+    width: 104,
+    height: 104,
     backgroundColor: Colors.gray2,
-    borderRadius: height * 0.1,
+    borderRadius: 52,
   },
 
   avatar: {
     position: 'absolute',
-    top: 11,
-    left: 8,
-    width: 88,
-    height: 88,
+    top: height * 0.015,
+    left: height * 0.011,
+    width: height * 0.115,
+    height: height * 0.115,
     backgroundColor: Colors.gray,
-    opacity: 1,
-    overflow: 'hidden',
-    borderRadius: height * 0.1,
+    borderRadius: 44,
   },
 
   textboxContainer: {

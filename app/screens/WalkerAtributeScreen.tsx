@@ -71,7 +71,7 @@ const WalkerAtributeScreen = () => {
               onPress={() => handleCheckboxChange(index)}
               style={walkerAtributeStyles.checkbox}
             >
-              <Text>{checkboxStates[index] ? 'Checked' : 'Unchecked'}</Text>
+              
               <Checkbox
                 value={checkboxStates[index]}
                 onValueChange={() => handleCheckboxChange(index)}
