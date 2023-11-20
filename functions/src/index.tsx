@@ -3,7 +3,7 @@ import * as admin from 'firebase-admin';
 import { Stripe } from 'stripe';
 import {
     STRIPE_SECRET_KEY
-  } from "@env"; 
+  } from "@env";
 
 admin.initializeApp();
 
@@ -40,5 +40,23 @@ export const paymentSheetSetupIntent = functions.https.onRequest(async (req, res
   } catch (error) {
     console.error('Error:', error);
     res.status(500).send('Internal Server Error');
+  }
+});
+
+export const listStripeSources = functions.https.onRequest(async (req, res) => {
+  try {
+    const customerId = req.body.customerId;
+
+    // Make the Stripe API call to list customer sources
+    const sources = await stripe.customers.listSources(customerId, {
+      object: 'card',
+      limit: 10,
+    });
+
+    // Send a response to the client
+    res.status(200).json({ success: true, sources: sources.data });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });

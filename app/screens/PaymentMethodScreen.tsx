@@ -83,13 +83,16 @@ const PaymentMethodScreen = () => {
 
   async function handleAddCard() {
     console.log('Displaying PaymentSheet...');
+    console.log(ready)
+    if (!ready) {
+      // Reinitialize the payment sheet
+      await initialisePaymentSheet();
+    }
     const { error } = await presentPaymentSheet();
 
     if (error) {
       console.log('Error en handleAddCard', error.message);
-      Alert.alert(`Error code: ${error.code}`, error.message);
     } else {
-      Alert.alert('Success', 'The payment method was setup successfully');
       setReady(false);
     }
   }
@@ -118,7 +121,7 @@ const PaymentMethodScreen = () => {
       <TouchableOpacity
         style={paymentMethodStyles.addButton}
         onPress={handleAddCard}
-        disabled={loading || !ready}
+        disabled={loading}
       >
         <Ionicons name="add-circle" color={Colors.orange} size={50} />
       </TouchableOpacity>
