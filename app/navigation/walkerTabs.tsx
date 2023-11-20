@@ -6,8 +6,6 @@ import { Colors } from '../styles/generalStyles';
 
 import Details from '../screens/Details';
 import Walks from '../screens/Walks';
-import ProfileScreen from '../screens/ProfileScreen';
-import HomeScreen from '../screens/HomeScreen';
 
 // Thanks for watching
 const Tab = createBottomTabNavigator();
@@ -24,7 +22,7 @@ const Tab = createBottomTabNavigator();
 //     background: "#fff",
 //   },
 // };
-function TabsBar() {
+function WalkerTabs() {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -34,7 +32,7 @@ function TabsBar() {
     >
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={Details}
         options={{
           tabBarIcon: ({ focused }) => {
             return (
@@ -103,7 +101,7 @@ function TabsBar() {
       />
       <Tab.Screen
         name="Mi perfil"
-        component={ProfileScreen}
+        component={Details}
         options={{
           tabBarIcon: ({ focused }) => {
             return (
@@ -128,4 +126,4 @@ function TabsBar() {
   );
 }
 
-export default TabsBar;
+export default WalkerTabs;

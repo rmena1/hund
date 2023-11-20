@@ -95,7 +95,7 @@ export const ProfilePreviewScreen = () => {
         <TouchableOpacity
           style={profilePreviewStyles.buttonCreate}
           onPress={() => {
-            navigation.navigate('HomeScreen');
+            navigation.navigate('MainLayout');
           }}
           disabled={false}
         >
