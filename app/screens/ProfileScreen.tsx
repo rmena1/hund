@@ -34,6 +34,7 @@ const UserProfile: React.FC = () => {
   const [name, setName] = useState(user.name);
   const [phone, setPhone] = useState(user.phone);
   const [birthday, setBirthday] = useState(user.birthday);
+  const [actBirthday, setActBirthday] = useState('');
   const [email, setEmail] = useState(auth.currentUser?.email || '');
 
   const [photoUrl, setPhotoUrl] = useState(auth.currentUser?.photoURL);
@@ -46,6 +47,10 @@ const UserProfile: React.FC = () => {
     setBirthday(user.birthday);
     if (auth.currentUser?.email) {
       setEmail(auth.currentUser?.email);
+    }
+    if (user.birthday) {
+      const birth = new Date(user.birthday.seconds * 1000 + user.birthday.nanoseconds / 1000000).toLocaleDateString();
+      setActBirthday(birth);
     }
   }, [user]);
 
@@ -105,6 +110,7 @@ const UserProfile: React.FC = () => {
       console.log('user id not found');
     }
   };
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.profileSection}>
@@ -146,7 +152,7 @@ const UserProfile: React.FC = () => {
       <TextInput
         style={styles.inputField}
         placeholder="Fecha de Nacimiento"
-        value={birthday}
+        value={actBirthday}
         onChangeText={setBirthday}
         onBlur={() => updateState('birthday', birthday)}
       />
