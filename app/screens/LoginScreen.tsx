@@ -30,10 +30,8 @@ export const LoginScreen = () => {
     setLoading(true);
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
-      console.log(response);
       navigation.navigate('MainLayout');
     } catch (error: any) {
-      console.log(error);
       alert('Error al iniciar sesión, ' + error.message);
     } finally {
       setLoading(false);

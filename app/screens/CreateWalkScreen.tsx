@@ -31,6 +31,7 @@ export const CreateWalkScreen: React.FC = () => {
 
   const createWalk = async () => {
     const docRef = await addDoc(collection(FIREBASE_DB, 'paseos'), {
+      email_usuario: auth.currentUser?.email,
       id_usuario: auth.currentUser?.uid,
       perro: selectedDog,
       fecha: date,
@@ -38,7 +39,6 @@ export const CreateWalkScreen: React.FC = () => {
       comentarios: additionalComments,
       direccion_recogida: pickupAddress,
     });
-    console.log('Document written with ID: ', docRef.id);
   };
 
   const getDogs = async () => {
@@ -121,6 +121,7 @@ export const CreateWalkScreen: React.FC = () => {
   const handleAppointmentSubmit = () => {
     // Lógica para enviar los datos del formulario
     // a la base de datos
+
     if (!selectedDog) {
       // Mostrar alerta si no se seleccionó un perro
       Alert.alert('Error', 'Debe seleccionar un perro');
