@@ -22,13 +22,11 @@ export const homeStyles = StyleSheet.create({
 
   title: {
     fontFamily: Fonts.poppins,
-    fontSize: 32,
+    fontSize: 20,
     fontWeight: '700',
     lineHeight: 48,
     color: Colors.neutral,
-    alignSelf: 'flex-start',
-    marginBottom: '60%',
-    marginLeft: '5%',
+    alignSelf: 'center',
   },
 
   subtitle: {
@@ -49,6 +47,9 @@ export const homeStyles = StyleSheet.create({
     alignItems: 'center',
     marginRight: '2%',
     marginBottom: '2%',
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
   },
 
   buttonText: {
@@ -63,6 +64,29 @@ export const homeStyles = StyleSheet.create({
   textboxContainer: {
     marginTop: '10%',
   },
+
+  mapContainer: {
+    width: '100%',
+    height: '70%',
+  },
+
+  map: {
+    width:'100%',
+    height: '100%'
+  },
+
+  mapOverlay: {
+    position: "absolute",
+    bottom: 50,
+    backgroundColor: "#ffffff",
+    borderWidth: 2,
+    borderRadius: 5,
+    padding: 16,
+    left: "25%",
+    width: "50%",
+    textAlign: "center"
+  },
+
 });
 
 export default homeStyles;
