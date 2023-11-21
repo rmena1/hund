@@ -1,13 +1,4 @@
-import {
-  Image,
-  View,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  ScrollView,
-  Alert,
-  Button,
-} from 'react-native';
+import { Image, View, Text, SafeAreaView, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { usePaymentSheet } from '@stripe/stripe-react-native';
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -130,7 +121,8 @@ const PaymentMethodScreen = () => {
 
   const deleteCard = async (paymentMethodId) => {
     try {
-      const cloudFunctionUrl = 'https://us-central1-hund-app.cloudfunctions.net/detachPaymentMethod';
+      const cloudFunctionUrl =
+        'https://us-central1-hund-app.cloudfunctions.net/detachPaymentMethod';
       const response = await fetch(cloudFunctionUrl, {
         method: 'DELETE',
         headers: {
@@ -270,7 +262,10 @@ const PaymentMethodScreen = () => {
                     </TouchableOpacity>
                   </View>
                   <View style={paymentMethodStyles.buttonContainer}>
-                    <TouchableOpacity style={paymentMethodStyles.optionsButton} onPress={() => handleDeleteCard(method.id)}>
+                    <TouchableOpacity
+                      style={paymentMethodStyles.optionsButton}
+                      onPress={() => handleDeleteCard(method.id)}
+                    >
                       <Ionicons name="trash-outline" size={20} color={Colors.gray1} />
                       <Text style={paymentMethodStyles.cardOption}>Eliminar</Text>
                     </TouchableOpacity>
