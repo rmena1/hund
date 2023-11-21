@@ -130,7 +130,6 @@ const PaymentMethodScreen = () => {
 
   const deleteCard = async (paymentMethodId) => {
     try {
-      // Replace 'your-cloud-function-url' with the actual URL of your Cloud Function
       const cloudFunctionUrl = 'https://us-central1-hund-app.cloudfunctions.net/detachPaymentMethod';
       const response = await fetch(cloudFunctionUrl, {
         method: 'DELETE',
@@ -154,7 +153,6 @@ const PaymentMethodScreen = () => {
   };
 
   const handleDeleteCard = async (paymentMethodId) => {
-    // Display a confirmation dialog (you might want to customize this part)
     Alert.alert(
       'Eliminar tarjeta',
       '¿Estás seguro de que quieres eliminar esta tarjeta?',
@@ -166,8 +164,6 @@ const PaymentMethodScreen = () => {
         {
           text: 'Eliminar',
           onPress: async () => {
-            // Call the deleteCard function to delete the payment method
-            console.log("Eliminado")
             await deleteCard(paymentMethodId);
             setSelectedCard(null);
           },
