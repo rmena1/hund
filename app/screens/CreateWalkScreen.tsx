@@ -3,19 +3,30 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { createWalkStyles } from '../styles/createWalkStyles';
-import { useNavigation } from '@react-navigation/native';
-import { NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/navigationTypes';
 import { FIREBASE_AUTH } from '../../firebaseConfig';
 import { addDoc, collection, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { FIREBASE_DB } from '../../firebaseConfig';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import RNPickerSelect from 'react-native-picker-select';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
-type Navigation = NavigationProp<RootStackParamList, 'TabsBar'>;
+// Define the type for your routes
+type BottomTabParamList = {
+  Home: undefined;
+  Paseos: undefined;
+  Mensajes: undefined;
+  MiPerfil: undefined;
+};
 
-export const CreateWalkScreen: React.FC = () => {
-  const navigation = useNavigation<Navigation>();
+// Specify the type for the navigation prop
+type SomeScreenNavigationProp = BottomTabNavigationProp<BottomTabParamList, 'Home'>;
+
+type Props = {
+  navigation: SomeScreenNavigationProp;
+};
+
+const CreateWalkScreen: React.FC<Props> = ({ navigation }) => {
   const auth = FIREBASE_AUTH;
   const [date, setDate] = useState<Date>(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -131,6 +142,7 @@ export const CreateWalkScreen: React.FC = () => {
       // Proceder con la creación del paseo si se seleccionó un perro
       createWalk();
       console.log({ selectedDog, additionalComments, date, isImmediate });
+      navigation.navigate('Home');
     }
   };
 
@@ -234,7 +246,7 @@ export const CreateWalkScreen: React.FC = () => {
       </TouchableOpacity>
       <TouchableOpacity
         style={createWalkStyles.buttonLargeEnd}
-        onPress={() => navigation.navigate('MainLayout')}
+        onPress={() => navigation.navigate('Home')}
       >
         <Text style={createWalkStyles.buttonTextEnd}>Go back to Home</Text>
       </TouchableOpacity>
