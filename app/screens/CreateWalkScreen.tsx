@@ -35,6 +35,8 @@ export const CreateWalkScreen: React.FC = () => {
       fecha: date,
       inmediato: isImmediate,
       comentarios: additionalComments,
+      taken: false,
+      state: 'waitingForWalker',
     });
   };
   const dogs: Dog[] = [
