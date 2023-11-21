@@ -66,13 +66,13 @@ export const MyDogEditScreen = ({ route }: Props) => {
         reactivity: reactivity,
         description: description,
         photoUrl: photoUrl,
+        userUid: auth.currentUser.uid,
       };
 
       const dogsCollection = collection(FIREBASE_DB, 'dogData');
       const docRef = await addDoc(dogsCollection, docData);
 
       const dogId = docRef.id;
-      console.log('ID del nuevo perro:', dogId);
 
       const userDocRef = doc(FIREBASE_DB, 'userData', auth.currentUser?.uid);
       const userDoc = await getDoc(userDocRef);
@@ -104,6 +104,7 @@ export const MyDogEditScreen = ({ route }: Props) => {
         reactivity: reactivity,
         description: description,
         photoUrl: photoUrl,
+        userUid: auth.currentUser?.uid,
       });
     }
     navigation.navigate('CreateMyDogsScreen');

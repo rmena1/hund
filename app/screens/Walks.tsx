@@ -9,10 +9,6 @@ const Walks = () => {
   const [dogs, setDogs] = useState<any>([]);
 
   useEffect(() => {
-    console.log(dogs.length);
-  }, [dogs]);
-
-  useEffect(() => {
     const walksRef = collection(FIREBASE_DB, 'paseos');
     const dogsRef = collection(FIREBASE_DB, 'dogData');
 
