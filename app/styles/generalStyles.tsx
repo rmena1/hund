@@ -13,7 +13,10 @@ export const Colors = {
   orange: '#FF5400FF',
   orange2: '#DE3B40FF',
   lightOrange: '#FFF5F0',
+  mediumOrange: '#FFBFA6',
   shadow: '#171a1f',
+  shadowRed: '#FF6666',
+  shadowOrange: '#FF5400',
 };
 
 export const Fonts = {
