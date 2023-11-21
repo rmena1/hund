@@ -19,9 +19,9 @@ export const walksStyles = StyleSheet.create({
     width: width * 0.85,
     height: height * 0.2,
     backgroundColor: Colors.white,
-    borderRadius: 4, 
+    borderRadius: 4,
     borderWidth: 1,
-    borderColor: Colors.shadow2, 
+    borderColor: Colors.shadow2,
     marginTop: height * 0.02,
     marginBottom: height * 0.01,
     padding: 4,
@@ -58,12 +58,12 @@ export const walksStyles = StyleSheet.create({
     borderTopWidth: 10,
     borderLeftColor: 'transparent',
     borderRightColor: 'transparent',
-    borderTopColor: Colors.white, 
+    borderTopColor: Colors.white,
   },
 
   walkTitles: {
     fontFamily: Fonts.poppinsBold,
-    fontSize:  height * 0.02,
+    fontSize: height * 0.02,
     fontWeight: '800',
   },
 

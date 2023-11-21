@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SelectDropdown from 'react-native-select-dropdown';
-import { Text, View, ScrollView, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
 import myDogEditStyles from '../styles/myDogEditStyles';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from '@expo/vector-icons/Ionicons';

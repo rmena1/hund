@@ -167,4 +167,3 @@ export const walkerPreviewStyles = StyleSheet.create({
 });
 
 export default walkerPreviewStyles;
-
