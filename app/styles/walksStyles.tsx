@@ -14,7 +14,8 @@ export const walksStyles = StyleSheet.create({
   },
 
   immediateWalk: {
-    backgroundColor: Colors.shadowRed,
+    borderColor: Colors.mediumOrange,
+    borderWidth: 3,
   },
 
   walkItem: {
