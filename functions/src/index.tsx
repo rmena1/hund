@@ -3,7 +3,8 @@ import * as admin from 'firebase-admin';
 import { Stripe } from 'stripe';
 import {
     STRIPE_SECRET_KEY
-  } from "@env"; 
+  } from "@env";
+
 
 admin.initializeApp();
 
@@ -57,6 +58,21 @@ export const listStripePaymentMethods = functions.https.onRequest(async (req, re
 
     // Send the payment methods data to the client
     res.status(200).json({ success: true, paymentMethods: paymentMethods.data });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+export const detachPaymentMethod = functions.https.onRequest(async (req, res) => {
+  try {
+    const paymentMethodId = req.body.paymentMethodId;
+
+    // Detach the payment method
+    const detachedPaymentMethod = await stripe.paymentMethods.detach(paymentMethodId);
+
+    // Send a response to the client
+    res.status(200).json({ detachedPaymentMethod });
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal Server Error' });

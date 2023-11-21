@@ -49,8 +49,8 @@ export const paymentMethodStyles = StyleSheet.create({
     alignItems: 'center',
   },
   selectedCard: {
-    flexDirection: 'row',
-    height: height * 0.2,
+    flexDirection: 'column',
+    height: height * 0.16,
     marginHorizontal: 16,
     marginVertical: 16,
     borderRadius: 4,
@@ -65,7 +65,6 @@ export const paymentMethodStyles = StyleSheet.create({
     // Box shadow for Android
     elevation: 2,
     backgroundColor: 'white',
-    justifyContent: 'space-between',
   },
   selectedCardTopContainer: {
     height: height * 0.08,
@@ -94,6 +93,26 @@ export const paymentMethodStyles = StyleSheet.create({
     lineHeight: height * 0.03,
     color: Colors.gray3,
     paddingRight: 16,
+  },
+
+  buttonContainer: {
+    alignItems: 'flex-start',
+  },
+
+  optionsButton: {
+    flexDirection: 'row',
+    marginVertical: 2,
+    marginLeft: 16,
+    gap: 8,
+  },
+
+  cardOption: {
+    fontFamily: Fonts.montserrat,
+    fontSize: height * 0.015,
+    fontWeight: '400',
+    color: Colors.gray3,
+    lineHeight: height * 0.025,
+    alignItems: 'center',
   },
 
   visa: {

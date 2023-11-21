@@ -1,4 +1,13 @@
-import { Image, View, Text, SafeAreaView, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import {
+  Image,
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  ScrollView,
+  Alert,
+  Button,
+} from 'react-native';
 import { usePaymentSheet } from '@stripe/stripe-react-native';
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -119,6 +128,55 @@ const PaymentMethodScreen = () => {
     return paymentMethods;
   };
 
+  const deleteCard = async (paymentMethodId) => {
+    try {
+      // Replace 'your-cloud-function-url' with the actual URL of your Cloud Function
+      const cloudFunctionUrl = 'https://us-central1-hund-app.cloudfunctions.net/detachPaymentMethod';
+      const response = await fetch(cloudFunctionUrl, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          paymentMethodId: paymentMethodId,
+        }),
+      });
+
+      if (response.ok) {
+        console.log('Payment method deleted successfully');
+        await updatePaymentMethods(); // Update the payment methods after deletion
+      } else {
+        console.error('Error deleting payment method:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const handleDeleteCard = async (paymentMethodId) => {
+    // Display a confirmation dialog (you might want to customize this part)
+    Alert.alert(
+      'Eliminar tarjeta',
+      '¿Estás seguro de que quieres eliminar esta tarjeta?',
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+        },
+        {
+          text: 'Eliminar',
+          onPress: async () => {
+            // Call the deleteCard function to delete the payment method
+            console.log("Eliminado")
+            await deleteCard(paymentMethodId);
+            setSelectedCard(null);
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
   async function handleAddCard() {
     console.log('Displaying PaymentSheet...');
     if (!ready) {
@@ -159,80 +217,70 @@ const PaymentMethodScreen = () => {
         >
           {paymentMethods?.map((method, index) => (
             <TouchableOpacity
+              activeOpacity={0.6}
               key={index}
               style={
                 selectedCard === index ? paymentMethodStyles.selectedCard : paymentMethodStyles.card
               }
               onPress={() => handleCardClick(index)}
             >
-              {selectedCard === index ? (
-                <View style={paymentMethodStyles.selectedCardTopContainer}>
-                  {method.card?.brand === 'visa' ? (
-                    <Image
-                      source={require('../assets/images/icons/visa.png')}
-                      style={paymentMethodStyles.visa}
-                      fadeDuration={0}
-                    />
-                  ) : method.card?.brand === 'mastercard' ? (
-                    <Image
-                      source={require('../assets/images/icons/mastercard.png')}
-                      style={paymentMethodStyles.mastercard}
-                      fadeDuration={0}
-                    />
-                  ) : (
-                    <Image
-                      source={require('../assets/images/icons/credit-card.png')}
-                      style={paymentMethodStyles.creditcard}
-                      fadeDuration={0}
-                    />
-                  )}
-                  
-                    <View>
-                      <Text style={paymentMethodStyles.cardTitle}>
-                        {method.card?.brand === 'visa'
-                          ? 'Visa'
-                          : method.card?.brand === 'mastercard'
-                          ? 'Mastercard'
-                          : 'Tarjeta'}
-                      </Text>
-                      <Text style={paymentMethodStyles.cardDetails}>
-                        {method.card?.exp_month}/{method.card?.exp_year % 100}
-                      </Text>
-                    </View>
-                    <View style={paymentMethodStyles.selectedCardDetails}>
+              <View style={paymentMethodStyles.selectedCardTopContainer}>
+                {method.card?.brand === 'visa' ? (
+                  <Image
+                    source={require('../assets/images/icons/visa.png')}
+                    style={paymentMethodStyles.visa}
+                    fadeDuration={0}
+                  />
+                ) : method.card?.brand === 'mastercard' ? (
+                  <Image
+                    source={require('../assets/images/icons/mastercard.png')}
+                    style={paymentMethodStyles.mastercard}
+                    fadeDuration={0}
+                  />
+                ) : (
+                  <Image
+                    source={require('../assets/images/icons/credit-card.png')}
+                    style={paymentMethodStyles.creditcard}
+                    fadeDuration={0}
+                  />
+                )}
+                {selectedCard === index ? (
+                  <View>
+                    <Text style={paymentMethodStyles.cardTitle}>
+                      {method.card?.brand === 'visa'
+                        ? 'Visa'
+                        : method.card?.brand === 'mastercard'
+                        ? 'Mastercard'
+                        : 'Tarjeta'}
+                    </Text>
+                    <Text style={paymentMethodStyles.cardDetails}>
+                      {method.card?.exp_month}/{method.card?.exp_year % 100}
+                    </Text>
+                  </View>
+                ) : null}
 
-                      <Text style={paymentMethodStyles.cardDetails}>
-                        **** **** **** {method.card?.last4}
-                      </Text>
-                    </View>
-                  
-                </View>
-              ) : (
-                <>
-                  {method.card?.brand === 'visa' ? (
-                    <Image
-                      source={require('../assets/images/icons/visa.png')}
-                      style={paymentMethodStyles.visa}
-                      fadeDuration={0}
-                    />
-                  ) : method.card?.brand === 'mastercard' ? (
-                    <Image
-                      source={require('../assets/images/icons/mastercard.png')}
-                      style={paymentMethodStyles.mastercard}
-                      fadeDuration={0}
-                    />
-                  ) : (
-                    <Image
-                      source={require('../assets/images/icons/credit-card.png')}
-                      style={paymentMethodStyles.creditcard}
-                      fadeDuration={0}
-                    />
-                  )}
+                <View style={paymentMethodStyles.selectedCardDetails}>
                   <Text style={paymentMethodStyles.cardDetails}>
                     **** **** **** {method.card?.last4}
                   </Text>
-                </>
-              )}
+                </View>
+              </View>
+              {selectedCard === index ? (
+                <View>
+                  <View style={paymentMethodStyles.buttonContainer}>
+                    <TouchableOpacity style={paymentMethodStyles.optionsButton}>
+                      <Ionicons name="checkmark-circle-outline" size={20} color={Colors.gray1} />
+                      <Text style={paymentMethodStyles.cardOption}>Predeterminada</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={paymentMethodStyles.buttonContainer}>
+                    <TouchableOpacity style={paymentMethodStyles.optionsButton} onPress={() => handleDeleteCard(method.id)}>
+                      <Ionicons name="trash-outline" size={20} color={Colors.gray1} />
+                      <Text style={paymentMethodStyles.cardOption}>Eliminar</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              ) : null}
             </TouchableOpacity>
           ))}
         </ScrollView>
