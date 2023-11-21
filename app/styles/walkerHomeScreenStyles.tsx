@@ -39,6 +39,22 @@ export const walkerHomeScreenStyles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
   },
+  starsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 10,
+  },
+  activeStar: {
+    fontSize: 30,
+    color: 'gold', // or any color for active stars
+    marginHorizontal: 5,
+  },
+  inactiveStar: {
+    fontSize: 30,
+    color: 'grey', // or any color for inactive stars
+    marginHorizontal: 5,
+  },
+  // ... any other styles
 });
 
 export default walkerHomeScreenStyles;
