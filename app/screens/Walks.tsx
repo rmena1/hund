@@ -89,7 +89,6 @@ const Walks = () => {
   };
 
   const handleAcceptWalk = async (walk) => {
-    console.log('Walk accepted:', walk);
     // Add walk id to user's accepted walks
     if (auth.currentUser?.uid) {
       await updateDoc(doc(FIREBASE_DB, 'walkerData', auth.currentUser?.uid), {

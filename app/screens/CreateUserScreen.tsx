@@ -64,7 +64,6 @@ export const CreateUserScreen = () => {
 
   const saveChangesWalker = async () => {
     if (auth.currentUser?.uid) {
-      console.log('saving walker data: ', userName);
       await setDoc(doc(FIREBASE_DB, 'walkerData', auth.currentUser?.uid), {
         name: userName,
         phone: phone,

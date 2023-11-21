@@ -51,7 +51,6 @@ const WalkerHome = () => {
   }, [currentWalkId]);
 
   const nextStep = () => {
-    console.log('Next step');
     if (currentWalk.state === 'goingToPickUpDog') {
       updateDoc(doc(FIREBASE_DB, 'paseos', currentWalkId), {
         state: 'waitingForDog',
