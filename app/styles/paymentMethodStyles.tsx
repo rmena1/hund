@@ -48,7 +48,45 @@ export const paymentMethodStyles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  selectedCard: {
+    flexDirection: 'row',
+    height: height * 0.2,
+    marginHorizontal: 16,
+    marginVertical: 16,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: Colors.orange,
 
+    // Box shadow for iOS
+    shadowColor: '#171a1f',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    // Box shadow for Android
+    elevation: 2,
+    backgroundColor: 'white',
+    justifyContent: 'space-between',
+  },
+  selectedCardTopContainer: {
+    height: height * 0.08,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  selectedCardDetails: {
+    flexDirection: 'row',
+  },
+
+  cardTitle: {
+    fontFamily: Fonts.montserratBold,
+    fontSize: height * 0.02,
+    fontWeight: '700',
+    lineHeight: height * 0.03,
+    color: Colors.gray3,
+    paddingRight: 16,
+  },
   cardDetails: {
     fontFamily: Fonts.montserrat,
     fontSize: height * 0.02,
@@ -87,6 +125,14 @@ export const paymentMethodStyles = StyleSheet.create({
     position: 'absolute',
     bottom: 32,
     right: 16,
+  },
+
+  additionalInfo: {
+    position: 'relative',
+    top: 16,
+    height: '100%',
+    width: '100%',
+    backgroundColor: Colors.orange,
   },
 });
 

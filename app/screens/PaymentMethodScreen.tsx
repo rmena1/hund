@@ -20,6 +20,7 @@ const PaymentMethodScreen = () => {
   const [ready, setReady] = useState(false);
   const [userStripeId, setUserStripeID] = useState('');
   const [paymentMethods, setPaymentMethods] = useState([]);
+  const [selectedCard, setSelectedCard] = useState(null);
 
   const { initPaymentSheet, presentPaymentSheet, loading } = usePaymentSheet();
 
@@ -134,6 +135,10 @@ const PaymentMethodScreen = () => {
     }
   }
 
+  const handleCardClick = (index) => {
+    setSelectedCard(index === selectedCard ? null : index);
+  };
+
   return (
     <View>
       <SafeAreaView style={paymentMethodStyles.AndroidSafeArea}>
@@ -147,29 +152,88 @@ const PaymentMethodScreen = () => {
           <Text style={paymentMethodStyles.headerTitle}> Mis métodos de pago</Text>
         </View>
 
-        <ScrollView bounces={true} showsVerticalScrollIndicator={false} contentContainerStyle={paymentMethodStyles.scrollContainer}>
+        <ScrollView
+          bounces={true}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={paymentMethodStyles.scrollContainer}
+        >
           {paymentMethods?.map((method, index) => (
-            <View key={index} style={paymentMethodStyles.card}>
-              {method.card?.brand === 'visa' ? (
-                <Image
-                  source={require('../assets/images/icons/visa.png')}
-                  style={paymentMethodStyles.visa}
-                />
-              ) : method.card?.brand === 'mastercard' ? (
-                <Image
-                  source={require('../assets/images/icons/mastercard.png')}
-                  style={paymentMethodStyles.visa}
-                />
+            <TouchableOpacity
+              key={index}
+              style={
+                selectedCard === index ? paymentMethodStyles.selectedCard : paymentMethodStyles.card
+              }
+              onPress={() => handleCardClick(index)}
+            >
+              {selectedCard === index ? (
+                <View style={paymentMethodStyles.selectedCardTopContainer}>
+                  {method.card?.brand === 'visa' ? (
+                    <Image
+                      source={require('../assets/images/icons/visa.png')}
+                      style={paymentMethodStyles.visa}
+                      fadeDuration={0}
+                    />
+                  ) : method.card?.brand === 'mastercard' ? (
+                    <Image
+                      source={require('../assets/images/icons/mastercard.png')}
+                      style={paymentMethodStyles.mastercard}
+                      fadeDuration={0}
+                    />
+                  ) : (
+                    <Image
+                      source={require('../assets/images/icons/credit-card.png')}
+                      style={paymentMethodStyles.creditcard}
+                      fadeDuration={0}
+                    />
+                  )}
+                  
+                    <View>
+                      <Text style={paymentMethodStyles.cardTitle}>
+                        {method.card?.brand === 'visa'
+                          ? 'Visa'
+                          : method.card?.brand === 'mastercard'
+                          ? 'Mastercard'
+                          : 'Tarjeta'}
+                      </Text>
+                      <Text style={paymentMethodStyles.cardDetails}>
+                        {method.card?.exp_month}/{method.card?.exp_year % 100}
+                      </Text>
+                    </View>
+                    <View style={paymentMethodStyles.selectedCardDetails}>
+
+                      <Text style={paymentMethodStyles.cardDetails}>
+                        **** **** **** {method.card?.last4}
+                      </Text>
+                    </View>
+                  
+                </View>
               ) : (
-                <Image
-                  source={require('../assets/images/icons/credit-card.png')}
-                  style={paymentMethodStyles.visa}
-                />
+                <>
+                  {method.card?.brand === 'visa' ? (
+                    <Image
+                      source={require('../assets/images/icons/visa.png')}
+                      style={paymentMethodStyles.visa}
+                      fadeDuration={0}
+                    />
+                  ) : method.card?.brand === 'mastercard' ? (
+                    <Image
+                      source={require('../assets/images/icons/mastercard.png')}
+                      style={paymentMethodStyles.mastercard}
+                      fadeDuration={0}
+                    />
+                  ) : (
+                    <Image
+                      source={require('../assets/images/icons/credit-card.png')}
+                      style={paymentMethodStyles.creditcard}
+                      fadeDuration={0}
+                    />
+                  )}
+                  <Text style={paymentMethodStyles.cardDetails}>
+                    **** **** **** {method.card?.last4}
+                  </Text>
+                </>
               )}
-              <Text style={paymentMethodStyles.cardDetails}>
-                **** **** **** {method.card?.last4}
-              </Text>
-            </View>
+            </TouchableOpacity>
           ))}
         </ScrollView>
       </SafeAreaView>
