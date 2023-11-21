@@ -3,7 +3,7 @@ import * as admin from 'firebase-admin';
 import { Stripe } from 'stripe';
 import {
     STRIPE_SECRET_KEY
-  } from "@env";
+  } from "@env"; 
 
 admin.initializeApp();
 
@@ -16,9 +16,10 @@ export const paymentSheetSetupIntent = functions.https.onRequest(async (req, res
 
 
   try {
-  
+    console.log(req.body.customerId)
     // Extract customer ID from the request (you may have your own logic to retrieve or create a customer)
     const customerId = req.body.customerId;
+    
 
     // Create an Ephemeral Key
     const ephemeralKey = await stripe.ephemeralKeys.create(
@@ -38,23 +39,24 @@ export const paymentSheetSetupIntent = functions.https.onRequest(async (req, res
       customer: customerId,
     });
   } catch (error) {
+    console.log(req.body.customerId)
     console.error('Error:', error);
     res.status(500).send('Internal Server Error');
   }
 });
 
-export const listStripeSources = functions.https.onRequest(async (req, res) => {
+export const listStripePaymentMethods = functions.https.onRequest(async (req, res) => {
   try {
     const customerId = req.body.customerId;
 
     // Make the Stripe API call to list customer sources
-    const sources = await stripe.customers.listSources(customerId, {
-      object: 'card',
-      limit: 10,
+    const paymentMethods = await stripe.paymentMethods.list({
+      customer: customerId,
+      type: 'card',
     });
 
-    // Send a response to the client
-    res.status(200).json({ success: true, sources: sources.data });
+    // Send the payment methods data to the client
+    res.status(200).json({ success: true, paymentMethods: paymentMethods.data });
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal Server Error' });

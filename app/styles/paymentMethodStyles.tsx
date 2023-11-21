@@ -26,6 +26,58 @@ export const paymentMethodStyles = StyleSheet.create({
     lineHeight: height * 0.04,
   },
 
+  scrollContainer: {},
+
+  card: {
+    flexDirection: 'row',
+    height: height * 0.08,
+    marginHorizontal: 16,
+    marginVertical: 16,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#FFFFFFFF',
+
+    // Box shadow for iOS
+    shadowColor: '#171a1f',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    // Box shadow for Android
+    elevation: 2,
+    backgroundColor: 'white',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  cardDetails: {
+    fontFamily: Fonts.montserrat,
+    fontSize: height * 0.02,
+    fontWeight: '400',
+    lineHeight: height * 0.03,
+    color: Colors.gray3,
+    paddingRight: 16,
+  },
+
+  visa: {
+    height: 45,
+    width: 45,
+    marginLeft: 16,
+    resizeMode: 'contain',
+  },
+
+  mastercard: {
+    height: 50,
+    width: 50,
+    marginLeft: 16,
+    resizeMode: 'contain',
+  },
+
+  creditcard: {
+    height: 50,
+    width: 50,
+    marginLeft: 16,
+  },
+
   backButton: {
     position: 'absolute',
     left: 16,

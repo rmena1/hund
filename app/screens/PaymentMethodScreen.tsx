@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { Image, View, Text, SafeAreaView, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { usePaymentSheet } from '@stripe/stripe-react-native';
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -18,6 +18,9 @@ const PaymentMethodScreen = () => {
   const navigation = useNavigation<Navigation>();
   const auth = FIREBASE_AUTH;
   const [ready, setReady] = useState(false);
+  const [userStripeId, setUserStripeID] = useState('');
+  const [paymentMethods, setPaymentMethods] = useState([]);
+
   const { initPaymentSheet, presentPaymentSheet, loading } = usePaymentSheet();
 
   const getUserStripeId = async () => {
@@ -36,9 +39,25 @@ const PaymentMethodScreen = () => {
     }
   };
 
+  const updatePaymentMethods = async () => {
+    try {
+      const updatedPaymentMethods = await fetchCustomerPaymentMethods(userStripeId);
+      setPaymentMethods(updatedPaymentMethods);
+    } catch (error) {
+      console.error('Error updating payment methods:', error);
+    }
+  };
+
   const initialisePaymentSheet = async () => {
-    const UserStripeId = await getUserStripeId();
-    const { setupIntent, ephemeralKey, customer } = await fetchPaymentSheetParams(UserStripeId);
+    const StripeId = await getUserStripeId();
+    setUserStripeID(StripeId);
+    const { setupIntent, ephemeralKey, customer } = await fetchPaymentSheetParams(StripeId);
+    // Fetch the customer's payment methods
+    const customerPaymentMethods = await fetchCustomerPaymentMethods(StripeId);
+
+    // Update the payment methods state
+    setPaymentMethods(customerPaymentMethods);
+
     const { error } = await initPaymentSheet({
       customerId: customer,
       customerEphemeralKeySecret: ephemeralKey.secret,
@@ -81,9 +100,26 @@ const PaymentMethodScreen = () => {
     };
   };
 
+  const fetchCustomerPaymentMethods = async (stripeCustomerId) => {
+    const response = await fetch(
+      `https://us-central1-hund-app.cloudfunctions.net/listStripePaymentMethods`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          customerId: stripeCustomerId,
+        }),
+      }
+    );
+    const { paymentMethods } = await response.json();
+    console.log(paymentMethods);
+    return paymentMethods;
+  };
+
   async function handleAddCard() {
     console.log('Displaying PaymentSheet...');
-    console.log(ready)
     if (!ready) {
       // Reinitialize the payment sheet
       await initialisePaymentSheet();
@@ -94,6 +130,7 @@ const PaymentMethodScreen = () => {
       console.log('Error en handleAddCard', error.message);
     } else {
       setReady(false);
+      await updatePaymentMethods();
     }
   }
 
@@ -110,12 +147,30 @@ const PaymentMethodScreen = () => {
           <Text style={paymentMethodStyles.headerTitle}> Mis métodos de pago</Text>
         </View>
 
-        <ScrollView contentContainerStyle={paymentMethodStyles.scrollContainer}>
-          <Text>Tarjeta 1</Text>
-          <Text>Tarjeta 2</Text>
-          <Text>Tarjeta 3</Text>
-          <Text>Tarjeta 4</Text>
-          <Text>Tarjeta 5</Text>
+        <ScrollView bounces={true} showsVerticalScrollIndicator={false} contentContainerStyle={paymentMethodStyles.scrollContainer}>
+          {paymentMethods?.map((method, index) => (
+            <View key={index} style={paymentMethodStyles.card}>
+              {method.card?.brand === 'visa' ? (
+                <Image
+                  source={require('../assets/images/icons/visa.png')}
+                  style={paymentMethodStyles.visa}
+                />
+              ) : method.card?.brand === 'mastercard' ? (
+                <Image
+                  source={require('../assets/images/icons/mastercard.png')}
+                  style={paymentMethodStyles.visa}
+                />
+              ) : (
+                <Image
+                  source={require('../assets/images/icons/credit-card.png')}
+                  style={paymentMethodStyles.visa}
+                />
+              )}
+              <Text style={paymentMethodStyles.cardDetails}>
+                **** **** **** {method.card?.last4}
+              </Text>
+            </View>
+          ))}
         </ScrollView>
       </SafeAreaView>
       <TouchableOpacity
