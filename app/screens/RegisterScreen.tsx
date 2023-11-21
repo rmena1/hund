@@ -50,7 +50,7 @@ export const RegisterScreen = () => {
   return (
     <KeyboardAwareScrollView
       style={loginStyles.mainContainer}
-      extraHeight={600}
+      extraHeight={400}
       extraScrollHeight={Platform.OS === 'android' ? -260 : 20}
       enableOnAndroid={true}
       enableAutomaticScroll={true}

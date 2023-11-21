@@ -51,13 +51,10 @@ export const loginStyles = StyleSheet.create({
   },
 
   containerText: {
-    position: 'absolute',
-    top: height * 0.52,
-    left: width * 0.13,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: height * 0.2,
+    marginTop: height * 0.18,
   },
 
   subtitle2: {
