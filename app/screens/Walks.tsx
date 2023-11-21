@@ -3,8 +3,24 @@ import { View, Text, ScrollView, Image, Alert, TouchableOpacity } from 'react-na
 import { FIREBASE_DB, FIREBASE_AUTH } from '../../firebaseConfig';
 import { collection, onSnapshot, updateDoc, doc } from 'firebase/firestore';
 import walksStyles from '../styles/walksStyles';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
-const Walks = () => {
+// Define the type for your routes
+type BottomTabParamList = {
+  Home: undefined;
+  Paseos: undefined;
+  Mensajes: undefined;
+  MiPerfil: undefined;
+};
+
+// Specify the type for the navigation prop
+type SomeScreenNavigationProp = BottomTabNavigationProp<BottomTabParamList, 'Home'>;
+
+type Props = {
+  navigation: SomeScreenNavigationProp;
+};
+
+const Walks: React.FC<Props> = ({ navigation }) => {
   const [walks, setWalks] = useState<any>([]);
   const [dogs, setDogs] = useState<any>([]);
   const [currentWalk, setCurrentWalk] = useState<any>(null);
@@ -101,6 +117,7 @@ const Walks = () => {
         taken: true,
         state: 'goingToPickUpDog',
       });
+      navigation.navigate('Home');
     }
   };
 
