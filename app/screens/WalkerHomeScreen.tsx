@@ -41,7 +41,8 @@ const WalkerHome = () => {
           setCurrentWalk(doc.data());
           if (doc.data()?.state === 'goingToPickUpDog') {
             setCurrentInstruction(
-              'El dueño de la mascota te está esperando! Dirígete a su ubicación para recoger a su mascota en la dirección: ...'
+              'El dueño de la mascota te está esperando! Dirígete a su ubicación para recoger a su mascota en la dirección: ' +
+                currentWalk?.direccion_recogida
             );
             setCurrentButtonText('Ya llegué al punto de encuentro');
           }
@@ -102,7 +103,9 @@ const WalkerHome = () => {
         state: 'walkingTheDog',
       });
       setCurrentInstruction(
-        'Todo listo! Ahora puedes pasear al perro. Se amable, paciente y disfruta el paseo! Recuerda que el perro es tu mayor responsabilidad en este momento. El paseo debe durar 30 minutos. Suerte!'
+        'Todo listo! Ahora puedes pasear al perro. Se amable, paciente y disfruta el paseo! Recuerda que el perro es tu mayor responsabilidad en este momento. El paseo debe durar ' +
+          currentWalk?.duracion +
+          ' minutos. Suerte!'
       );
       setCurrentButtonText('Ya terminé el paseo');
     } else if (currentWalk.state === 'walkingTheDog') {
@@ -110,7 +113,8 @@ const WalkerHome = () => {
         state: 'returningToDogPickUpPoint',
       });
       setCurrentInstruction(
-        'El paseo ha terminado! Ahora debes regresar al punto de encuentro con el dueño de la mascota.'
+        'El paseo ha terminado! Ahora debes regresar al punto de encuentro con el dueño de la mascota en la dirección: ' +
+          currentWalk?.direccion_recogida
       );
       setCurrentButtonText('Ya llegué al punto de encuentro');
     } else if (currentWalk.state === 'returningToDogPickUpPoint') {

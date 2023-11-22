@@ -52,6 +52,7 @@ const CreateWalkScreen: React.FC<Props> = ({ navigation }) => {
       taken: false,
       state: 'waitingForWalker',
       direccion_recogida: pickupAddress,
+      duracion: walkTime,
     });
   };
 
