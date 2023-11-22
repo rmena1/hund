@@ -9,6 +9,7 @@ import {
   Platform,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Ionicons, FontAwesome } from '@expo/vector-icons';
 
 import { loginStyles } from '../styles/loginStyles';
 import { useNavigation } from '@react-navigation/native';
@@ -24,6 +25,7 @@ export const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [securityText, setSecurityText] = useState(true);
   const auth = FIREBASE_AUTH;
 
   const login = async () => {
@@ -38,10 +40,14 @@ export const LoginScreen = () => {
     }
   };
 
+  const changeSecurityText = () => {
+    setSecurityText(!securityText);
+  };
+
   return (
     <KeyboardAwareScrollView
       style={loginStyles.mainContainer}
-      extraHeight={600}
+      extraHeight={400}
       extraScrollHeight={Platform.OS === 'android' ? -260 : 20}
       enableOnAndroid={true}
       enableAutomaticScroll={true}
@@ -60,6 +66,7 @@ export const LoginScreen = () => {
             autoCapitalize="none"
             onChangeText={(newEmail) => setEmail(newEmail)}
           />
+          <Ionicons style={loginStyles.iconMail} name="md-mail-outline" size={23} />
         </View>
         <View style={loginStyles.textboxContainer2}>
           <Text style={loginStyles.label}>Password</Text>
@@ -67,9 +74,17 @@ export const LoginScreen = () => {
             style={loginStyles.input}
             value={password}
             autoCapitalize="none"
-            secureTextEntry={true}
+            secureTextEntry={securityText}
             onChangeText={(newPassword) => setPassword(newPassword)}
           />
+          <FontAwesome style={loginStyles.iconPass} name="lock" size={23} />
+          <TouchableOpacity style={loginStyles.iconEye} onPress={() => changeSecurityText()}>
+            {securityText ? (
+              <Ionicons name="md-eye-off-outline" size={24} color="black" />
+            ) : (
+              <Ionicons name="md-eye-outline" size={24} color="black" />
+            )}
+          </TouchableOpacity>
         </View>
         {loading ? (
           <ActivityIndicator size="large" color="#0000ff" />
@@ -84,15 +99,17 @@ export const LoginScreen = () => {
             <Text style={loginStyles.buttonText}>Iniciar sesión</Text>
           </TouchableOpacity>
         )}
-        <Text style={loginStyles.subtitle2}>No tienes una cuenta?</Text>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('RegisterScreen');
-          }}
-          style={loginStyles.registerButton}
-        >
-          <Text style={loginStyles.subtitle3}>Registrate</Text>
-        </TouchableOpacity>
+        <View style={loginStyles.containerText}>
+          <Text style={loginStyles.subtitle2}>No tienes una cuenta?</Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('RegisterScreen');
+            }}
+            style={loginStyles.registerButton}
+          >
+            <Text style={loginStyles.subtitle3}>Registrate</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </KeyboardAwareScrollView>
   );

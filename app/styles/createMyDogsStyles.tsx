@@ -2,7 +2,7 @@ import { Colors, Fonts } from './generalStyles';
 import { Dimensions, StyleSheet, Platform, StatusBar } from 'react-native';
 const { height, width } = Dimensions.get('window');
 
-export const CreateMyDogsScreen = StyleSheet.create({
+export const createMyDogsStyles = StyleSheet.create({
   AndroidSafeArea: {
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     height: '100%',
@@ -154,4 +154,4 @@ export const CreateMyDogsScreen = StyleSheet.create({
   },
 });
 
-export default CreateMyDogsScreen;
+export default createMyDogsStyles;

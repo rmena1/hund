@@ -15,6 +15,7 @@ export const Colors = {
   lightOrange: '#FFF5F0',
   mediumOrange: '#FFBFA6',
   shadow: '#171a1f',
+  shadow2: '#F8F9FAFF',
   shadowRed: '#FF6666',
   shadowOrange: '#FF5400',
 };
