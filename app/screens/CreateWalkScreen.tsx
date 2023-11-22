@@ -46,6 +46,7 @@ const CreateWalkScreen: React.FC<Props> = ({ navigation }) => {
       id_usuario: auth.currentUser?.uid,
       perro: selectedDog,
       fecha: date,
+      tiempo: time,
       inmediato: isImmediate,
       comentarios: additionalComments,
       taken: false,
@@ -124,7 +125,7 @@ const CreateWalkScreen: React.FC<Props> = ({ navigation }) => {
 
       // Validar si la hora combinada es futura en relación al momento actual
       if (combinedDateTime > currentTime) {
-        setTime(selectedTime);
+        setTime(combinedDateTime);
       } else {
         Alert.alert('Error', 'No puedes seleccionar una hora pasada para el día de hoy');
       }
@@ -141,7 +142,7 @@ const CreateWalkScreen: React.FC<Props> = ({ navigation }) => {
     } else {
       // Proceder con la creación del paseo si se seleccionó un perro
       createWalk();
-      console.log({ selectedDog, additionalComments, date, isImmediate });
+      console.log({ selectedDog, additionalComments, date, isImmediate, time });
       navigation.navigate('Home');
     }
   };

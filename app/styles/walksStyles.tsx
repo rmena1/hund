@@ -17,6 +17,10 @@ export const walksStyles = StyleSheet.create({
     borderColor: Colors.mediumOrange,
     borderWidth: 3,
   },
+  past30MinutesWalk: {
+    borderColor: Colors.shadowRed,
+    borderWidth: 3,
+  },
 
   walkItem: {
     flex: 0,

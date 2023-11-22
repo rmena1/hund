@@ -38,24 +38,38 @@ const Walks: React.FC<Props> = ({ navigation }) => {
   };
 
   const filterAndSortWalks = (): any[] => {
-    let currentAndFutureWalks = walks.filter((walk) => isTodayOrFuture(walk.fecha.toDate()));
+    let currentWalks = walks.filter((walk) => {
+      const walkTime = walk.tiempo.toDate();
+      return isTodayOrFuture(walkTime) || isWithinPast30Minutes(walkTime);
+    });
 
     if (selectedDate) {
-      currentAndFutureWalks = currentAndFutureWalks.filter((walk) => {
-        const walkDate = walk.fecha.toDate();
-        return walkDate.setHours(0, 0, 0, 0) === selectedDate.setHours(0, 0, 0, 0);
+      currentWalks = currentWalks.filter((walk) => {
+        const walkTime = walk.tiempo.toDate();
+        return walkTime.setHours(0, 0, 0, 0) === selectedDate.setHours(0, 0, 0, 0);
       });
     }
 
-    return currentAndFutureWalks.sort(sortWalks);
+    return currentWalks.sort(sortWalks);
+  };
+  const isWithinPast30Minutes = (walkTime: Date): boolean => {
+    const now = new Date();
+    const twentyMinutesAgo = new Date(now.getTime() - 30 * 60000);
+    // chequeo que no sean dias futuros
+
+    return walkTime >= twentyMinutesAgo && walkTime <= now;
   };
 
   // Función para verificar si la fecha del paseo es hoy o en el futuro
-  const isTodayOrFuture = (date: Date): boolean => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // Establece la hora al inicio del día
-    return date >= today; // Paseos de hoy o en el futuro
-    // return date <= today; // Cambia esto para probar el orden y color de prioridad segun dentro de los 30 minutos o paseos inmediatos (Paseos de hoy o en el pasado)
+  const isTodayOrFuture = (walkTime: Date): boolean => {
+    const now = new Date();
+    const twentyMinutesAgo = new Date(now.getTime() - 30 * 60000);
+    return walkTime >= twentyMinutesAgo;
+  };
+  const isFuture = (walkTime: Date): boolean => {
+    const now = new Date();
+    const future = new Date(now.getTime()); // 15 minutos atrás
+    return walkTime > future;
   };
 
   const toggleDatePicker = () => {
@@ -68,7 +82,7 @@ const Walks: React.FC<Props> = ({ navigation }) => {
 
     const currentTime = new Date();
     const thirtyMinutesLater = new Date(currentTime.getTime() + 30 * 60000);
-    const walkDate = walk.fecha.toDate();
+    const walkDate = walk.tiempo.toDate();
 
     return walkDate >= currentTime && walkDate <= thirtyMinutesLater;
   };
@@ -99,10 +113,12 @@ const Walks: React.FC<Props> = ({ navigation }) => {
       next: (snapshot) => {
         const walks: any[] = [];
         snapshot.docs.forEach((doc) => {
-          walks.push({
-            id: doc.id,
-            ...doc.data(),
-          });
+          if (doc.data().tiempo) {
+            walks.push({
+              id: doc.id,
+              ...doc.data(),
+            });
+          }
         });
         setWalks(walks);
       },
@@ -219,8 +235,9 @@ const Walks: React.FC<Props> = ({ navigation }) => {
         <View style={walksStyles.contentContainer}>
           {filterAndSortWalks().map((walk: any, index: number) => {
             const walkDate = walk.fecha.toDate();
+            const walkTime = walk.tiempo.toDate();
             const date = walkDate.toLocaleDateString();
-            const time = walkDate.toLocaleTimeString();
+            const time = walkTime.toLocaleTimeString();
             if (walk.email_usuario && walk.id_usuario && !walk.taken) {
               return (
                 <TouchableOpacity
@@ -228,6 +245,9 @@ const Walks: React.FC<Props> = ({ navigation }) => {
                   style={[
                     walksStyles.walkItem,
                     isImmediateOrWithin30Min(walk) ? walksStyles.immediateWalk : {},
+                    isWithinPast30Minutes(walkTime) && !isFuture(walkDate)
+                      ? walksStyles.past30MinutesWalk
+                      : {},
                   ]}
                   onPress={() => handleCardPress(walk)}
                 >
