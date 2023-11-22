@@ -1,6 +1,5 @@
 import { Colors, Fonts } from './generalStyles';
-import { Dimensions, StyleSheet } from 'react-native';
-const { height, width } = Dimensions.get('window');
+import { StyleSheet } from 'react-native';
 
 export const walksStyles = StyleSheet.create({
   page: {
@@ -14,16 +13,26 @@ export const walksStyles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  immediateWalk: {
+    borderColor: Colors.mediumOrange,
+    borderWidth: 3,
+  },
+
   walkItem: {
     flex: 0,
-    width: width * 0.85,
-    height: height * 0.2,
-    backgroundColor: Colors.white,
-    borderRadius: 4,
+    width: 335,
+    height: 130,
+    backgroundColor: '#FFFFFFFF', // white
+    borderRadius: 4, // border-m
     borderWidth: 1,
-    borderColor: Colors.shadow2,
-    marginTop: height * 0.02,
-    marginBottom: height * 0.01,
+    borderColor: '#F8F9FAFF', // neutral-150
+    borderStyle: 'solid',
+    shadowColor: '#171a1f',
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 1, // shadow-xs
+    shadowOpacity: 1, // shadow-xs
+    marginTop: 8, // space-200
+    marginBottom: 8, // space-200
     padding: 4,
   },
 
@@ -32,10 +41,16 @@ export const walksStyles = StyleSheet.create({
     alignSelf: 'center',
     resizeMode: 'cover',
   },
+  buttonContainer: {
+    flexDirection: 'column',
+    marginVertical: 15, // Ajusta esto según sea necesario
+    marginHorizontal: 10, // Ajusta esto según sea necesario
+  },
 
   infoContainer: {
     flex: 1,
     flexDirection: 'row',
+    padding: 4, // space-300
   },
 
   viewMoreContainer: {
@@ -54,24 +69,50 @@ export const walksStyles = StyleSheet.create({
   },
 
   arrow: {
+    width: 0,
+    height: 0,
     borderLeftWidth: 10,
+    borderRightWidth: 0, // Change to 0 for a right arrow
     borderTopWidth: 10,
     borderLeftColor: 'transparent',
     borderRightColor: 'transparent',
-    borderTopColor: Colors.white,
+    borderTopColor: 'white', // Color of the arrow
   },
 
   walkTitles: {
     fontFamily: Fonts.poppinsBold,
-    fontSize: height * 0.02,
+    fontSize: 16,
     fontWeight: '800',
   },
 
   walkInfo: {
     fontFamily: Fonts.poppins,
-    fontSize: height * 0.018,
+    fontSize: 16,
     fontWeight: '400',
-    padding: width * 0.01,
+    padding: 20,
+  },
+  buttonDate: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginTop: '1%',
+    borderRadius: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  buttonSelect: {
+    backgroundColor: Colors.orange, // Naranja
+  },
+  buttonClear: {
+    backgroundColor: Colors.gray1, // Gris
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 
