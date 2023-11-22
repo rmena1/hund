@@ -28,7 +28,6 @@ export const profilePreviewStyles = StyleSheet.create({
     backgroundColor: Colors.gray4,
   },
 
-  // Container gris claro foto
   container: {
     position: 'absolute',
     top: height * 0.005,

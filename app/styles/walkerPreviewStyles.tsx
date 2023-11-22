@@ -31,50 +31,42 @@ export const walkerPreviewStyles = StyleSheet.create({
   // Container gris claro foto
   container: {
     position: 'absolute',
-    top: height * 0.005,
-    width: width * 0.27,
-    height: width * 0.27,
+    top: 4,
+    left: 0,
+    width: 104,
+    height: 104,
     backgroundColor: Colors.gray2,
-    borderRadius: height * 0.1,
+    borderRadius: 52,
   },
 
   avatar: {
     position: 'absolute',
-    top: 11,
-    left: 8,
-    width: 88,
-    height: 88,
+    top: height * 0.015,
+    left: height * 0.011,
+    width: height * 0.115,
+    height: height * 0.115,
     backgroundColor: Colors.gray,
-    opacity: 1,
-    overflow: 'hidden',
-    borderRadius: height * 0.1,
+    borderRadius: 44,
   },
 
   textboxContainer: {
     position: 'absolute',
-    top: 264,
-    left: 28,
+    top: height * 0.328, //264,
+    left: width * 0.05,
     opacity: 1,
   },
 
   textboxContainer2: {
     position: 'absolute',
-    top: 348,
-    left: 28,
+    top: height * 0.43,
+    left: width * 0.05,
     opacity: 1,
   },
 
   textboxContainer3: {
     position: 'absolute',
-    top: 432,
-    left: 28,
-    opacity: 1,
-  },
-
-  textboxContainer4: {
-    position: 'absolute',
-    top: 520,
-    left: 28,
+    top: height * 0.53,
+    left: width * 0.05,
     opacity: 1,
   },
 
@@ -101,8 +93,8 @@ export const walkerPreviewStyles = StyleSheet.create({
 
   buttonCreate: {
     position: 'absolute',
-    top: 588,
-    left: 28,
+    top: height * 0.725, //588,
+    left: width * 0.05,
     width: 335,
     height: 44,
     padding: 0,
@@ -128,8 +120,8 @@ export const walkerPreviewStyles = StyleSheet.create({
 
   buttonPets: {
     position: 'absolute',
-    top: 535,
-    left: 28,
+    top: height * 0.655, //535,
+    left: width * 0.05,
     width: 125,
     height: 36,
     padding: 0,
@@ -151,8 +143,8 @@ export const walkerPreviewStyles = StyleSheet.create({
 
   buttonPay: {
     position: 'absolute',
-    top: 535,
-    left: 160,
+    top: height * 0.655,
+    left: width * 0.4,
     width: 203,
     height: 36,
     padding: 0,

@@ -12,7 +12,6 @@ import CreateMyDogsScreen from '../../app/screens/CreateMyDogsScreen';
 import WalkerPreviewScreen from '../screens/WalkerPreviewScreen';
 import WalkerAtributeScreen from '../screens/WalkerAtributeScreen';
 import MyDogEditScreen from '../../app/screens/MyDogEditScreen';
-import HomeScreen from '../screens/HomeScreen';
 import ClientTabs from './clientTabs';
 import WalkerTabs from './walkerTabs';
 import PaymentMethodScreen from '../screens/PaymentMethodScreen';
