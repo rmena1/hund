@@ -11,6 +11,8 @@ const WalkerHome = () => {
   const [currentInstruction, setCurrentInstruction] = useState<any>('');
   const [currentButtonText, setCurrentButtonText] = useState<any>('');
   const [rating, setRating] = useState(0);
+  const [userRating, setUserRating] = useState(0);
+  const [userRatingCount, setUserRatingCount] = useState(0);
 
   useEffect(() => {
     let userDataSubscriber = () => {};
@@ -50,6 +52,41 @@ const WalkerHome = () => {
       walksSubscriber();
     };
   }, [currentWalkId]);
+
+  useEffect(() => {
+    console.log('Actualizando currentWalk');
+    setRating(0);
+    setUserRating(0);
+    setUserRatingCount(0);
+    console.log(currentWalk);
+    if (currentWalk?.id_usuario) {
+      onSnapshot(doc(FIREBASE_DB, 'userData', currentWalk.id_usuario), (doc) => {
+        if (doc.data()) {
+          const data = doc.data();
+          if (data?.userRating) {
+            const newRating = data?.userRating;
+            const newRatingCount = data?.userRatingCount;
+            setUserRating(newRating);
+            setUserRatingCount(newRatingCount);
+          } else {
+            setUserRating(0);
+            setUserRatingCount(0);
+          }
+          console.log('userRating: ', userRating);
+          console.log('userRatingCount: ', userRatingCount);
+        }
+      });
+    }
+  }, [currentWalk]);
+
+  const sendRating = async () => {
+    const newRating = (userRating * userRatingCount + rating) / (userRatingCount + 1);
+    const newRatingCount = userRatingCount + 1;
+    await updateDoc(doc(FIREBASE_DB, 'userData', currentWalk.id_usuario), {
+      userRating: newRating,
+      userRatingCount: newRatingCount,
+    });
+  };
 
   const nextStep = () => {
     if (currentWalk.state === 'goingToPickUpDog') {
@@ -99,7 +136,7 @@ const WalkerHome = () => {
       updateDoc(doc(FIREBASE_DB, 'userData', currentWalk.id_usuario), {
         currentWalk: null,
       });
-      console.log('Paseo terminado! Calificación: ', rating);
+      sendRating();
       setCurrentWalkId(null);
       setCurrentWalk(null);
     }

@@ -7,6 +7,7 @@ import { Colors } from '../styles/generalStyles';
 import Details from '../screens/Details';
 import Walks from '../screens/Walks';
 import WalkerHome from '../screens/WalkerHomeScreen';
+import WalkerProfile from '../screens/WalkerProfileScreen';
 
 // Thanks for watching
 const Tab = createBottomTabNavigator();
@@ -102,7 +103,7 @@ function WalkerTabs() {
       />
       <Tab.Screen
         name="Mi perfil"
-        component={Details}
+        component={WalkerProfile}
         options={{
           tabBarIcon: ({ focused }) => {
             return (

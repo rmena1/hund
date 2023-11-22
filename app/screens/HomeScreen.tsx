@@ -17,6 +17,11 @@ export const HomeScreen = () => {
   const [currentWalkId, setCurrentWalkId] = useState<any>(null);
   const [currentWalk, setCurrentWalk] = useState<any>(null);
   const [currentInstruction, setCurrentInstruction] = useState<any>('');
+  const [rating, setRating] = useState(0);
+  const [walkerRating, setWalkerRating] = useState(0);
+  const [walkerRatingCount, setWalkerRatingCount] = useState(0);
+  const [sentRating, setSentRating] = useState(true);
+  const [finishedWalk, setFinishedWalk] = useState(true);
 
   useEffect(() => {
     let userDataSubscriber = () => {};
@@ -57,6 +62,46 @@ export const HomeScreen = () => {
   }, [currentWalkId]);
 
   useEffect(() => {
+    console.log('Actualizando currentWalk');
+    setRating(0);
+    setWalkerRating(0);
+    setWalkerRatingCount(0);
+    if (currentWalkId) {
+      setFinishedWalk(false);
+    }
+    console.log(currentWalk);
+    if (currentWalk?.id_usuario) {
+      onSnapshot(doc(FIREBASE_DB, 'walkerData', currentWalk.id_paseador), (doc) => {
+        if (doc.data()) {
+          const data = doc.data();
+          if (data?.walkerRating) {
+            const newRating = data?.walkerRating;
+            const newRatingCount = data?.walkerRatingCount;
+            setWalkerRating(newRating);
+            setWalkerRatingCount(newRatingCount);
+          } else {
+            setWalkerRating(0);
+            setWalkerRatingCount(0);
+          }
+          console.log('WalkerRating: ', walkerRating);
+          console.log('walkerRatingCount: ', walkerRatingCount);
+        }
+      });
+    }
+  }, [currentWalk]);
+
+  const sendRating = async () => {
+    const newRating = (walkerRating * walkerRatingCount + rating) / (walkerRatingCount + 1);
+    const newRatingCount = walkerRatingCount + 1;
+    await updateDoc(doc(FIREBASE_DB, 'walkerData', currentWalk.id_paseador), {
+      walkerRating: newRating,
+      walkerRatingCount: newRatingCount,
+    });
+    setSentRating(true);
+    setFinishedWalk(true);
+  };
+
+  useEffect(() => {
     if (currentWalk?.state === 'walkingTheDog') {
       setCurrentInstruction(
         'Tu mascota está siendo paseada! Por favor, espera a que el paseo termine.'
@@ -84,13 +129,46 @@ export const HomeScreen = () => {
     }
   }, [currentWalk?.state]);
 
-  if (currentWalk && currentWalkId) {
-    return (
-      <View style={walkerHomeScreenStyles.container}>
-        <Text style={walkerHomeScreenStyles.title}>Paseo en progreso!</Text>
-        <Text style={walkerHomeScreenStyles.instruction}>{currentInstruction}</Text>
-      </View>
-    );
+  const renderStarRating = () => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      stars.push(
+        <TouchableOpacity key={i} onPress={() => setRating(i)}>
+          <Text
+            style={
+              i <= rating ? walkerHomeScreenStyles.activeStar : walkerHomeScreenStyles.inactiveStar
+            }
+          >
+            ★
+          </Text>
+        </TouchableOpacity>
+      );
+    }
+    return <View style={walkerHomeScreenStyles.starsContainer}>{stars}</View>;
+  };
+
+  if (currentWalk && currentWalkId && !finishedWalk) {
+    if (currentWalk.state === 'finished' || !sentRating) {
+      if (sentRating) {
+        setSentRating(false);
+      }
+      return (
+        <View style={walkerHomeScreenStyles.container}>
+          <Text style={walkerHomeScreenStyles.title}>Califica el paseo</Text>
+          {renderStarRating()}
+          <TouchableOpacity style={walkerHomeScreenStyles.button} onPress={() => sendRating()}>
+            <Text style={walkerHomeScreenStyles.buttonText}>Enviar calificación</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    } else {
+      return (
+        <View style={walkerHomeScreenStyles.container}>
+          <Text style={walkerHomeScreenStyles.title}>Paseo en progreso!</Text>
+          <Text style={walkerHomeScreenStyles.instruction}>{currentInstruction}</Text>
+        </View>
+      );
+    }
   } else {
     return (
       <SafeAreaView style={homeStyles.page}>
