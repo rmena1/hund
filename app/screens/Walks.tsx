@@ -181,6 +181,7 @@ const Walks: React.FC<Props> = ({ navigation }) => {
       await updateDoc(doc(FIREBASE_DB, 'paseos', walk.id), {
         taken: true,
         state: 'goingToPickUpDog',
+        id_paseador: auth.currentUser?.uid,
       });
       navigation.navigate('Home');
     }
