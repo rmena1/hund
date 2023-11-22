@@ -8,6 +8,8 @@ import { FIREBASE_AUTH, FIREBASE_DB } from '../../firebaseConfig';
 import { walkerHomeScreenStyles } from '../styles/walkerHomeScreenStyles';
 import React, { useEffect, useState } from 'react';
 import { onSnapshot, updateDoc, doc } from 'firebase/firestore';
+import MapView, { Marker } from 'react-native-maps';
+import * as Location from 'expo-location';
 
 type Navigation = NavigationProp<RootStackParamList, 'TabsBar'>;
 
@@ -22,6 +24,29 @@ export const HomeScreen = () => {
   const [walkerRatingCount, setWalkerRatingCount] = useState(0);
   const [sentRating, setSentRating] = useState(true);
   const [finishedWalk, setFinishedWalk] = useState(true);
+  const [location, setLocation] = useState(null);
+
+  useEffect(() => {
+
+    const getLocation = async () => {
+      try {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+  
+        if (status !== "granted") {
+          console.log("Location permission denied");
+          return;
+        }
+  
+        let loc = await Location.getCurrentPositionAsync({});
+        setLocation(loc);
+  
+      } catch (error) {
+        console.error("Error requesting location permission:", error);
+      }
+    };
+
+    getLocation();
+  }, []);
 
   useEffect(() => {
     let userDataSubscriber = () => {};
@@ -41,6 +66,29 @@ export const HomeScreen = () => {
       userDataSubscriber();
     };
   }, []);
+
+  useEffect(() => {
+    if (location) {
+      console.log("userLocation:", location)
+    }
+  }, [location]);
+
+  const userLoc = {
+    title: "Tu ubicación",
+    location: {
+      latitude: location?.coords.latitude,
+      longitude: location?.coords.longitude,
+    },
+  };
+
+  const showUserLoc = () => {
+    return (
+      <Marker 
+      coordinate={userLoc.location}
+      title={userLoc.title}
+      />
+    );
+  };
 
   useEffect(() => {
     let walksSubscriber = () => {};
@@ -184,14 +232,27 @@ export const HomeScreen = () => {
     return (
       <SafeAreaView style={homeStyles.page}>
         <View style={homeStyles.container}>
-          <Text style={homeStyles.title}>Bienvenido {auth.currentUser?.email}</Text>
-          <TouchableOpacity
+          <Text style={homeStyles.title}>{auth.currentUser?.email}</Text>
+          <View style={homeStyles.mapContainer}>
+            <MapView
+            style={homeStyles.map}
+            region={{
+              latitude: location?.coords.latitude,
+              longitude: location?.coords.longitude,
+              latitudeDelta: 0.0122,
+              longitudeDelta: 0.0121,
+            }}
+            >
+              {showUserLoc()}
+            </MapView>
+            <TouchableOpacity
             style={homeStyles.button}
             onPress={() => navigation.navigate('CreateWalkScreen')}
           >
             <Foundation name="guide-dog" size={40} color="#FF5400FF" />
             {/* <Ionicons name="add" size={25} color="#777B7E" /> */}
           </TouchableOpacity>
+          </View>
           <Image source={require('../assets/images/home_dog.png')} style={homeStyles.imageHome} />
         </View>
       </SafeAreaView>
