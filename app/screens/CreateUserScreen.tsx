@@ -77,6 +77,20 @@ export const CreateUserScreen = () => {
     }
   };
 
+  const setUserType = async () => {
+    let userType = '';
+    if (selectedValue === 'Paseador') {
+      userType = 'walker';
+    } else if (selectedValue === 'Cliente') {
+      userType = 'client';
+    }
+    if (auth.currentUser?.uid) {
+      await setDoc(doc(FIREBASE_DB, 'userType', auth.currentUser?.uid), {
+        userType: userType,
+      });
+    }
+  };
+
   const changePhoto = async () => {
     const result = await loadImageFromGallery([1, 1]);
     if (!result.status) {
@@ -109,6 +123,7 @@ export const CreateUserScreen = () => {
       saveChangesUser();
       navigation.navigate('ProfilePreviewScreen');
     }
+    setUserType();
   };
 
   return (

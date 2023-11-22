@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../styles/generalStyles';
 
 import Details from '../screens/Details';
-import Walks from '../screens/Walks';
+import MyWalks from '../screens/MyWalks';
 import ProfileScreen from '../screens/ProfileScreen';
 import HomeScreen from '../screens/HomeScreen';
 
@@ -24,7 +24,7 @@ const Tab = createBottomTabNavigator();
 //     background: "#fff",
 //   },
 // };
-function TabsBar() {
+function ClientTabs() {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -56,8 +56,8 @@ function TabsBar() {
         }}
       />
       <Tab.Screen
-        name="Paseos"
-        component={Walks}
+        name="Mis Paseos"
+        component={MyWalks}
         options={{
           tabBarIcon: ({ focused }) => {
             return (
@@ -128,4 +128,4 @@ function TabsBar() {
   );
 }
 
-export default TabsBar;
+export default ClientTabs;

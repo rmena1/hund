@@ -13,6 +13,11 @@ export const walksStyles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  immediateWalk: {
+    borderColor: Colors.mediumOrange,
+    borderWidth: 3,
+  },
+
   walkItem: {
     flex: 0,
     width: 335,
@@ -35,6 +40,11 @@ export const walksStyles = StyleSheet.create({
     width: '100%',
     alignSelf: 'center',
     resizeMode: 'cover',
+  },
+  buttonContainer: {
+    flexDirection: 'column',
+    marginVertical: 15, // Ajusta esto según sea necesario
+    marginHorizontal: 10, // Ajusta esto según sea necesario
   },
 
   infoContainer: {
@@ -80,6 +90,29 @@ export const walksStyles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '400',
     padding: 20,
+  },
+  buttonDate: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginTop: '1%',
+    borderRadius: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  buttonSelect: {
+    backgroundColor: Colors.orange, // Naranja
+  },
+  buttonClear: {
+    backgroundColor: Colors.gray1, // Gris
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 

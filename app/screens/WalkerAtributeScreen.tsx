@@ -15,7 +15,7 @@ const WalkerAtributeScreen = () => {
   const auth = FIREBASE_AUTH;
 
   const [checkboxStates, setCheckboxStates] = useState([false, false, false]);
-  const dogSizes = ['Pequeño', 'Mediano', 'Grande'];
+  const dogSizes = ['Pequeño', 'Mediano', 'Grande   '];
   const handleCheckboxChange = (index) => {
     const updatedStates = [...checkboxStates];
     updatedStates[index] = !updatedStates[index];
@@ -71,7 +71,6 @@ const WalkerAtributeScreen = () => {
               onPress={() => handleCheckboxChange(index)}
               style={walkerAtributeStyles.checkbox}
             >
-              <Text>{checkboxStates[index] ? 'Checked' : 'Unchecked'}</Text>
               <Checkbox
                 value={checkboxStates[index]}
                 onValueChange={() => handleCheckboxChange(index)}

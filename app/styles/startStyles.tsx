@@ -1,5 +1,6 @@
 import { Colors, Fonts } from './generalStyles';
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+const { height, width } = Dimensions.get('window');
 
 export const startStyles = StyleSheet.create({
   page: {
@@ -16,86 +17,67 @@ export const startStyles = StyleSheet.create({
 
   title: {
     fontFamily: Fonts.poppins,
-    fontSize: 32,
+    fontSize: height * 0.04,
     fontWeight: '700',
-    lineHeight: 48,
+    lineHeight: height * 0.06,
     color: Colors.neutral,
     textAlign: 'center',
   },
 
   subTitle: {
     flex: 1,
-    width: 288,
     fontFamily: Fonts.montserrat,
-    fontSize: 18,
+    fontSize: height * 0.022,
     fontWeight: '300',
-    lineHeight: 28,
+    lineHeight: height * 0.03,
     color: Colors.gray,
     textAlign: 'center',
   },
 
   image: {
-    width: 288,
-    height: 144,
+    width: width * 0.77,
+    height: height * 0.18,
   },
 
   buttonContainer: {
-    marginBottom: 32,
-    spacing: 16,
+    marginBottom: height * 0.03,
   },
 
   button: {
-    width: 350,
-    height: 52,
-    padding: 0,
-    paddingHorizontal: 20,
+    width: width * 0.91,
+    height: height * 0.07,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     fontFamily: Fonts.montserrat,
-    fontSize: 18,
-    fontWeight: '400',
-    lineHeight: 28,
-    color: Colors.white,
     backgroundColor: Colors.orange,
-    opacity: 1,
     borderRadius: 8,
-    marginBottom: 8,
+    marginBottom: height * 0.01,
   },
 
   buttonText: {
     fontFamily: Fonts.montserrat,
-    fontSize: 18,
-    fontWeight: '400',
-    lineHeight: 28,
+    fontSize: height * 0.024,
     color: Colors.white,
   },
 
   buttonCreate: {
-    width: 350,
-    height: 52,
-    paddingHorizontal: 20,
+    width: width * 0.91,
+    height: height * 0.07,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     fontFamily: Fonts.montserrat,
-    fontSize: 18,
-    fontWeight: '400',
-    lineHeight: 28,
-    color: Colors.orange,
     backgroundColor: Colors.white,
-    opacity: 1,
     borderRadius: 8,
+    marginBottom: height * 0.01,
     borderWidth: 1,
     borderColor: Colors.orange,
-    borderStyle: 'solid',
   },
 
   buttonTextCreate: {
     fontFamily: Fonts.montserrat,
-    fontSize: 18,
-    fontWeight: '400',
-    lineHeight: 28,
+    fontSize: height * 0.024,
     color: Colors.orange,
   },
 });

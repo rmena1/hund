@@ -21,9 +21,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/navigationTypes';
 
-type Navigation = NavigationProp<RootStackParamList, 'ProfileScreen'>;
-
-const UserProfile: React.FC = () => {
+const WalkerProfile: React.FC = () => {
   const auth = FIREBASE_AUTH;
   const [user, setUser] = React.useState({
     name: '',
@@ -37,10 +35,10 @@ const UserProfile: React.FC = () => {
   const [email, setEmail] = useState(auth.currentUser?.email || '');
 
   const [photoUrl, setPhotoUrl] = useState(auth.currentUser?.photoURL);
-  const [userRating, setUserRating] = useState(null);
-  const [userRatingCount, setUserRatingCount] = useState(null);
+  const [walkerRating, setWalkerRating] = useState(null);
+  const [walkerRatingCount, setWalkerRatingCount] = useState(null);
 
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation();
 
   useEffect(() => {
     setName(user.name);
@@ -53,7 +51,7 @@ const UserProfile: React.FC = () => {
 
   useEffect(() => {
     if (auth.currentUser?.uid) {
-      const unsub = onSnapshot(doc(FIREBASE_DB, 'userData', auth.currentUser.uid), (doc) => {
+      const unsub = onSnapshot(doc(FIREBASE_DB, 'walkerData', auth.currentUser.uid), (doc) => {
         if (doc.data()) {
           const data = doc.data();
           const newUserData = {
@@ -62,9 +60,9 @@ const UserProfile: React.FC = () => {
             birthday: data?.birthday,
           };
           setUser(newUserData);
-          if (data?.userRating) {
-            setUserRating(data?.userRating);
-            setUserRatingCount(data?.userRatingCount);
+          if (data?.walkerRating) {
+            setWalkerRating(data?.walkerRating);
+            setWalkerRatingCount(data?.walkerRatingCount);
           }
         }
       });
@@ -123,10 +121,10 @@ const UserProfile: React.FC = () => {
           <Ionicons name="create-outline" size={20} color="#fff" />
         </TouchableOpacity>
       </View>
-      {userRating && (
+      {walkerRating && (
         <View style={styles.ratingContainer}>
-          <Text style={styles.ratingText}>Calificación: {userRating?.toFixed(1)}</Text>
-          <Text style={styles.ratingCountText}>{userRatingCount} calificaciones</Text>
+          <Text style={styles.ratingText}>Calificación: {walkerRating?.toFixed(1)}</Text>
+          <Text style={styles.ratingCountText}>{walkerRatingCount} calificaciones</Text>
         </View>
       )}
       <Text style={styles.label}>Nombre</Text>
@@ -167,16 +165,10 @@ const UserProfile: React.FC = () => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            navigation.navigate('CreateMyDogsScreen');
+            navigation.navigate('WalkerAtributeScreen');
           }}
         >
-          <Text style={styles.buttonText}>Mis perros</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('PaymentMethodScreen')}
-        >
-          <Text style={styles.buttonText}>Mis métodos de pago</Text>
+          <Text style={styles.buttonText}>Preferencias de paseo</Text>
         </TouchableOpacity>
       </View>
 
@@ -284,4 +276,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserProfile;
+export default WalkerProfile;

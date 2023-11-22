@@ -197,7 +197,16 @@ const PaymentMethodScreen = () => {
           </TouchableOpacity>
           <Text style={paymentMethodStyles.headerTitle}> Mis métodos de pago</Text>
         </View>
-
+        {paymentMethods.length == 0 ? (
+                <ScrollView
+                bounces={true}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={paymentMethodStyles.scrollContainer}
+              >
+          <Text style={paymentMethodStyles.noCards}>
+          No hay métodos de pago registrados
+          </Text>
+        </ScrollView>):(
         <ScrollView
           bounces={true}
           showsVerticalScrollIndicator={false}
@@ -274,7 +283,7 @@ const PaymentMethodScreen = () => {
               ) : null}
             </TouchableOpacity>
           ))}
-        </ScrollView>
+        </ScrollView>)}
       </SafeAreaView>
       <TouchableOpacity
         style={paymentMethodStyles.addButton}

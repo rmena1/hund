@@ -28,6 +28,14 @@ export const paymentMethodStyles = StyleSheet.create({
 
   scrollContainer: {},
 
+  noCards: {
+    fontFamily: Fonts.montserrat,
+    paddingTop: 16,
+    textAlign: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   card: {
     flexDirection: 'row',
     height: height * 0.08,

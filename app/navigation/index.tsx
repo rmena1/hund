@@ -12,15 +12,17 @@ import CreateMyDogsScreen from '../../app/screens/CreateMyDogsScreen';
 import WalkerPreviewScreen from '../screens/WalkerPreviewScreen';
 import WalkerAtributeScreen from '../screens/WalkerAtributeScreen';
 import MyDogEditScreen from '../../app/screens/MyDogEditScreen';
-import HomeScreen from '../screens/HomeScreen';
-import TabsBar from './tabs';
+import ClientTabs from './clientTabs';
+import WalkerTabs from './walkerTabs';
 import PaymentMethodScreen from '../screens/PaymentMethodScreen';
 
 import { User, onAuthStateChanged } from 'firebase/auth';
-import { FIREBASE_AUTH } from '../../firebaseConfig';
+import { FIREBASE_AUTH, FIREBASE_DB } from '../../firebaseConfig';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 const Stack = createNativeStackNavigator();
-const MainStack = createNativeStackNavigator();
+const WalkerStack = createNativeStackNavigator();
+const ClientStack = createNativeStackNavigator();
 
 export type RootStackParams = {
   MyDogEditScreen: {
@@ -37,22 +39,44 @@ export type RootStackParams = {
   };
 };
 
-function MainLayout() {
+function ClientStackScreens() {
   return (
-    <MainStack.Navigator>
-      <MainStack.Screen name="TabsBar" component={TabsBar} options={{ headerShown: false }} />
-    </MainStack.Navigator>
+    <ClientStack.Navigator>
+      <ClientStack.Screen name="TabsBar" component={ClientTabs} options={{ headerShown: false }} />
+    </ClientStack.Navigator>
+  );
+}
+
+function WalkerStackScreens() {
+  return (
+    <WalkerStack.Navigator>
+      <WalkerStack.Screen
+        name="WalkerTabs"
+        component={WalkerTabs}
+        options={{ headerShown: false }}
+      />
+    </WalkerStack.Navigator>
   );
 }
 
 const Navigation = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [userType, setUserType] = useState<string>('client');
 
   useEffect(() => {
     onAuthStateChanged(FIREBASE_AUTH, (user) => {
-      console.log('User', user);
       if (user) {
         setUser(user);
+        //request userType
+        const unsub = onSnapshot(doc(FIREBASE_DB, 'userType', user.uid), (doc) => {
+          if (doc.data()) {
+            const data = doc.data();
+            setUserType(data?.userType);
+          }
+        });
+        return () => {
+          unsub();
+        };
       } else {
         setUser(null);
       }
@@ -75,9 +99,20 @@ const Navigation = () => {
         }}
         initialRouteName="StartScreen"
       >
-        {user ? (
+        {!user ? (
           <>
-            <Stack.Screen name="MainLayout" component={MainLayout} />
+            <Stack.Screen name="LoadingScreen" component={StartScreen} />
+            <Stack.Screen name="LoginScreen" component={LoginScreen} />
+            <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+            <Stack.Screen name="CreateUserScreen" component={CreateUserScreen} />
+            <Stack.Screen name="ProfilePreviewScreen" component={ProfilePreviewScreen} />
+            <Stack.Screen name="CreateMyDogsScreen" component={CreateMyDogsScreen} />
+            <Stack.Screen name="WalkerPreviewScreen" component={WalkerPreviewScreen} />
+            <Stack.Screen name="WalkerAtributeScreen" component={WalkerAtributeScreen} />
+          </>
+        ) : userType === 'client' ? (
+          <>
+            <Stack.Screen name="MainLayout" component={ClientStackScreens} />
             <Stack.Screen name="CreateUserScreen" component={CreateUserScreen} />
             <Stack.Screen name="ProfilePreviewScreen" component={ProfilePreviewScreen} />
             <Stack.Screen name="WalkerPreviewScreen" component={WalkerPreviewScreen} />
@@ -101,17 +136,13 @@ const Navigation = () => {
               }}
             />
             <Stack.Screen name="MyDogEditScreen" component={MyDogEditScreen} />
-            <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="CreateWalkScreen" component={CreateWalkScreen} />
           </>
         ) : (
           <>
-            <Stack.Screen name="LoadingScreen" component={StartScreen} />
-            <Stack.Screen name="LoginScreen" component={LoginScreen} />
-            <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+            <Stack.Screen name="MainLayout" component={WalkerStackScreens} />
             <Stack.Screen name="CreateUserScreen" component={CreateUserScreen} />
             <Stack.Screen name="ProfilePreviewScreen" component={ProfilePreviewScreen} />
-            <Stack.Screen name="CreateMyDogsScreen" component={CreateMyDogsScreen} />
             <Stack.Screen name="WalkerPreviewScreen" component={WalkerPreviewScreen} />
             <Stack.Screen name="WalkerAtributeScreen" component={WalkerAtributeScreen} />
           </>
