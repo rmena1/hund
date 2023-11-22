@@ -15,7 +15,6 @@ import MyDogEditScreen from '../../app/screens/MyDogEditScreen';
 import ClientTabs from './clientTabs';
 import WalkerTabs from './walkerTabs';
 import PaymentMethodScreen from '../screens/PaymentMethodScreen';
-import AddCardScreen from '../screens/AddCardScreen';
 
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { FIREBASE_AUTH, FIREBASE_DB } from '../../firebaseConfig';
@@ -125,13 +124,6 @@ const Navigation = () => {
                 headerShown: false,
                 animation: 'slide_from_bottom',
                 gestureDirection: 'vertical',
-              }}
-            />
-            <Stack.Screen
-              name="AddCardScreen"
-              component={AddCardScreen}
-              options={{
-                headerShown: false,
               }}
             />
             <Stack.Screen

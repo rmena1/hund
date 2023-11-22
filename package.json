@@ -18,7 +18,9 @@
     "@react-native-community/slider": "4.4.2",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.14",
+    "@stripe/stripe-react-native": "^0.34.0",
     "@types/react-native-table-component": "^1.2.5",
+    "axios": "^1.6.2",
     "expo": "~49.0.11",
     "expo-app-loading": "^2.1.1",
     "expo-checkbox": "~2.4.0",
@@ -28,6 +30,8 @@
     "expo-router": "^2.0.8",
     "expo-status-bar": "~1.6.0",
     "firebase": "^10.4.0",
+    "firebase-admin": "^11.11.0",
+    "firebase-functions": "^4.5.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native-date-picker": "^4.3.3",
@@ -40,7 +44,8 @@
     "react-native-screens": "~3.22.0",
     "react-native-select-dropdown": "^3.4.0",
     "react-native-table-component": "^1.2.2",
-    "react-native-web": "~0.19.6"
+    "react-native-web": "~0.19.6",
+    "stripe": "^14.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
