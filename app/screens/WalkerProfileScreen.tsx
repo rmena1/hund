@@ -35,6 +35,8 @@ const WalkerProfile: React.FC = () => {
   const [email, setEmail] = useState(auth.currentUser?.email || '');
 
   const [photoUrl, setPhotoUrl] = useState(auth.currentUser?.photoURL);
+  const [walkerRating, setWalkerRating] = useState(null);
+  const [walkerRatingCount, setWalkerRatingCount] = useState(null);
 
   const navigation = useNavigation();
 
@@ -58,6 +60,10 @@ const WalkerProfile: React.FC = () => {
             birthday: data?.birthday,
           };
           setUser(newUserData);
+          if (data?.walkerRating) {
+            setWalkerRating(data?.walkerRating);
+            setWalkerRatingCount(data?.walkerRatingCount);
+          }
         }
       });
       return () => {
@@ -115,6 +121,12 @@ const WalkerProfile: React.FC = () => {
           <Ionicons name="create-outline" size={20} color="#fff" />
         </TouchableOpacity>
       </View>
+      {walkerRating && (
+        <View style={styles.ratingContainer}>
+          <Text style={styles.ratingText}>Calificación: {walkerRating?.toFixed(1)}</Text>
+          <Text style={styles.ratingCountText}>{walkerRatingCount} calificaciones</Text>
+        </View>
+      )}
       <Text style={styles.label}>Nombre</Text>
       <TextInput
         style={styles.inputField}
@@ -248,6 +260,19 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     borderRadius: 5,
     alignItems: 'center',
+  },
+  ratingContainer: {
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  ratingText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  ratingCountText: {
+    fontSize: 14,
+    color: '#666',
   },
 });
 

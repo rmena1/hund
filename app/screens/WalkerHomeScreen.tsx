@@ -133,9 +133,6 @@ const WalkerHome = () => {
           currentWalk: null,
         });
       }
-      updateDoc(doc(FIREBASE_DB, 'userData', currentWalk.id_usuario), {
-        currentWalk: null,
-      });
       sendRating();
       setCurrentWalkId(null);
       setCurrentWalk(null);

@@ -37,6 +37,8 @@ const UserProfile: React.FC = () => {
   const [email, setEmail] = useState(auth.currentUser?.email || '');
 
   const [photoUrl, setPhotoUrl] = useState(auth.currentUser?.photoURL);
+  const [userRating, setUserRating] = useState(null);
+  const [userRatingCount, setUserRatingCount] = useState(null);
 
   const navigation = useNavigation<Navigation>();
 
@@ -60,6 +62,10 @@ const UserProfile: React.FC = () => {
             birthday: data?.birthday,
           };
           setUser(newUserData);
+          if (data?.userRating) {
+            setUserRating(data?.userRating);
+            setUserRatingCount(data?.userRatingCount);
+          }
         }
       });
       return () => {
@@ -117,6 +123,12 @@ const UserProfile: React.FC = () => {
           <Ionicons name="create-outline" size={20} color="#fff" />
         </TouchableOpacity>
       </View>
+      {userRating && (
+        <View style={styles.ratingContainer}>
+          <Text style={styles.ratingText}>Calificación: {userRating?.toFixed(1)}</Text>
+          <Text style={styles.ratingCountText}>{userRatingCount} calificaciones</Text>
+        </View>
+      )}
       <Text style={styles.label}>Nombre</Text>
       <TextInput
         style={styles.inputField}
@@ -256,6 +268,19 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     borderRadius: 5,
     alignItems: 'center',
+  },
+  ratingContainer: {
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  ratingText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  ratingCountText: {
+    fontSize: 14,
+    color: '#666',
   },
 });
 

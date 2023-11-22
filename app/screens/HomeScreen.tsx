@@ -46,7 +46,7 @@ export const HomeScreen = () => {
     let walksSubscriber = () => {};
     if (currentWalkId) {
       walksSubscriber = onSnapshot(doc(FIREBASE_DB, 'paseos', currentWalkId), (doc) => {
-        if (doc.data()) {
+        if (doc.exists() && doc.data()) {
           setCurrentWalk(doc.data());
           if (doc.data()?.state === 'goingToPickUpDog') {
             setCurrentInstruction(
@@ -70,8 +70,13 @@ export const HomeScreen = () => {
       setFinishedWalk(false);
     }
     console.log(currentWalk);
-    if (currentWalk?.id_usuario) {
-      onSnapshot(doc(FIREBASE_DB, 'walkerData', currentWalk.id_paseador), (doc) => {
+    if (currentWalk && currentWalk?.id_usuario) {
+      if (!currentWalk?.id_paseador) {
+        setWalkerRating(0);
+        setWalkerRatingCount(0);
+        return;
+      }
+      onSnapshot(doc(FIREBASE_DB, 'walkerData', currentWalk?.id_paseador), (doc) => {
         if (doc.data()) {
           const data = doc.data();
           if (data?.walkerRating) {
@@ -99,6 +104,11 @@ export const HomeScreen = () => {
     });
     setSentRating(true);
     setFinishedWalk(true);
+    if (auth.currentUser?.uid) {
+      updateDoc(doc(FIREBASE_DB, 'userData', auth.currentUser?.uid), {
+        currentWalk: null,
+      });
+    }
   };
 
   useEffect(() => {
@@ -148,7 +158,8 @@ export const HomeScreen = () => {
   };
 
   if (currentWalk && currentWalkId && !finishedWalk) {
-    if (currentWalk.state === 'finished' || !sentRating) {
+    if (currentWalk.state === 'finished') {
+      console.log('currentWalk state: ', currentWalk.state);
       if (sentRating) {
         setSentRating(false);
       }
